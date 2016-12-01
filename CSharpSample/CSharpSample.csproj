@@ -43,6 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataFactory\BaseSampleData.cs" />
+    <Compile Include="DataFactory\DataFactory.cs" />
+    <Compile Include="DataFactory\SampleData001.cs" />
+    <Compile Include="DataFactory\SampleData002.cs" />
+    <Compile Include="LinqSampleBehavior001.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
