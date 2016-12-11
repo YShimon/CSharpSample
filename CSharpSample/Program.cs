@@ -28,13 +28,34 @@ namespace CSharpSample
             var mpf = new ManagingProgramFlow();
 
             // Exp 1.1
-            //mpf.MultithreadingAndAsynchronuous();
+            // mpf.MultithreadingAndAsynchronuous();
 
             // Exp 1.2
-            //mpf.BackgroundThread();
+            // mpf.BackgroundThread();
 
             // Exp 1.3
-            mpf.ParameterizedThreadStart();
+            // mpf.ParameterizedThreadStart();
+
+            // Exp 1.4
+            // mpf.StoppingAThread();
+
+            // Exp 1.5
+            // mpf.StaticAttribute();
+
+            // Exp 1.6
+            // mpf.ThreadLocal();
+
+            // Exp 1.7
+            // mpf.ThreadPools();
+
+            // Exp 1.8
+            // mpf.NewTask();
+
+            // Exp 1.9
+            // mpf.TaskThatReturnValue();
+
+            // Exp 1.10-11
+            mpf.TaskContinueWith();
 
             // 一時的にコメントアウト。
             // TODO;引数で動作を変更するようにする
