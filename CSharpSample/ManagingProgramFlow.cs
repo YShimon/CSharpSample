@@ -27,10 +27,9 @@ namespace CSharpSample
         public ManagingProgramFlow() { }
 
         /// <summary>
-        /// マルチスレッドのテスト
-        /// ThreadMethodをサブスレッドとして動作させるテスト
+        /// Example 1.1 マルチスレッドの例
         /// </summary>
-        public void MultithreadingAndAsynchronuousExp01_01()
+        public void MultithreadingAndAsynchronuous()
         {
             Thread t = new Thread(new ThreadStart(ThreadMethod));
             t.Start();
@@ -45,11 +44,48 @@ namespace CSharpSample
         }
 
         /// <summary>
-        /// 指定した回数コンソールに文字列を表示するサブスレッド
+        /// Example 1.2 バックグラウンドスレッドの例
+        /// </summary>
+        public void BackgroundThread()
+        {
+            Thread t = new Thread(new ThreadStart(ThreadMethod));
+
+            // IsBackground = trueの場合、スレッドは、バックグランドで処理される
+            // IsBackground = falseの場合、スレッドは、フォアグランドで処理される
+            t.IsBackground = false;
+            t.Start();
+        }
+
+        /// <summary>
+        /// Example 1.3 スレッドにパラメータを渡す例
+        /// </summary>
+        public void ParameterizedThreadStart()
+        {
+            Thread t = new Thread(new ParameterizedThreadStart(ThreadMethod));
+            t.Start(10);
+            t.Join();
+        }
+
+        /// <summary>
+        /// 30回コンソールに文字列を表示するサブスレッド
         /// </summary>
         private void ThreadMethod()
         {
             Enumerable.Range(0, 30).ForEach(x =>
+            {
+                Console.WriteLine($"ThreadProc{x}");
+                Thread.Sleep(0);
+            });
+        }
+
+        /// <summary>
+        /// 指定回数コンソールに文字列を表示するサブスレッド
+        /// </summary>
+        /// <param name="o"></param>
+        private void ThreadMethod(object o = null)
+        {
+            int numWriteLine = (int)o;
+            Enumerable.Range(0, numWriteLine).ForEach(x =>
             {
                 Console.WriteLine($"ThreadProc{x}");
                 Thread.Sleep(0);
