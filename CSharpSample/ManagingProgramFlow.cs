@@ -154,6 +154,19 @@ namespace CSharpSample
         }
 
         /// <summary>
+        /// Example 1.7 ThreadPoolに処理を登録する例
+        /// </summary>
+        public void ThreadPools()
+        {
+            ThreadPool.QueueUserWorkItem((s) => 
+            {
+                Console.WriteLine("Working on a thread from threadpool");
+            });
+
+            Console.ReadLine();
+        }
+
+        /// <summary>
         /// 30回コンソールに文字列を表示するサブスレッド
         /// </summary>
         private void ThreadMethod()

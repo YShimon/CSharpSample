@@ -43,7 +43,10 @@ namespace CSharpSample
             // mpf.StaticAttribute();
 
             // Exp 1.6
-            mpf.ThreadLocal();
+            // mpf.ThreadLocal();
+
+            // Exp 1.7
+            mpf.ThreadPools();
 
             // 一時的にコメントアウト。
             // TODO;引数で動作を変更するようにする
