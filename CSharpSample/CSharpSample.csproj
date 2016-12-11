@@ -47,13 +47,16 @@
     <Compile Include="DataFactory\DataFactory.cs" />
     <Compile Include="DataFactory\SampleData001.cs" />
     <Compile Include="DataFactory\SampleData002.cs" />
+    <Compile Include="Extention\CVLExtension.cs" />
     <Compile Include="LinqSampleBehavior001.cs" />
+    <Compile Include="ManagingProgramFlow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
