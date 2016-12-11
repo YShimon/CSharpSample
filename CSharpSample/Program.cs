@@ -37,7 +37,10 @@ namespace CSharpSample
             // mpf.ParameterizedThreadStart();
 
             // Exp 1.4
-            mpf.StoppingAThread();
+            // mpf.StoppingAThread();
+
+            // Exp 1.5
+            mpf.StaticAttribute();
 
             // 一時的にコメントアウト。
             // TODO;引数で動作を変更するようにする

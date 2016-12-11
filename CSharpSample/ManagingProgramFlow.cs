@@ -22,6 +22,12 @@ namespace CSharpSample
     public class ManagingProgramFlow
     {
         /// <summary>
+        /// スレッド内で別々に利用する為のフィールド
+        /// </summary>
+        [ThreadStatic]
+        private static int field;
+
+        /// <summary>
         /// コンストラクタ
         /// </summary>
         public ManagingProgramFlow() { }
@@ -66,13 +72,16 @@ namespace CSharpSample
             t.Join();
         }
 
+        /// <summary>
+        /// Example 1.4 スレッドの停止
+        /// </summary>
         public void StoppingAThread()
         {
             bool stopped = false;
 
             Thread t = new Thread(new ThreadStart(() => 
             {
-                while(!stopped)
+                while (!stopped)
                 {
                     Console.WriteLine("Running...");
                     Thread.Sleep(500);
@@ -86,6 +95,33 @@ namespace CSharpSample
 
             stopped = true;
             t.Join();
+        }
+
+        /// <summary>
+        /// Example 1.5 Static Attributeの使用例
+        /// ラムダ式を使ったスレッドで、内部で利用するフィールドが共有されない設定
+        /// </summary>
+        public void StaticAttribute()
+        {
+            new Thread(() => 
+            {
+                Enumerable.Range(0, 10).ForEach(x => 
+                {
+                    field++;
+                    Console.WriteLine($"Thread A : field={field}");
+                });
+            }).Start();
+
+            new Thread(() => 
+            {
+                Enumerable.Range(0, 10).ForEach(x => 
+                {
+                    field++;
+                    Console.WriteLine($"Thread B : field={field}");
+                });
+            }).Start();
+
+            Console.ReadKey();
         }
 
         /// <summary>
@@ -103,10 +139,10 @@ namespace CSharpSample
         /// <summary>
         /// 指定回数コンソールに文字列を表示するサブスレッド
         /// </summary>
-        /// <param name="o"></param>
-        private void ThreadMethod(object o = null)
+        /// <param name="numLoop">コンソールに表示する回数</param>
+        private void ThreadMethod(object numLoop)
         {
-            int numWriteLine = (int)o;
+            int numWriteLine = (int)numLoop;
             Enumerable.Range(0, numWriteLine).ForEach(x =>
             {
                 Console.WriteLine($"ThreadProc{x}");
