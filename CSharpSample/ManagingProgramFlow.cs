@@ -177,10 +177,23 @@ namespace CSharpSample
                 {
                     Console.Write("*");
                 });
-                Console.WriteLine("");
+                Console.WriteLine(string.Empty);
             });
 
             t.Wait();
+        }
+
+        /// <summary>
+        /// Example 1.9 戻り値を持つTaskクラスの使用例
+        /// </summary>
+        public void TaskThatReturnValue()
+        {
+            Task<int> t = Task.Run(() => 
+            {
+                return 1024;
+            });
+
+            Console.WriteLine($"結果:{t.Result}");
         }
 
         /// <summary>

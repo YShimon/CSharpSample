@@ -49,7 +49,10 @@ namespace CSharpSample
             // mpf.ThreadPools();
 
             // Exp 1.8
-            mpf.NewTask();
+            // mpf.NewTask();
+
+            // Exp 1.9
+            mpf.TaskThatReturnValue();
 
             // 一時的にコメントアウト。
             // TODO;引数で動作を変更するようにする
