@@ -167,6 +167,23 @@ namespace CSharpSample
         }
 
         /// <summary>
+        /// Example 1.8 Taskの実行例
+        /// </summary>
+        public void NewTask()
+        {
+            Task t = Task.Run(() => 
+            {
+                Enumerable.Range(0, 40).ForEach(x => 
+                {
+                    Console.Write("*");
+                });
+                Console.WriteLine("");
+            });
+
+            t.Wait();
+        }
+
+        /// <summary>
         /// 30回コンソールに文字列を表示するサブスレッド
         /// </summary>
         private void ThreadMethod()
