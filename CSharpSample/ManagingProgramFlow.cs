@@ -66,6 +66,28 @@ namespace CSharpSample
             t.Join();
         }
 
+        public void StoppingAThread()
+        {
+            bool stopped = false;
+
+            Thread t = new Thread(new ThreadStart(() => 
+            {
+                while(!stopped)
+                {
+                    Console.WriteLine("Running...");
+                    Thread.Sleep(500);
+                }
+            }));
+
+            t.Start();
+
+            Console.WriteLine("Please any key to exit");
+            Console.ReadKey();
+
+            stopped = true;
+            t.Join();
+        }
+
         /// <summary>
         /// 30回コンソールに文字列を表示するサブスレッド
         /// </summary>
