@@ -24,7 +24,22 @@ namespace CSharpSample
         /// <param name="args">Program Arguments</param>
         public static void Main(string[] args)
         {
-            LinqSampleBehavior001.SampleData001_BasicBehaviorOfLinq();
+            // 1. Manage Program Flow
+            var mpf = new ManagingProgramFlow();
+
+            // Exp 1.1
+            //mpf.MultithreadingAndAsynchronuous();
+
+            // Exp 1.2
+            //mpf.BackgroundThread();
+
+            // Exp 1.3
+            mpf.ParameterizedThreadStart();
+
+            // 一時的にコメントアウト。
+            // TODO;引数で動作を変更するようにする
+            // X. Linq to Object
+            // LinqSampleBehavior001.SampleData001_BasicBehaviorOfLinq();
         }
     }
 }
