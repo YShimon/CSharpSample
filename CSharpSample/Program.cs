@@ -26,7 +26,7 @@ namespace CSharpSample
         {
             // 1. Manage Program Flow
             var mpf = new ManagingProgramFlow();
-            mpf.MultithreadingAndAsynchronuous();
+            mpf.MultithreadingAndAsynchronuousExp01_01();
 
             // 一時的にコメントアウト。
             // TODO;引数で動作を変更するようにする

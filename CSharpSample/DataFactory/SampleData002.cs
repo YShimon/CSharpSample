@@ -6,12 +6,13 @@
 
 namespace CSharpSample.DataFactory
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+    using System.Diagnostics.CodeAnalysis;
 
+    /// <summary>
+    /// SampleData002データ生成クラス
+    /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "For Japanese support")]
     public class SampleData002 : BaseSampleData
     {
         /// <summary>
@@ -27,7 +28,7 @@ namespace CSharpSample.DataFactory
         /// <summary>
         /// Create SampleData002
         /// </summary>
-        /// <returns></returns>
+        /// <returns>サンプルデータ</returns>
         public IEnumerable<SampleData002> Create()
         {
             var sampleData002 = new[]
