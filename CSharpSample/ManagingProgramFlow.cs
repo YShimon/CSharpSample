@@ -22,10 +22,15 @@ namespace CSharpSample
     public class ManagingProgramFlow
     {
         /// <summary>
-        /// スレッド内で別々に利用する為のフィールド
+        /// スレッド内のLocal Field
         /// </summary>
         [ThreadStatic]
         private static int field;
+
+        /// <summary>
+        /// スレッド内のLocal Field
+        /// </summary>
+        private static ThreadLocal<int> threadLocalField = new ThreadLocal<int>(() => { return Thread.CurrentThread.ManagedThreadId; });
 
         /// <summary>
         /// コンストラクタ
@@ -118,6 +123,30 @@ namespace CSharpSample
                 {
                     field++;
                     Console.WriteLine($"Thread B : field={field}");
+                });
+            }).Start();
+
+            Console.ReadKey();
+        }
+
+        /// <summary>
+        /// Example 1.6 ThreadLocalの使用例
+        /// </summary>
+        public void ThreadLocal()
+        {
+            new Thread(() => 
+            {
+                Enumerable.Range(0, threadLocalField.Value).ForEach(x => 
+                {
+                    Console.WriteLine($"Thread A : field={x}");
+                });
+            }).Start();
+
+            new Thread(() => 
+            {
+                Enumerable.Range(0, threadLocalField.Value).ForEach(x => 
+                {
+                    Console.WriteLine($"Thread B : field={x}");
                 });
             }).Start();
 
