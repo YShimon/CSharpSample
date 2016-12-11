@@ -188,12 +188,28 @@ namespace CSharpSample
         /// </summary>
         public void TaskThatReturnValue()
         {
-            Task<int> t = Task.Run(() => 
-            {
-                return 1024;
-            });
-
+            Task<int> t = Task.Run(() => { return 1024; });
             Console.WriteLine($"結果:{t.Result}");
+        }
+
+        /// <summary>
+        /// Example 1.10-11 Taskを継続する(Taskが成功した場合、失敗した場合の例)
+        /// </summary>
+        public void TaskContinueWith()
+        {
+            // 前段のTaskが成功したとこのみ実行される
+            Task<int> t = Task.Run(() => { return 1024; });
+            t.ContinueWith(
+                _t => { Console.WriteLine($"Result:{_t.Result}"); },
+                TaskContinuationOptions.OnlyOnRanToCompletion);
+
+            // 前段のTaskでハンドルされない例外が発生した時のみ実行される
+            Task t2 = Task.Run(() => { throw new Exception(); });
+            t2.ContinueWith(
+                _t => { Console.WriteLine($"Occured Exception"); },
+               TaskContinuationOptions.OnlyOnFaulted);
+
+            Console.ReadKey();
         }
 
         /// <summary>
