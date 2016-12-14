@@ -264,6 +264,35 @@ namespace CSharpSample
         }
 
         /// <summary>
+        /// Example 1.14 Task.WaitAllの利用例
+        /// </summary>
+        public void UsingTaskWaitAll()
+        {
+            Task[] tasks = new Task[3];
+
+            tasks[0] = Task.Run(() => 
+            {
+                Thread.Sleep(500);
+                Console.WriteLine("Thread A:1");
+                return 1;
+            });
+            tasks[1] = Task.Run(() => 
+            {
+                Thread.Sleep(500);
+                Console.WriteLine("Thread B:2");
+                return 2;
+            });
+            tasks[2] = Task.Run(() => 
+            {
+                Thread.Sleep(500);
+                Console.WriteLine("Thread C:3");
+                return 3;
+            });
+
+            Task.WaitAll(tasks);
+        }
+
+        /// <summary>
         /// 30回コンソールに文字列を表示するサブスレッド
         /// </summary>
         private void ThreadMethod()
