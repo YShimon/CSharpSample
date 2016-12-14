@@ -229,7 +229,35 @@ namespace CSharpSample
 
             var finalTask = parent.ContinueWith(parentTask => 
             {
-                parentTask.Result.ForEach(x => Console.WriteLine($"{x}"));
+                parentTask.Result.ForEach(x => Console.WriteLine($"Parent Task Result is {x}"));
+            });
+
+            finalTask.Wait();
+        }
+
+        /// <summary>
+        /// Example 1.13 Task Factoryの利用例
+        /// </summary>
+        public void UsingTaskFactory()
+        {
+            Task<int[]> parent = Task.Run(() =>
+            {
+                var results = new int[3];
+
+                TaskFactory tf = new TaskFactory(
+                    TaskCreationOptions.AttachedToParent,
+                    TaskContinuationOptions.ExecuteSynchronously);
+
+                tf.StartNew(() => results[0] = 0);
+                tf.StartNew(() => results[1] = 1);
+                tf.StartNew(() => results[2] = 2);
+
+                return results;
+            });
+
+            var finalTask = parent.ContinueWith(parentTask => 
+            {
+                parentTask.Result.ForEach(x => Console.WriteLine($"Parent Task Result is {x}"));
             });
 
             finalTask.Wait();
