@@ -213,6 +213,29 @@ namespace CSharpSample
         }
 
         /// <summary>
+        /// Example 1.12 子タスクを親タスクに関連付け
+        /// </summary>
+        public void AttachingChildTasksToParentTask()
+        {
+            Task<int[]> parent = Task.Run(() => 
+            {
+                var results = new int[3];
+
+                new Task(() => { results[0] = 0; }, TaskCreationOptions.AttachedToParent).Start();
+                new Task(() => { results[1] = 1; }, TaskCreationOptions.AttachedToParent).Start();
+                new Task(() => { results[2] = 2; }, TaskCreationOptions.AttachedToParent).Start();
+                return results;
+            });
+
+            var finalTask = parent.ContinueWith(parentTask => 
+            {
+                parentTask.Result.ForEach(x => Console.WriteLine($"{x}"));
+            });
+
+            finalTask.Wait();
+        }
+
+        /// <summary>
         /// 30回コンソールに文字列を表示するサブスレッド
         /// </summary>
         private void ThreadMethod()

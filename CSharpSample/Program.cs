@@ -55,7 +55,10 @@ namespace CSharpSample
             // mpf.TaskThatReturnValue();
 
             // Exp 1.10-11
-            mpf.TaskContinueWith();
+            // mpf.TaskContinueWith();
+
+            // Exp 1.12
+            mpf.AttachingChildTasksToParentTask();
 
             // 一時的にコメントアウト。
             // TODO;引数で動作を変更するようにする
