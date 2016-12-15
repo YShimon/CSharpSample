@@ -303,7 +303,7 @@ namespace CSharpSample
             tasks[1] = Task.Run(() => { Thread.Sleep(1000); return 2; });
             tasks[2] = Task.Run(() => { Thread.Sleep(3000); return 3; });
 
-            while(tasks.Length > 0)
+            while (tasks.Length > 0)
             {
                 // WaitAnyは完了したTaskのindexを戻す
                 int i = Task.WaitAny(tasks);
@@ -323,16 +323,25 @@ namespace CSharpSample
         public void ParallelForAndForeach()
         {
             Console.WriteLine("Example Parallel.For()");
-            Parallel.For(0, 10, x => 
-            {
-                Console.WriteLine($"Running {x}");
-            });
+            Parallel.For(0, 10, x => { Console.WriteLine($"Running {x}"); });
 
             Console.WriteLine("Example Parallel.ForEach()");
             var range = Enumerable.Range(0, 10);
-            Parallel.ForEach(range, x => 
+            Parallel.ForEach(range, x => { Console.WriteLine($"Running {x}"); });
+        }
+
+        /// <summary>
+        /// Example 1.17 Parallel.Breakの利用例
+        /// </summary>
+        public void ParallelBreak()
+        {
+            ParallelLoopResult result = Parallel.For(0, 100, (int x, ParallelLoopState loopState) => 
             {
-                Console.WriteLine($"Running {x}");
+                if (x == 50)
+                {
+                    Console.WriteLine($"Parallel Loop will break at {x}");
+                    loopState.Break();
+                }
             });
         }
 
