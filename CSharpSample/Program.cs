@@ -61,13 +61,16 @@ namespace CSharpSample
             // mpf.AttachingChildTasksToParentTask();
 
             // Exp 1.13
-            // mpf.UsingTaskFactory();
+            // mpf.TaskFactoryClass();
 
             // Exp 1.14
-            //mpf.UsingTaskWaitAll();
+            //mpf.TaskWaitAll();
 
             // Exp 1.15
-            mpf.UsingTaskWaitAny();
+            //mpf.TaskWaitAny();
+
+            // Exp 1.16
+            mpf.ParallelForAndForeach();
 
             // 一時的にコメントアウト。
             // TODO;引数で動作を変更するようにする

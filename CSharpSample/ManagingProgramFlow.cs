@@ -238,7 +238,7 @@ namespace CSharpSample
         /// <summary>
         /// Example 1.13 Task Factoryの利用例
         /// </summary>
-        public void UsingTaskFactory()
+        public void TaskFactoryClass()
         {
             Task<int[]> parent = Task.Run(() =>
             {
@@ -266,7 +266,7 @@ namespace CSharpSample
         /// <summary>
         /// Example 1.14 Task.WaitAllの利用例
         /// </summary>
-        public void UsingTaskWaitAll()
+        public void TaskWaitAll()
         {
             Task[] tasks = new Task[3];
 
@@ -295,7 +295,7 @@ namespace CSharpSample
         /// <summary>
         /// Example 1.15 Task.WaitAnyの利用例
         /// </summary>
-        public void UsingTaskWaitAny()
+        public void TaskWaitAny()
         {
             Task<int>[] tasks = new Task<int>[3];
 
@@ -315,6 +315,25 @@ namespace CSharpSample
                 tmp.RemoveAt(i);
                 tasks = tmp.ToArray();
             }
+        }
+
+        /// <summary>
+        /// Example 1.16 Parallel.ForとForeachの利用例
+        /// </summary>
+        public void ParallelForAndForeach()
+        {
+            Console.WriteLine("Example Parallel.For()");
+            Parallel.For(0, 10, x => 
+            {
+                Console.WriteLine($"Running {x}");
+            });
+
+            Console.WriteLine("Example Parallel.ForEach()");
+            var range = Enumerable.Range(0, 10);
+            Parallel.ForEach(range, x => 
+            {
+                Console.WriteLine($"Running {x}");
+            });
         }
 
         /// <summary>
