@@ -368,6 +368,22 @@ namespace CSharpSample
             Console.WriteLine(result);
         }
 
+        /// <summary>
+        /// Example 1.22/23 Linqを並列動作させる例
+        /// </summary>
+        public void AsParallel()
+        {
+            var numbers = Enumerable.Range(0, 1000);
+            var parallelResult = numbers.AsParallel()
+                .Where(x => x % 2 == 0)
+                .ToArray();
+
+            // 表示順番は保証されている訳ではない
+            parallelResult.ForEach(x =>
+            {
+                Console.WriteLine($"Result : {x}");
+            });
+        }
 
         /// <summary>
         /// 30回コンソールに文字列を表示するサブスレッド
