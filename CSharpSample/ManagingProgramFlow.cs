@@ -213,6 +213,139 @@ namespace CSharpSample
         }
 
         /// <summary>
+        /// Example 1.12 子タスクを親タスクに関連付け
+        /// </summary>
+        public void AttachingChildTasksToParentTask()
+        {
+            Task<int[]> parent = Task.Run(() => 
+            {
+                var results = new int[3];
+
+                new Task(() => { results[0] = 0; }, TaskCreationOptions.AttachedToParent).Start();
+                new Task(() => { results[1] = 1; }, TaskCreationOptions.AttachedToParent).Start();
+                new Task(() => { results[2] = 2; }, TaskCreationOptions.AttachedToParent).Start();
+                return results;
+            });
+
+            var finalTask = parent.ContinueWith(parentTask => 
+            {
+                parentTask.Result.ForEach(x => Console.WriteLine($"Parent Task Result is {x}"));
+            });
+
+            finalTask.Wait();
+        }
+
+        /// <summary>
+        /// Example 1.13 Task Factoryの利用例
+        /// </summary>
+        public void TaskFactoryClass()
+        {
+            Task<int[]> parent = Task.Run(() =>
+            {
+                var results = new int[3];
+
+                TaskFactory tf = new TaskFactory(
+                    TaskCreationOptions.AttachedToParent,
+                    TaskContinuationOptions.ExecuteSynchronously);
+
+                tf.StartNew(() => results[0] = 0);
+                tf.StartNew(() => results[1] = 1);
+                tf.StartNew(() => results[2] = 2);
+
+                return results;
+            });
+
+            var finalTask = parent.ContinueWith(parentTask => 
+            {
+                parentTask.Result.ForEach(x => Console.WriteLine($"Parent Task Result is {x}"));
+            });
+
+            finalTask.Wait();
+        }
+
+        /// <summary>
+        /// Example 1.14 Task.WaitAllの利用例
+        /// </summary>
+        public void TaskWaitAll()
+        {
+            Task[] tasks = new Task[3];
+
+            tasks[0] = Task.Run(() => 
+            {
+                Thread.Sleep(500);
+                Console.WriteLine("Thread A:1");
+                return 1;
+            });
+            tasks[1] = Task.Run(() => 
+            {
+                Thread.Sleep(500);
+                Console.WriteLine("Thread B:2");
+                return 2;
+            });
+            tasks[2] = Task.Run(() => 
+            {
+                Thread.Sleep(500);
+                Console.WriteLine("Thread C:3");
+                return 3;
+            });
+
+            Task.WaitAll(tasks);
+        }
+
+        /// <summary>
+        /// Example 1.15 Task.WaitAnyの利用例
+        /// </summary>
+        public void TaskWaitAny()
+        {
+            Task<int>[] tasks = new Task<int>[3];
+
+            tasks[0] = Task.Run(() => { Thread.Sleep(2000); return 1; });
+            tasks[1] = Task.Run(() => { Thread.Sleep(1000); return 2; });
+            tasks[2] = Task.Run(() => { Thread.Sleep(3000); return 3; });
+
+            while (tasks.Length > 0)
+            {
+                // WaitAnyは完了したTaskのindexを戻す
+                int i = Task.WaitAny(tasks);
+                Task<int> completedTask = tasks[i];
+
+                Console.WriteLine($"Completed Task Result:{completedTask.Result}");
+
+                var tmp = tasks.ToList();
+                tmp.RemoveAt(i);
+                tasks = tmp.ToArray();
+            }
+        }
+
+        /// <summary>
+        /// Example 1.16 Parallel.ForとForeachの利用例
+        /// </summary>
+        public void ParallelForAndForeach()
+        {
+            Console.WriteLine("Example Parallel.For()");
+            Parallel.For(0, 10, x => { Console.WriteLine($"Running {x}"); });
+
+            Console.WriteLine("Example Parallel.ForEach()");
+            var range = Enumerable.Range(0, 10);
+            Parallel.ForEach(range, x => { Console.WriteLine($"Running {x}"); });
+        }
+
+        /// <summary>
+        /// Example 1.17 Parallel.Breakの利用例
+        /// </summary>
+        public void ParallelBreak()
+        {
+            ParallelLoopResult result = Parallel.For(0, 100, (int x, ParallelLoopState loopState) => 
+            {
+                if (x == 50)
+                {
+                    Console.WriteLine($"Parallel Loop will break at {x}");
+                    loopState.Break();
+                }
+            });
+        }
+
+        /// <summary>
         /// 30回コンソールに文字列を表示するサブスレッド
         /// </summary>
         private void ThreadMethod()

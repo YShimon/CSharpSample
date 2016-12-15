@@ -55,7 +55,25 @@ namespace CSharpSample
             // mpf.TaskThatReturnValue();
 
             // Exp 1.10-11
-            mpf.TaskContinueWith();
+            // mpf.TaskContinueWith();
+
+            // Exp 1.12
+            // mpf.AttachingChildTasksToParentTask();
+
+            // Exp 1.13
+            // mpf.TaskFactoryClass();
+
+            // Exp 1.14
+            // mpf.TaskWaitAll();
+
+            // Exp 1.15
+            // mpf.TaskWaitAny();
+
+            // Exp 1.16
+            // mpf.ParallelForAndForeach();
+
+            // Exp 1.17
+            mpf.ParallelBreak();
 
             // 一時的にコメントアウト。
             // TODO;引数で動作を変更するようにする
