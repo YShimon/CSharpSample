@@ -81,7 +81,10 @@ namespace CSharpSample
             // Exp 1.19 20 21 is skipped
 
             // Exp 1.22/23
-            mpf.AsParallel();
+            // mpf.AsParallel();
+
+            // Exp 1.24
+            mpf.AsParallelAsOrdered();
 
             // 一時的にコメントアウト。
             // TODO;引数で動作を変更するようにする

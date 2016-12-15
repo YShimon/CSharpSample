@@ -386,6 +386,23 @@ namespace CSharpSample
         }
 
         /// <summary>
+        /// Example 1.24 Linqを並列動作させ結果をソートする例
+        /// </summary>
+        public void AsParallelAsOrdered()
+        {
+            var numbers = Enumerable.Range(0, 1000);
+            var parallelResult = numbers.AsParallel().AsOrdered()
+                .Where(x => x % 2 == 0)
+                .ToArray();
+
+            // 表示順番は保証されている訳ではない
+            parallelResult.ForEach(x =>
+            {
+                Console.WriteLine($"Result : {x}");
+            });
+        }
+
+        /// <summary>
         /// 30回コンソールに文字列を表示するサブスレッド
         /// </summary>
         private void ThreadMethod()
