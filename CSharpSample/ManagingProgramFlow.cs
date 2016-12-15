@@ -10,6 +10,7 @@ namespace CSharpSample
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Net.Http;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
@@ -31,6 +32,19 @@ namespace CSharpSample
         /// スレッド内のLocal Field
         /// </summary>
         private static ThreadLocal<int> threadLocalField = new ThreadLocal<int>(() => { return Thread.CurrentThread.ManagedThreadId; });
+
+        /// <summary>
+        /// ドキュメントを非同期で取得
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<string> DownloadContent()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string result = await client.GetStringAsync("http://www.micorsoft.com");
+                return result;
+            }
+        }
 
         /// <summary>
         /// コンストラクタ
@@ -344,6 +358,16 @@ namespace CSharpSample
                 }
             });
         }
+
+        /// <summary>
+        /// Example 1.18 簡単な非同期メソッド(async)の利用例
+        /// </summary>
+        public void SimpleExampleOfAsynchronousMethod()
+        {
+            string result = DownloadContent().Result;
+            Console.WriteLine(result);
+        }
+
 
         /// <summary>
         /// 30回コンソールに文字列を表示するサブスレッド

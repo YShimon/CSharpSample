@@ -73,7 +73,10 @@ namespace CSharpSample
             // mpf.ParallelForAndForeach();
 
             // Exp 1.17
-            mpf.ParallelBreak();
+            // mpf.ParallelBreak();
+
+            // Exp 1.18
+            mpf.SimpleExampleOfAsynchronousMethod();
 
             // 一時的にコメントアウト。
             // TODO;引数で動作を変更するようにする
