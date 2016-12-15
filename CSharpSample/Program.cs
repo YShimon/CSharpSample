@@ -78,13 +78,18 @@ namespace CSharpSample
             // Exp 1.18
             // mpf.SimpleExampleOfAsynchronousMethod();
 
-            // Exp 1.19 20 21 is skipped
+            // Exp 1.19-21 is skipped
 
-            // Exp 1.22/23
+            // Exp 1.22-23
             // mpf.AsParallel();
 
             // Exp 1.24
-            mpf.AsParallelAsOrdered();
+            // mpf.AsParallelAsOrdered();
+
+            // Exp 1.25 is skipped
+
+            // Exp 1.26-27
+            mpf.ForAllAggregateException();
 
             // 一時的にコメントアウト。
             // TODO;引数で動作を変更するようにする

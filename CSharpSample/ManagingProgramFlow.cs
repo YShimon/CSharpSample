@@ -34,9 +34,14 @@ namespace CSharpSample
         private static ThreadLocal<int> threadLocalField = new ThreadLocal<int>(() => { return Thread.CurrentThread.ManagedThreadId; });
 
         /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        public ManagingProgramFlow() { }
+
+        /// <summary>
         /// ドキュメントを非同期で取得
         /// </summary>
-        /// <returns></returns>
+        /// <returns>指定したサイトの文字列</returns>
         public static async Task<string> DownloadContent()
         {
             using (HttpClient client = new HttpClient())
@@ -47,9 +52,15 @@ namespace CSharpSample
         }
 
         /// <summary>
-        /// コンストラクタ
+        /// 数値の偶数判定
         /// </summary>
-        public ManagingProgramFlow() { }
+        /// <param name="i">数値</param>
+        /// <returns>偶数の場合true。10の倍数とその他はfalse</returns>
+        public static bool IsEven(int i)
+        {
+            if (i % 10 == 0) { throw new ArgumentException("i"); }
+            return i % 2 == 0;
+        }
 
         /// <summary>
         /// Example 1.1 マルチスレッドの例
@@ -349,14 +360,14 @@ namespace CSharpSample
         /// </summary>
         public void ParallelBreak()
         {
-            ParallelLoopResult result = Parallel.For(0, 100, (int x, ParallelLoopState loopState) => 
-            {
-                if (x == 50)
+            ParallelLoopResult result = Parallel.For(0, 100, (int x, ParallelLoopState loopState) =>
                 {
-                    Console.WriteLine($"Parallel Loop will break at {x}");
-                    loopState.Break();
-                }
-            });
+                    if (x == 50)
+                    {
+                        Console.WriteLine($"Parallel Loop will break at {x}");
+                        loopState.Break();
+                    }
+                });
         }
 
         /// <summary>
@@ -400,6 +411,27 @@ namespace CSharpSample
             {
                 Console.WriteLine($"Result : {x}");
             });
+        }
+
+        /// <summary>
+        /// Example 1.26,27 PLING時の例外
+        /// </summary>
+        public void ForAllAggregateException()
+        {
+            var numbers = Enumerable.Range(0, 20);
+
+            try
+            {
+                var parallelResult = numbers
+                    .AsParallel()
+                    .Where(x => IsEven(x));
+
+                parallelResult.ForAll(x => Console.WriteLine(x));
+            }
+            catch (AggregateException e)
+            {
+                Console.WriteLine($"There were {e.InnerExceptions.Count()} Exception");
+            }
         }
 
         /// <summary>
