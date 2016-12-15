@@ -64,7 +64,10 @@ namespace CSharpSample
             // mpf.UsingTaskFactory();
 
             // Exp 1.14
-            mpf.UsingTaskWaitAll();
+            //mpf.UsingTaskWaitAll();
+
+            // Exp 1.15
+            mpf.UsingTaskWaitAny();
 
             // 一時的にコメントアウト。
             // TODO;引数で動作を変更するようにする

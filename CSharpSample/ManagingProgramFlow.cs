@@ -293,6 +293,31 @@ namespace CSharpSample
         }
 
         /// <summary>
+        /// Example 1.15 Task.WaitAnyの利用例
+        /// </summary>
+        public void UsingTaskWaitAny()
+        {
+            Task<int>[] tasks = new Task<int>[3];
+
+            tasks[0] = Task.Run(() => { Thread.Sleep(2000); return 1; });
+            tasks[1] = Task.Run(() => { Thread.Sleep(1000); return 2; });
+            tasks[2] = Task.Run(() => { Thread.Sleep(3000); return 3; });
+
+            while(tasks.Length > 0)
+            {
+                // WaitAnyは完了したTaskのindexを戻す
+                int i = Task.WaitAny(tasks);
+                Task<int> completedTask = tasks[i];
+
+                Console.WriteLine($"Completed Task Result:{completedTask.Result}");
+
+                var tmp = tasks.ToList();
+                tmp.RemoveAt(i);
+                tasks = tmp.ToArray();
+            }
+        }
+
+        /// <summary>
         /// 30回コンソールに文字列を表示するサブスレッド
         /// </summary>
         private void ThreadMethod()
