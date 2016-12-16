@@ -105,7 +105,10 @@ namespace CSharpSample
             // mpf.ConcurrentStack();
 
             // Exp 1.33
-            mpf.ConcurrentQueue();
+            // mpf.ConcurrentQueue();
+
+            // Exp 1.34
+            mpf.ConcurrentDictionary();
 
             // 一時的にコメントアウト。
             // TODO;引数で動作を変更するようにする

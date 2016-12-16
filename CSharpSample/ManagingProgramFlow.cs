@@ -527,6 +527,26 @@ namespace CSharpSample
         }
 
         /// <summary>
+        /// Example 1.34 ConcurrentDictionaryの使用例
+        /// </summary>
+        public void ConcurrentDictionary()
+        {
+            var dict = new ConcurrentDictionary<string, int>();
+
+            if (dict.TryAdd("k1", 42))
+            {
+                Console.WriteLine("Added");
+            }
+
+            if (dict.TryUpdate("k1", 51, 42))
+            {
+                Console.WriteLine("42 Update to 51");
+            }
+
+            // 未完成
+        }
+
+        /// <summary>
         /// 30回コンソールに文字列を表示するサブスレッド
         /// </summary>
         private void ThreadMethod()
