@@ -97,7 +97,12 @@ namespace CSharpSample
             // Exp 1.29 is skipped
 
             // Exp 1.30
-            mpf.ConcurrentBag();
+            // mpf.ConcurrentBag();
+
+            // Exp 1.31 is skipped
+
+            // Exp 1.32
+            mpf.ConcurrentStack();
 
             // 一時的にコメントアウト。
             // TODO;引数で動作を変更するようにする

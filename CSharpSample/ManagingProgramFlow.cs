@@ -463,7 +463,7 @@ namespace CSharpSample
         }
 
         /// <summary>
-        /// Example 1.28 ConcurrentBagの使用例
+        /// Example 1.30 ConcurrentBagの使用例
         /// </summary>
         public void ConcurrentBag()
         {
@@ -481,6 +481,33 @@ namespace CSharpSample
             if (bag.TryPeek(out result))
             {
                 Console.WriteLine($"There is next item : {result}");
+            }
+        }
+
+        /// <summary>
+        /// Example 1.32 ConcurrentStackの使用例
+        /// </summary>
+        public void ConcurrentStack()
+        {
+            var concurrentStack = new ConcurrentStack<int>();
+
+            // Push-Pop
+            concurrentStack.Push(32);
+
+            int result;
+            if (concurrentStack.TryPop(out result))
+            {
+                Console.WriteLine($"Poped : {result}");
+            }
+
+            // PushRange-PopRange
+            concurrentStack.PushRange(new[] { 1, 2, 3 });
+
+            int[] results = new int[3];
+            concurrentStack.TryPopRange(results);
+            foreach (int item in results)
+            {
+                Console.WriteLine($"PopRange : {item}");
             }
         }
 
