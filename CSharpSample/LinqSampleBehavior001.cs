@@ -12,6 +12,7 @@ namespace CSharpSample
     using System.Text;
     using System.Threading.Tasks;
     using CSharpSample.DataFactory;
+    using CVL.Extentions;
 
     /// <summary>
     /// SampleBehavior001 Class
@@ -100,10 +101,9 @@ namespace CSharpSample
             // --------------------------------------------------
             // Whereの動作(sampleDataのIdのリストを取得 SampleData001がnullでない要素のみを取得)
             Console.WriteLine("\nsampleData.Where(x => x != null)で取得した値を表示します 。");
-            foreach (var id in sampleData001.Where(x => x != null))
-            {
-                Console.WriteLine($"sampleDataのIdの値:{id.Id}");
-            }
+            sampleData001
+                .Where(x => x != null)
+                .ForEach(x => { Console.WriteLine($"sampleDataのIdの値:{x?.Id}"); });
 
             // Distinct
             Console.WriteLine("\nDistinct()による重複のない要素を表示します。");

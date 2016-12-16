@@ -113,7 +113,7 @@ namespace CSharpSample
             // 一時的にコメントアウト。
             // TODO;引数で動作を変更するようにする
             // X. Linq to Object
-            // LinqSampleBehavior001.SampleData001_BasicBehaviorOfLinq();
+            LinqSampleBehavior001.SampleData001_BasicBehaviorOfLinq();
         }
     }
 }
