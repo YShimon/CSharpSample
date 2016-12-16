@@ -89,7 +89,10 @@ namespace CSharpSample
             // Exp 1.25 is skipped
 
             // Exp 1.26-27
-            mpf.ForAllAggregateException();
+            // mpf.ForAllAggregateException();
+
+            // Exp 1.28
+            mpf.BlockingCollection();
 
             // 一時的にコメントアウト。
             // TODO;引数で動作を変更するようにする

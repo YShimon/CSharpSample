@@ -7,6 +7,7 @@
 namespace CSharpSample
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
@@ -432,6 +433,33 @@ namespace CSharpSample
             {
                 Console.WriteLine($"There were {e.InnerExceptions.Count()} Exception");
             }
+        }
+
+        /// <summary>
+        /// Example 1.28 BlockingCollectionの使用例
+        /// </summary>
+        public void BlockingCollection()
+        {
+            var blockingCollection = new BlockingCollection<string>();
+
+            Task read = Task.Run(() => 
+            {
+                while (true)
+                {
+                    Console.WriteLine(blockingCollection.Take());
+                }
+            });
+
+            Task write = Task.Run(() => 
+            {
+                while (true)
+                {
+                    var s = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(s)) { break; }
+                    blockingCollection.Add(s);
+                }
+            });
+            write.Wait();            
         }
 
         /// <summary>
