@@ -512,6 +512,21 @@ namespace CSharpSample
         }
 
         /// <summary>
+        /// Example 1.33 ConcurrentQueueの使用例
+        /// </summary>
+        public void ConcurrentQueue()
+        {
+            var concurrentQueue = new ConcurrentQueue<int>();
+            concurrentQueue.Enqueue(45);
+
+            int result;
+            if (concurrentQueue.TryDequeue(out result))
+            {
+                Console.WriteLine($"Dequeue : {result}");
+            }
+        }
+
+        /// <summary>
         /// 30回コンソールに文字列を表示するサブスレッド
         /// </summary>
         private void ThreadMethod()
