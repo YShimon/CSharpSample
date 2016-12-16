@@ -92,7 +92,12 @@ namespace CSharpSample
             // mpf.ForAllAggregateException();
 
             // Exp 1.28
-            mpf.BlockingCollection();
+            // mpf.BlockingCollection();
+
+            // Exp 1.29 is skipped
+
+            // Exp 1.30
+            mpf.ConcurrentBag();
 
             // 一時的にコメントアウト。
             // TODO;引数で動作を変更するようにする

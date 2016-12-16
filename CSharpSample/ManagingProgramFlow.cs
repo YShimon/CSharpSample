@@ -463,6 +463,28 @@ namespace CSharpSample
         }
 
         /// <summary>
+        /// Example 1.28 ConcurrentBagの使用例
+        /// </summary>
+        public void ConcurrentBag()
+        {
+            var bag = new ConcurrentBag<int>();
+
+            bag.Add(23);
+            bag.Add(41);
+
+            int result;
+            if (bag.TryTake(out result))
+            {
+                Console.WriteLine(result);
+            }
+
+            if (bag.TryPeek(out result))
+            {
+                Console.WriteLine($"There is next item : {result}");
+            }
+        }
+
+        /// <summary>
         /// 30回コンソールに文字列を表示するサブスレッド
         /// </summary>
         private void ThreadMethod()
