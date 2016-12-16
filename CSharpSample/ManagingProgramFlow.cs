@@ -543,7 +543,13 @@ namespace CSharpSample
                 Console.WriteLine("42 Update to 51");
             }
 
-            // 未完成
+            int r1 = dict.AddOrUpdate("k1", 51, (k, v) => v * 2);
+            Console.WriteLine($"dict[k1] = {dict["k1"]}");
+
+            int r2_1 = dict.GetOrAdd("k1", 103);
+            int r2_2 = dict.GetOrAdd("k2", 103);
+            Console.WriteLine($"dict[k1] = {dict["k1"]}");
+            Console.WriteLine($"dict[k2] = {dict["k2"]}");
         }
 
         /// <summary>
