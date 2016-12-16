@@ -73,7 +73,42 @@ namespace CSharpSample
             // mpf.ParallelForAndForeach();
 
             // Exp 1.17
-            mpf.ParallelBreak();
+            // mpf.ParallelBreak();
+
+            // Exp 1.18
+            // mpf.SimpleExampleOfAsynchronousMethod();
+
+            // Exp 1.19-21 is skipped
+
+            // Exp 1.22-23
+            // mpf.AsParallel();
+
+            // Exp 1.24
+            // mpf.AsParallelAsOrdered();
+
+            // Exp 1.25 is skipped
+
+            // Exp 1.26-27
+            // mpf.ForAllAggregateException();
+
+            // Exp 1.28
+            // mpf.BlockingCollection();
+
+            // Exp 1.29 is skipped
+
+            // Exp 1.30
+            // mpf.ConcurrentBag();
+
+            // Exp 1.31 is skipped
+
+            // Exp 1.32
+            // mpf.ConcurrentStack();
+
+            // Exp 1.33
+            // mpf.ConcurrentQueue();
+
+            // Exp 1.34
+            mpf.ConcurrentDictionary();
 
             // 一時的にコメントアウト。
             // TODO;引数で動作を変更するようにする
