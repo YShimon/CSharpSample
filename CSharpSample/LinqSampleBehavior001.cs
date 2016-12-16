@@ -12,6 +12,7 @@ namespace CSharpSample
     using System.Text;
     using System.Threading.Tasks;
     using CSharpSample.DataFactory;
+    using CVL.Extentions;
 
     /// <summary>
     /// SampleBehavior001 Class
@@ -100,10 +101,9 @@ namespace CSharpSample
             // --------------------------------------------------
             // Whereの動作(sampleDataのIdのリストを取得 SampleData001がnullでない要素のみを取得)
             Console.WriteLine("\nsampleData.Where(x => x != null)で取得した値を表示します 。");
-            foreach (var id in sampleData001.Where(x => x != null))
-            {
-                Console.WriteLine($"sampleDataのIdの値:{id.Id}");
-            }
+            sampleData001
+                .Where(x => x != null)
+                .ForEach(x => { Console.WriteLine($"sampleDataのIdの値:{x?.Id}"); });
 
             // Distinct
             Console.WriteLine("\nDistinct()による重複のない要素を表示します。");
@@ -258,7 +258,6 @@ namespace CSharpSample
                 Console.WriteLine($"OrderByDescending(x => x.Id).ThenByDescending(x => x.LinkId) Id: {sample?.Id} LinkId : {sample?.LinkId}");
             }
 
-
             // --------------------------------------------------
             // 射影
             // --------------------------------------------------
@@ -304,13 +303,11 @@ namespace CSharpSample
 
             // GroupJoin
             Console.WriteLine("\nsampleData002.GroupJoin(sampleData001_02, outer => outer.LinkId...)の結果を表示します。");
-            var linkIds = sampleData002.GroupJoin
-                (
+            var linkIds = sampleData002.GroupJoin(
                     sampleData001_02,
                     outer => outer.LinkId,
                     inner => inner.LinkId,
-                    (outer, IdCollection) => new { LinkId = outer.LinkId, Ids = IdCollection }
-                );
+                    (outer, IdCollection) => new { LinkId = outer.LinkId, Ids = IdCollection });
             foreach (var sample in linkIds)
             {
                 Console.WriteLine($"sampleData002.GroupJoin(sampleData001...) LinkId:{sample.LinkId}");
@@ -373,10 +370,9 @@ namespace CSharpSample
             var sampleData002ToArray = sampleData002.Select(x => x.LinkId).ToArray();
             Console.WriteLine($"Type of sampleData002ToArray : {sampleData002ToArray.GetType().Name}");
 
-
             // ToDictionary
             Console.WriteLine("\nsampleData002.ToDictionary()の結果を表示します。");
-            foreach(var sample in sampleData001.Where(x => x != null && x.LinkId != null).ToDictionary(x => x.Id, y => y.LinkId))
+            foreach (var sample in sampleData001.Where(x => x != null && x.LinkId != null).ToDictionary(x => x.Id, y => y.LinkId))
             {
                 Console.WriteLine($"sampleData001.ToDictionary() Key(Id):{sample.Key} Value(LinkId) : {sample.Value}");
             }
@@ -388,10 +384,10 @@ namespace CSharpSample
 
             // ToLookup
             Console.WriteLine("\nsampleData002.ToLookup()の結果を表示します。");
-            foreach(var sample in sampleData002.ToLookup(x => x.LinkId))
+            foreach (var sample in sampleData002.ToLookup(x => x.LinkId))
             {
                 Console.WriteLine($"Key : {sample.Key}");
-                foreach(var item in sample)
+                foreach (var item in sample)
                 {
                     Console.WriteLine($" Value : LinkId : {item.LinkId} Comment : {item.Comment}");
                 }
@@ -400,11 +396,10 @@ namespace CSharpSample
             // ToDo:AsEnumerable
             Console.WriteLine("\nint[] {1,2,3} => AsEnumerable()の結果を表示します。");
             int[] arrayOfInt = new int[] { 1, 2, 3 };
-            foreach(var item in arrayOfInt.AsEnumerable())
+            foreach (var item in arrayOfInt.AsEnumerable())
             {
                 Console.WriteLine($"Value : {item}");
             }
-
 
             // --------------------------------------------------
             // sampleDataの表示
