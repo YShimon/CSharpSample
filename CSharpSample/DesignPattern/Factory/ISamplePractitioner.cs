@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSharpSample.DesignPattern
+namespace CSharpSample.DesignPattern.Factory
 {
     /// <summary>
     /// Sample Code実行クラス

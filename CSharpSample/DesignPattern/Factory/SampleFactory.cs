@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
+﻿using System.Diagnostics.CodeAnalysis;
+using CSharpSample.SampleCode;
 
-namespace CSharpSample.DesignPattern
+namespace CSharpSample.DesignPattern.Factory
 {
     /// <summary>
     /// SampleクラスFactory

@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace CSharpSample
+namespace CSharpSample.SampleCode
 {
     using System;
     using System.Collections.Generic;

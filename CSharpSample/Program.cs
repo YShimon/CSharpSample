@@ -7,12 +7,9 @@
 namespace CSharpSample
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using CSharpSample.DataFactory;
-    using DesignPattern;
+    using DesignPattern.Factory;
+    using DesignPattern.Command;
+    using CVL.Extentions;
 
     /// <summary>
     /// Begging of Assembly
@@ -41,6 +38,20 @@ namespace CSharpSample
                 // TODO;引数で動作を変更するようにする
                 // X. Linq to Object
                 // LinqSampleBehavior001.SampleData001_BasicBehaviorOfLinq();
+
+                var receiver = new ConcreateReceiver();
+                var invoker = new Invoker();
+                var commands = new ICVLCommand[5];
+                for (int i = 0; i < commands.Length; i++)
+                {
+                    commands[i] = new ConcreateCommandA(i);
+                    commands[i].SetReciever(receiver);
+                    invoker.AddCommand(commands[i]);
+                }
+
+                invoker.Execute();
+                invoker.UndoCommand();
+                invoker.Execute();
             }
             catch
             {

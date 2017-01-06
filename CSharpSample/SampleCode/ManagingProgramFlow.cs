@@ -4,19 +4,17 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace CSharpSample
+namespace CSharpSample.SampleCode
 {
     using System;
     using System.Collections.Concurrent;
-    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Net.Http;
-    using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
     using CVL.Extentions;
-    using DesignPattern;
+    using DesignPattern.Factory;
 
     /// <summary>
     /// サブスレッド
