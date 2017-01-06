@@ -49,9 +49,11 @@
     <Compile Include="DataFactory\DataFactory.cs" />
     <Compile Include="DataFactory\SampleData001.cs" />
     <Compile Include="DataFactory\SampleData002.cs" />
+    <Compile Include="DesignPattern\ISamplePractitioner.cs" />
+    <Compile Include="DesignPattern\SampleFactory.cs" />
     <Compile Include="Extention\CVLExtensions.cs" />
     <Compile Include="LinqSampleBehavior001.cs" />
-    <Compile Include="ManagingProgramFlow.cs" />
+    <Compile Include="SampleCode\ManagingProgramFlow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

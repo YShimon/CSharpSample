@@ -16,13 +16,14 @@ namespace CSharpSample
     using System.Threading;
     using System.Threading.Tasks;
     using CVL.Extentions;
+    using DesignPattern;
 
     /// <summary>
     /// サブスレッド
     /// </summary>
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "For Japanese support")]
-    public class ManagingProgramFlow
-    {
+    public class ManagingProgramFlow : ISamplePractitioner
+{
         /// <summary>
         /// スレッド内のLocal Field
         /// </summary>
@@ -550,6 +551,160 @@ namespace CSharpSample
             int r2_2 = dict.GetOrAdd("k2", 103);
             Console.WriteLine($"dict[k1] = {dict["k1"]}");
             Console.WriteLine($"dict[k2] = {dict["k2"]}");
+        }
+
+        /// <summary>
+        /// Sampleの実行
+        /// </summary>
+        /// <param name="exampleNo">例番号</param>
+        /// <returns>実行結果</returns>
+        public bool Do(int exampleNo)
+        {
+            switch (exampleNo)
+            {
+                case 1:
+                    // Exp 1.1
+                    MultithreadingAndAsynchronuous();
+                    break;
+
+                case 2:
+                    // Exp 1.2
+                    BackgroundThread();
+                    break;
+
+                case 3:
+                    // Exp 1.3
+                    ParameterizedThreadStart();
+                    break;
+
+                case 4:
+                    // Exp 1.4
+                    StoppingAThread();
+                    break;
+
+                case 5:
+                    // Exp 1.5
+                    StaticAttribute();
+                    break;
+
+                case 6:
+                    // Exp 1.6
+                    ThreadLocal();
+                    break;
+
+                case 7:
+                    // Exp 1.7
+                    ThreadPools();
+                    break;
+
+                case 8:
+                    // Exp 1.8
+                    NewTask();
+                    break;
+
+                case 9:
+                    // Exp 1.9
+                    TaskThatReturnValue();
+                    break;
+
+                case 10:
+                case 11:
+                    // Exp 1.10-11
+                    TaskContinueWith();
+                    break;
+
+                case 12:
+                    // Exp 1.12
+                    AttachingChildTasksToParentTask();
+                    break;
+
+                case 13:
+                    // Exp 1.13
+                    TaskFactoryClass();
+                    break;
+
+                case 14:
+                    // Exp 1.14
+                    TaskWaitAll();
+                    break;
+
+                case 15:
+                    // Exp 1.15
+                    TaskWaitAny();
+                    break;
+
+                case 16:
+                    // Exp 1.16
+                    ParallelForAndForeach();
+                    break;
+
+                case 17:
+                    // Exp 1.17
+                    ParallelBreak();
+                    break;
+
+                case 18:
+                    // Exp 1.18
+                    SimpleExampleOfAsynchronousMethod();
+                    break;
+
+                case 22:
+                case 23:
+                    // Exp 1.22-23
+                    AsParallel();
+                    break;
+
+                case 24:
+                    // Exp 1.24
+                    AsParallelAsOrdered();
+                    break;
+
+                case 26:
+                case 27:
+                    // Exp 1.26-27
+                    ForAllAggregateException();
+                    break;
+
+                case 28:
+                    // Exp 1.28
+                    BlockingCollection();
+                    break;
+
+                case 30:
+                    // Exp 1.30
+                    ConcurrentBag();
+                    break;
+
+                case 32:
+                    // Exp 1.32
+                    ConcurrentStack();
+                    break;
+
+                case 33:
+                    // Exp 1.33
+                    ConcurrentQueue();
+                    break;
+
+                case 34:
+                    // Exp 1.34
+                    ConcurrentDictionary();
+                    break;
+
+                case 19:
+                case 20:
+                case 21:
+                case 25:
+                case 29:
+                case 31:
+                default:
+                    // Exp 1.19-21 is skipped
+                    // Exp 1.25 is skipped
+                    // Exp 1.29 is skipped
+                    // Exp 1.31 is skipped
+                    throw new NotImplementedException();
+            }
+
+            return true;
         }
 
         /// <summary>
