@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="ManagingProgramFlow.cs" company="CVLab">
-//      Copyright(c) CVLab.com.All rights reserved.
+//      Copyright(c) cv-lab.com.All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
