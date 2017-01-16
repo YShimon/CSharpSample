@@ -12,6 +12,9 @@ namespace CSharpSample
     using DesignPattern.Factory;
     using DesignPattern.Command;
     using CVL.Extentions;
+    using System.IO;
+    using System.Text;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Begging of Assembly
@@ -33,6 +36,9 @@ namespace CSharpSample
                 int.TryParse(args[0], out sectionNo);
                 int.TryParse(args[1], out exampleNo);
 
+                // ----------
+                // 1.ManagingProgramFlow
+                // ----------
                 var sample = SampleFactory.Create(sectionNo: sectionNo);
                 sample.Do(exampleNo: exampleNo);
 
@@ -55,11 +61,47 @@ namespace CSharpSample
                 invoker.UndoCommand();
                 invoker.Execute();
 
-                // -->> debug 臨時コード
-                // ユーザ名・パスワード・サーバー名は、別途定義できるようにする。
-                var connectionString = ConfigurationManager.ConnectionStrings["sqlsvr"].ConnectionString;
+                // SQL Serverへの接続コードを一旦こちらに記載
+                // 接続文字列取得（パスワード等を記載することになるので、文字列を置換する）
+                var connectionString = ConfigurationManager.ConnectionStrings["SampleDB"].ConnectionString;
                 SqlCommand command = new SqlCommand();
 
+                // 接続文字列置換：接続文字列を完成させるには、SampleDBSettins.txtの内容を読み込み変更する必要がある。
+                Dictionary<string, string> sampleDBSettings = new Dictionary<string, string>
+                {
+                    { "ServerName", string.Empty },
+                    { "DBName", string.Empty },
+                    { "UserName", string.Empty },
+                    { "Password", string.Empty },
+                };
+
+                using (StreamReader sr = new StreamReader("SampleDBSettings.txt", Encoding.GetEncoding("Shift_JIS")))
+                {
+                    string line = string.Empty;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        var key = string.Empty;
+                        var value = string.Empty;
+
+                        sampleDBSettings.ForEach(x =>
+                        {
+                            if (line.IndexOf(x.Key) >= 0)
+                            {
+                                key = (line.Split('='))[0];
+                                value = (line.Split('='))[1];
+                                return;
+                            }
+                        });
+                        sampleDBSettings[key] = value;
+                    }
+                }
+
+                connectionString = connectionString.Replace("$(ServerName)", sampleDBSettings["ServerName"]);
+                connectionString = connectionString.Replace("$(DBName)", sampleDBSettings["DBName"]);
+                connectionString = connectionString.Replace("$(UserName)", sampleDBSettings["UserName"]);
+                connectionString = connectionString.Replace("$(Password)", sampleDBSettings["Password"]);
+
+                // SQL Serverに接続
                 SqlConnection connection = new SqlConnection();
                 connection.ConnectionString = connectionString;
                 connection.Open();
@@ -81,8 +123,8 @@ namespace CSharpSample
                     Console.WriteLine("Id:" + id + " 日付:" + date + " 品目:" + item);
                 }
 
+                // SQL Serverへの接続を閉じる
                 connection.Close();
-                // <<-- debug 臨時コード
             }
             catch
             {
