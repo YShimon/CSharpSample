@@ -44,7 +44,7 @@ namespace CSharpSample
 
                 // 一時的にコメントアウト。
                 // TODO;引数で動作を変更するようにする
-                // X. Linq to Object
+                // X. Linq to Object(Linqを取り扱っている章は、4.3)
                 // LinqSampleBehavior001.SampleData001_BasicBehaviorOfLinq();
 
                 var receiver = new ConcreateReceiver();
@@ -61,6 +61,7 @@ namespace CSharpSample
                 invoker.UndoCommand();
                 invoker.Execute();
 
+                // DataBaseへの接続は、Factoryの5を使う
                 // SQL Serverへの接続コードを一旦こちらに記載
                 // 接続文字列取得（パスワード等を記載することになるので、文字列を置換する）
                 var connectionString = ConfigurationManager.ConnectionStrings["SampleDB"].ConnectionString;
