@@ -7,6 +7,8 @@
 namespace CSharpSample
 {
     using System;
+    using System.Configuration;
+    using System.Data.SqlClient;
     using DesignPattern.Factory;
     using DesignPattern.Command;
     using CVL.Extentions;
@@ -52,6 +54,35 @@ namespace CSharpSample
                 invoker.Execute();
                 invoker.UndoCommand();
                 invoker.Execute();
+
+                // -->> debug 臨時コード
+                // ユーザ名・パスワード・サーバー名は、別途定義できるようにする。
+                var connectionString = ConfigurationManager.ConnectionStrings["sqlsvr"].ConnectionString;
+                SqlCommand command = new SqlCommand();
+
+                SqlConnection connection = new SqlConnection();
+                connection.ConnectionString = connectionString;
+                connection.Open();
+
+                // SELECT文を設定します。
+                command.CommandText = "SELECT * FROM HouseholdAccount";
+                command.Connection = connection;
+
+                // SQLを実行します。
+                SqlDataReader reader = command.ExecuteReader();
+
+                // 結果を表示します。
+                while (reader.Read())
+                {
+                    var id = (int)reader.GetValue(0);
+                    var date = (DateTime)reader.GetValue(1);
+                    var item = (string)reader.GetValue(2);
+
+                    Console.WriteLine("Id:" + id + " 日付:" + date + " 品目:" + item);
+                }
+
+                connection.Close();
+                // <<-- debug 臨時コード
             }
             catch
             {
