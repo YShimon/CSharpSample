@@ -18,9 +18,16 @@ namespace CSharpSample.DesignPattern.Factory
         {
             ISamplePractitioner practitioner = null;
 
-            if (sectionNo == 1)
+            switch(sectionNo)
             {
-                practitioner = new ManagingProgramFlow();
+                case 1:
+                    practitioner = new ManagingProgramFlow();
+                    break;
+                case 5:
+                    practitioner = new DatabaseAccess();
+                    break;
+                default:
+                    break;
             }
 
             return practitioner;
