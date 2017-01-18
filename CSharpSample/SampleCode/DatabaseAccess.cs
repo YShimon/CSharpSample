@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Linq;
 using System.Data.SqlClient;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Text;
 using CSharpSample.DesignPattern.Factory;
+using CSharpSample.SampleCode.Entity;
 using CVL.Extentions;
 
 namespace CSharpSample.SampleCode
@@ -59,6 +62,9 @@ namespace CSharpSample.SampleCode
                 case 1:
                     AccessSQLServer();
                     break;
+                case 2:
+                    FirstLinq2SQL();
+                    break;
                 default:
                     break;
             }
@@ -90,6 +96,28 @@ namespace CSharpSample.SampleCode
             }
 
             SQLServerConnection.Close();
+        }
+
+        /// <summary>
+        /// Linq to SQL のサンプルコード
+        /// </summary>
+        public void FirstLinq2SQL()
+        {
+            DataContext dc = new DataContext(ConnectionString);
+            var householdAccount = dc.GetTable<HouseholdAccount>();
+
+            var query = from p in householdAccount
+                        where p.Id <= 4
+                        select new { p.Id, p.Item };
+
+            Console.WriteLine("-->> Generated Command Start <<--");
+            Console.WriteLine(dc.GetCommand(query).CommandText);
+            Console.WriteLine("-->> Generated Command End <<--");
+
+            query.ForEach(x =>
+            {
+                Console.WriteLine($"Id={x.Id} Item={x.Item}");
+            });
         }
 
         /// <summary>
