@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -49,7 +50,7 @@
     <Compile Include="DataFactory\DataFactory.cs" />
     <Compile Include="DataFactory\SampleData001.cs" />
     <Compile Include="DataFactory\SampleData002.cs" />
-    <Compile Include="DesignPattern\Command\ConcreateCommandA.cs" />
+    <Compile Include="DesignPattern\Command\ConcreateCommand.cs" />
     <Compile Include="DesignPattern\Command\ConcreateReceiver.cs" />
     <Compile Include="DesignPattern\Command\ICVLCommand.cs" />
     <Compile Include="DesignPattern\Command\Invoker.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="DesignPattern\Factory\ISamplePractitioner.cs" />
     <Compile Include="DesignPattern\Factory\SampleFactory.cs" />
     <Compile Include="Extention\CVLExtensions.cs" />
+    <Compile Include="SampleCode\DatabaseAccess.cs" />
     <Compile Include="SampleCode\LinqSampleBehavior001.cs" />
     <Compile Include="SampleCode\ManagingProgramFlow.cs" />
     <Compile Include="Program.cs" />

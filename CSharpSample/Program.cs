@@ -8,8 +8,6 @@ namespace CSharpSample
 {
     using System;
     using DesignPattern.Factory;
-    using DesignPattern.Command;
-    using CVL.Extentions;
 
     /// <summary>
     /// Begging of Assembly
@@ -31,27 +29,33 @@ namespace CSharpSample
                 int.TryParse(args[0], out sectionNo);
                 int.TryParse(args[1], out exampleNo);
 
+                // ----------
+                // 1.ManagingProgramFlow
+                // 5.DatabaseAccess
+                // 6.Design Pattern
+                // ----------
                 var sample = SampleFactory.Create(sectionNo: sectionNo);
                 sample.Do(exampleNo: exampleNo);
 
-                // 一時的にコメントアウト。
+                // Linq to Objectサンプル
                 // TODO;引数で動作を変更するようにする
-                // X. Linq to Object
+                // X. Linq to Object(Linqを取り扱っている章は、4.3)
                 // LinqSampleBehavior001.SampleData001_BasicBehaviorOfLinq();
 
-                var receiver = new ConcreateReceiver();
-                var invoker = new Invoker();
-                var commands = new ICVLCommand[5];
-                for (int i = 0; i < commands.Length; i++)
-                {
-                    commands[i] = new ConcreateCommandA(i);
-                    commands[i].SetReciever(receiver);
-                    invoker.AddCommand(commands[i]);
-                }
-
-                invoker.Execute();
-                invoker.UndoCommand();
-                invoker.Execute();
+                //// コマンドパターンサンプル
+                // var receiver = new ConcreateReceiver();
+                // var invoker = new Invoker();
+                // var commands = new ICVLCommand[5];
+                // for (int i = 0; i < commands.Length; i++)
+                // {
+                //    commands[i] = new ConcreateCommandA(i);
+                //    commands[i].SetReciever(receiver);
+                //    invoker.AddCommand(commands[i]);
+                // }
+ 
+                // invoker.Execute();
+                // invoker.UndoCommand();
+                // invoker.Execute();
             }
             catch
             {
