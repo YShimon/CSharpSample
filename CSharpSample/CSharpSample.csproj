@@ -50,7 +50,7 @@
     <Compile Include="DataFactory\DataFactory.cs" />
     <Compile Include="DataFactory\SampleData001.cs" />
     <Compile Include="DataFactory\SampleData002.cs" />
-    <Compile Include="DesignPattern\Command\ConcreateCommandA.cs" />
+    <Compile Include="DesignPattern\Command\ConcreateCommand.cs" />
     <Compile Include="DesignPattern\Command\ConcreateReceiver.cs" />
     <Compile Include="DesignPattern\Command\ICVLCommand.cs" />
     <Compile Include="DesignPattern\Command\Invoker.cs" />

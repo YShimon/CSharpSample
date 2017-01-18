@@ -8,7 +8,6 @@ namespace CSharpSample
 {
     using System;
     using DesignPattern.Factory;
-    using DesignPattern.Command;
 
     /// <summary>
     /// Begging of Assembly
@@ -44,19 +43,19 @@ namespace CSharpSample
                 // LinqSampleBehavior001.SampleData001_BasicBehaviorOfLinq();
 
                 //// コマンドパターンサンプル
-                //var receiver = new ConcreateReceiver();
-                //var invoker = new Invoker();
-                //var commands = new ICVLCommand[5];
-                //for (int i = 0; i < commands.Length; i++)
-                //{
+                // var receiver = new ConcreateReceiver();
+                // var invoker = new Invoker();
+                // var commands = new ICVLCommand[5];
+                // for (int i = 0; i < commands.Length; i++)
+                // {
                 //    commands[i] = new ConcreateCommandA(i);
                 //    commands[i].SetReciever(receiver);
                 //    invoker.AddCommand(commands[i]);
-                //}
-
-                //invoker.Execute();
-                //invoker.UndoCommand();
-                //invoker.Execute();
+                // }
+ 
+                // invoker.Execute();
+                // invoker.UndoCommand();
+                // invoker.Execute();
             }
             catch
             {

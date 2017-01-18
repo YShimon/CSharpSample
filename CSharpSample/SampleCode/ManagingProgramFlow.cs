@@ -360,7 +360,10 @@ namespace CSharpSample.SampleCode
         /// </summary>
         public void ParallelBreak()
         {
-            ParallelLoopResult result = Parallel.For(0, 100, (int x, ParallelLoopState loopState) =>
+            ParallelLoopResult result = Parallel.For(
+                0,
+                100,
+                (int x, ParallelLoopState loopState) =>
                 {
                     if (x == 50)
                     {
