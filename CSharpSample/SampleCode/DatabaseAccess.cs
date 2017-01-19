@@ -10,6 +10,7 @@ using System.Text;
 using CSharpSample.DesignPattern.Factory;
 using CSharpSample.SampleCode.Entity;
 using CVL.Extentions;
+using Dapper;
 
 namespace CSharpSample.SampleCode
 {
@@ -65,6 +66,9 @@ namespace CSharpSample.SampleCode
                 case 2:
                     FirstLinq2SQL();
                     break;
+                case 3:
+                    FirstDapper();
+                    break;
                 default:
                     break;
             }
@@ -92,7 +96,7 @@ namespace CSharpSample.SampleCode
                 var date = (DateTime)reader.GetValue(1);
                 var item = (string)reader.GetValue(2);
 
-                Console.WriteLine("Id:" + id + " 日付:" + date + " 品目:" + item);
+                Console.WriteLine($"Id={id} Item={item} Date={date}");
             }
 
             SQLServerConnection.Close();
@@ -107,8 +111,8 @@ namespace CSharpSample.SampleCode
             var householdAccount = dc.GetTable<HouseholdAccount>();
 
             var query = from p in householdAccount
-                        where p.Id <= 4
-                        select new { p.Id, p.Item };
+                        where p.Id <= 20 
+                        select new { p.Id, p.Item, p.Date };
 
             Console.WriteLine("-->> Generated Command Start <<--");
             Console.WriteLine(dc.GetCommand(query).CommandText);
@@ -116,8 +120,24 @@ namespace CSharpSample.SampleCode
 
             query.ForEach(x =>
             {
-                Console.WriteLine($"Id={x.Id} Item={x.Item}");
+                Console.WriteLine($"Id={x.Id} Item={x.Item} Date={x.Date}");
             });
+        }
+
+        /// <summary>
+        /// Dapperのサンプルコード
+        /// </summary>
+        public void FirstDapper()
+        {
+            SQLServerConnection.Open();
+
+            var result = SQLServerConnection.Query<HouseholdAccount>(@"SELECT * FROM HOUSEHOLDACCOUNT");
+            result.ForEach(x =>
+            {
+                Console.WriteLine($"Id={x.Id} Item={x.Item} Date={x.Date}");
+            });
+
+            SQLServerConnection.Close();
         }
 
         /// <summary>

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Linq.Mapping;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CSharpSample.SampleCode.Entity
 {
@@ -12,24 +9,43 @@ namespace CSharpSample.SampleCode.Entity
     /// TableアトリビュートにはSystem.Data.Linqへの参照が必要
     /// </summary>
     [Table(Name = "dbo.HouseholdAccount")]
-    class HouseholdAccount
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "For Japanese support")]
+    public class HouseholdAccount
     {
+        /// <summary>
+        /// レコードId
+        /// </summary>
         [Column(IsPrimaryKey = true, IsDbGenerated = true, DbType = "int NOT NULL IDENTITY")]
         public int Id { get; set; }
 
-        [Column(CanBeNull =true)]
-        public　DateTime? Date { get; set; }
+        /// <summary>
+        /// 日付
+        /// </summary>
+        [Column]
+        public DateTime Date { get; set; }
 
-        [Column(CanBeNull =true)]
+        /// <summary>
+        /// 品目
+        /// </summary>
+        [Column(CanBeNull = true)]
         public string Item { get; set; }
 
-        [Column(CanBeNull =true)]
+        /// <summary>
+        /// メモ
+        /// </summary>
+        [Column(CanBeNull = true)]
         public string Memo { get; set; }
 
-        [Column(CanBeNull =true)]
+        /// <summary>
+        /// 入金
+        /// </summary>
+        [Column(CanBeNull = true)]
         public int? Payment { get; set; }
 
-        [Column(CanBeNull =true)]
+        /// <summary>
+        /// 支払い
+        /// </summary>
+        [Column(CanBeNull = true)]
         public int? Withdrawal { get; set; }
     }
 }
