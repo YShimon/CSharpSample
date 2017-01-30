@@ -7,10 +7,7 @@
 namespace CSharpSample.SampleCode
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using CSharpSample.DataFactory;
     using CVL.Extentions;
 

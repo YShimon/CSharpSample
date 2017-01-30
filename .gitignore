@@ -240,3 +240,6 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+
+# Sample DBSettingはパスワード等が入っているので無視する
+CSharpSample/SampleDBSettings.txt
