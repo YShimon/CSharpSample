@@ -26,6 +26,9 @@ namespace CSharpSample.DesignPattern.Factory
                 case 5:
                     practitioner = new DatabaseAccess();
                     break;
+                case 8:
+                    practitioner = new DelegateSample();
+                    break;
                 default:
                     break;
             }
