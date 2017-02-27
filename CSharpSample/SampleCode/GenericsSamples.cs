@@ -48,6 +48,28 @@ namespace CSharpSample.SampleCode
         }
     }
 
+    class GenericsInterfaceSample02<TI, TO> : IGenerics<TI, TO>
+    {
+        private GenericsInterfaceSample02<TI, TO> Instance = null;
+
+        public GenericsInterfaceSample02<TI, TO> GetInstatnce()
+        {
+            if(Instance == null)
+            {
+                Instance = new GenericsInterfaceSample02<TI, TO>();
+            }
+            return Instance;
+        }
+
+        public TO DoSomething(TI input)
+        {
+            Console.WriteLine($"class name of TI : {typeof(TI).Name}");
+            Console.WriteLine($"class name of TO : {typeof(TO).Name}");
+            return default(TO);
+        }
+    }
+
+
     class GenericsSamples : ISamplePractitioner
     {
         public bool Do(int exampleNo)
@@ -56,6 +78,9 @@ namespace CSharpSample.SampleCode
             {
                 case 1:
                     GenericsSample01();
+                    break;
+                case 2:
+                    GenericsSample02();
                     break;
                 default:
                     break;
@@ -67,6 +92,13 @@ namespace CSharpSample.SampleCode
         private void GenericsSample01()
         {
             var sample = new GenericsInterfaceSample01();
+            var inParam = new TypeIN();
+            var outParam = sample.DoSomething(inParam);
+        }
+
+        private void GenericsSample02()
+        {
+            var sample = new GenericsInterfaceSample02<TypeIN, TypeOut>();
             var inParam = new TypeIN();
             var outParam = sample.DoSomething(inParam);
         }
