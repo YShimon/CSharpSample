@@ -64,6 +64,7 @@
     <Compile Include="DesignPattern\Factory\SampleFactory.cs" />
     <Compile Include="Extention\CVLExtensions.cs" />
     <Compile Include="SampleCode\DatabaseAccess.cs" />
+    <Compile Include="SampleCode\DelegateSample.cs" />
     <Compile Include="SampleCode\Entity\HouseholdAccount.cs" />
     <Compile Include="SampleCode\LinqSampleBehavior001.cs" />
     <Compile Include="SampleCode\ManagingProgramFlow.cs" />
