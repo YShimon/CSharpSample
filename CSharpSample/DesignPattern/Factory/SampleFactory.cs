@@ -29,6 +29,9 @@ namespace CSharpSample.DesignPattern.Factory
                 case 8:
                     practitioner = new DelegateSample();
                     break;
+                case 9:
+                    practitioner = new GenericsSamples();
+                    break;
                 default:
                     break;
             }
