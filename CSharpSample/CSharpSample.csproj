@@ -49,6 +49,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataFactory\BaseSampleData.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Extention\CVLExtensions.cs" />
     <Compile Include="SampleCode\DatabaseAccess.cs" />
     <Compile Include="SampleCode\DelegateSample.cs" />
+    <Compile Include="SampleCode\DependancyProperties.cs" />
     <Compile Include="SampleCode\Entity\HouseholdAccount.cs" />
     <Compile Include="SampleCode\GenericsSamples.cs" />
     <Compile Include="SampleCode\LinqSampleBehavior001.cs" />

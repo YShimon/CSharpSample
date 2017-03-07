@@ -32,6 +32,9 @@ namespace CSharpSample.DesignPattern.Factory
                 case 9:
                     practitioner = new GenericsSamples();
                     break;
+                case 10:
+                    practitioner = new DependancyProperties();
+                    break;
                 default:
                     break;
             }
