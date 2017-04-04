@@ -5,10 +5,17 @@ using CSharpSample.DesignPattern.Factory;
 
 namespace CSharpSample.SampleCode
 {
+    /// <summary>
+    /// Personクラス 依存関係プロパティサンプル
+    /// </summary>
     public class Person : DependencyObject
     {
-        // Nameプロパティは省略
-
+        /// <summary>
+        /// 依存プロパティ例
+        /// </summary>
+        /// <remarks>
+        /// Nameプロパティは省略
+        /// </remarks>
         public static readonly DependencyProperty ChildrenProperty =
             DependencyProperty.Register(
                 "Children",
@@ -16,23 +23,35 @@ namespace CSharpSample.SampleCode
                 typeof(Person),
                 new PropertyMetadata(new List<Person>())); // デフォルト値は共有される
 
-
-        public List<Person> Children
-        {
-            get { return (List<Person>)GetValue(ChildrenProperty); }
-            set { SetValue(ChildrenProperty, value); }
-        }
-
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
         public Person()
         {
             // デフォルト値をコンストラクタで指定するようにする
             this.Children = new List<Person>();
         }
 
+        /// <summary>
+        /// Children 依存プロパティ利用例
+        /// </summary>
+        public List<Person> Children
+        {
+            get { return (List<Person>)GetValue(ChildrenProperty); }
+            set { this.SetValue(ChildrenProperty, value); }
+        }
     }
 
-    class DependancyProperties : ISamplePractitioner
+    /// <summary>
+    /// コンストラクタ
+    /// </summary>
+    public class DependancyProperties : ISamplePractitioner
     {
+        /// <summary>
+        /// サンプルコードを実行
+        /// </summary>
+        /// <param name="exampleNo">サンプル番号</param>
+        /// <returns>実行ステータス</returns>
         public bool Do(int exampleNo)
         {
             switch (exampleNo)
@@ -44,9 +63,12 @@ namespace CSharpSample.SampleCode
                     break;
             }
 
-            return true; 
+            return true;
         }
 
+        /// <summary>
+        /// サンプル１
+        /// </summary>
         private void Sample01()
         {
             // Childrenプロパティの使用
@@ -58,7 +80,6 @@ namespace CSharpSample.SampleCode
 
             Console.WriteLine("p1.Children.Count = {0}", p1.Children.Count);
             Console.WriteLine("p2.Children.Count = {0}", p2.Children.Count);
-
         }
     }
 }

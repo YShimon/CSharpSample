@@ -35,9 +35,6 @@ namespace CSharpSample.DesignPattern.Factory
         /// </summary>
         /// <param name="sectionNo">セクション番号</param>
         /// <returns>Sample ClassのInterface</returns>
-        public ISamplePractitioner Create(int sectionNo)
-        {
-            return SamplePractitionerCache[sectionNo];
-        }
+        public ISamplePractitioner Create(int sectionNo) => SamplePractitionerCache[sectionNo];
     }
 }
