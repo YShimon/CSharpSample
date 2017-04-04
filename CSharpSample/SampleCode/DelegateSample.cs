@@ -1,14 +1,23 @@
-﻿using CSharpSample.DesignPattern.Factory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using CSharpSample.DesignPattern.Factory;
 
 namespace CSharpSample.SampleCode
 {
-    class DelegateSample : ISamplePractitioner
+    /// <summary>
+    /// デリゲートのサンプルクラス
+    /// </summary>
+    public class DelegateSample : ISamplePractitioner
     {
+        /// <summary>
+        /// 引数int,戻り値intを持つデリゲート
+        /// </summary>
+        private Func<int, int> func01 = (x) => { return x * 2; };
+
+        /// <summary>
+        /// サンプルコードを実行
+        /// </summary>
+        /// <param name="exampleNo">サンプル番号</param>
+        /// <returns>実行ステータス</returns>
         public bool Do(int exampleNo)
         {
             switch (exampleNo)
@@ -32,12 +41,12 @@ namespace CSharpSample.SampleCode
 
             // デリゲート(Func01)の利用例01
             // デリゲート(Func01)を実行
-            var value01 = Func01(seed);
+            var value01 = func01(seed);
             Console.WriteLine($"value : {value01}");
 
             // デリゲート(Func01)の利用例02
             // デリゲート(Func01)をメソッドに渡して利用する
-            var value02 = MethodWithFunc(seed, func01: Func01);
+            var value02 = MethodWithFunc(seed, func01: func01);
             Console.WriteLine($"value : {value02}");
 
             // デリゲート(Func01)の利用例03
@@ -46,6 +55,12 @@ namespace CSharpSample.SampleCode
             Console.WriteLine($"value : {value03}");
         }
 
+        /// <summary>
+        /// デリゲートを引数に持つメソッドの例
+        /// </summary>
+        /// <param name="value">デリゲートに渡す値</param>
+        /// <param name="func01">デリゲート</param>
+        /// <returns>デリゲートの戻り値</returns>
         private int MethodWithFunc(int value, Func<int, int> func01 = null)
         {
             int answer = 0;
@@ -57,13 +72,5 @@ namespace CSharpSample.SampleCode
 
             return answer;
         }
-
-        /// <summary>
-        /// 引数int,戻り値intを持つデリゲート
-        /// </summary>
-        Func<int, int> Func01 = (x) =>
-        {
-            return x * 2;
-        };
     }
 }
