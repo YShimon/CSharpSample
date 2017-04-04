@@ -31,12 +31,8 @@ namespace CSharpSample
                 int.TryParse(args[0], out sectionNo);
                 int.TryParse(args[1], out exampleNo);
 
-                // ----------
-                // 1.ManagingProgramFlow
-                // 5.DatabaseAccess
-                // 6.Design Pattern
-                // ----------
-                var sample = SampleFactory.Create(sectionNo: sectionNo);
+                // Sample Codeの呼び出しと実行
+                var sample = SampleFactory.Instance.Create(sectionNo: sectionNo);
                 sample.Do(exampleNo: exampleNo);
 
                 // Temporary Sample Code
