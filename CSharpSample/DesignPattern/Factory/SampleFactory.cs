@@ -15,7 +15,7 @@ namespace CSharpSample.DesignPattern.Factory
         {
             SamplePractitionerCache.Add(1, new ManagingProgramFlow());
             SamplePractitionerCache.Add(5, new DatabaseAccess());
-            SamplePractitionerCache.Add(8, new DelegateSample());
+            SamplePractitionerCache.Add(8, DelegateSample.GetInstance());
             SamplePractitionerCache.Add(9, new GenericsSamples());
             SamplePractitionerCache.Add(10, new DependancyProperties());
         }

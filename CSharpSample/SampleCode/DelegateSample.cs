@@ -14,6 +14,22 @@ namespace CSharpSample.SampleCode
         private Func<int, int> func01 = (x) => { return x * 2; };
 
         /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        private DelegateSample() { }
+
+        /// <summary>
+        /// 唯一のインスタンス
+        /// </summary>
+        private static DelegateSample Instance { get; set; } = new DelegateSample();
+
+        /// <summary>
+        /// Singleton Instatnce取得
+        /// </summary>
+        /// <returns>DelegateSampleクラスのインスタンス</returns>
+        public static DelegateSample GetInstance() => Instance;
+
+        /// <summary>
         /// サンプルコードを実行
         /// </summary>
         /// <param name="exampleNo">サンプル番号</param>
@@ -25,6 +41,7 @@ namespace CSharpSample.SampleCode
                 case 1:
                     FuncSample01();
                     break;
+
                 default:
                     break;
             }
