@@ -17,17 +17,21 @@ namespace CSharpSample.SampleCode
     /// <summary>
     /// DataBaseアクセスクラス
     /// </summary>
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "For Japanese support")]
     public class DatabaseAccess : ISamplePractitioner
     {
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public DatabaseAccess()
+        private DatabaseAccess()
         {
             ConnectionString = GetConnectionString();
             SQLServerConnection.ConnectionString = ConnectionString;
         }
+
+        /// <summary>
+        /// 唯一のインスタンス
+        /// </summary>
+        private static DatabaseAccess Instance { get; set; } = new DatabaseAccess();
 
         /// <summary>
         /// 接続文字列
@@ -35,9 +39,16 @@ namespace CSharpSample.SampleCode
         private string ConnectionString { get; }
 
         /// <summary>
-        /// 接続文字列設定項目
-        /// 接続文字列を完成させるには、SampleDBSettins.txtの内容を読み込み変更する必要がある。
+        /// SQL Server Connection
         /// </summary>
+        private SqlConnection SQLServerConnection { get; } = new SqlConnection();
+
+        /// <summary>
+        /// 接続文字列設定項目
+        /// </summary>
+        /// <remarks>
+        /// 接続文字列を完成させるには、SampleDBSettins.txtの内容を読み込み変更する必要がある。
+        /// </remarks>
         private Dictionary<string, string> SampleDBKeyStrings { get; set; } = new Dictionary<string, string>
         {
             { "ServerName", string.Empty },
@@ -47,9 +58,10 @@ namespace CSharpSample.SampleCode
         };
 
         /// <summary>
-        /// SQL Server Connection
+        /// インスタンス取得
         /// </summary>
-        private SqlConnection SQLServerConnection { get; } = new SqlConnection();
+        /// <returns>DatabaseAccessクラスのインスタンス</returns>
+        public static DatabaseAccess GetInstance() => Instance;
 
         /// <summary>
         /// Sampleの実行

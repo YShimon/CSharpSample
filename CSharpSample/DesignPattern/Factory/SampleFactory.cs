@@ -13,11 +13,11 @@ namespace CSharpSample.DesignPattern.Factory
         /// </summary>
         private SampleFactory()
         {
-            SamplePractitionerCache.Add(1, new ManagingProgramFlow());
-            SamplePractitionerCache.Add(5, new DatabaseAccess());
-            SamplePractitionerCache.Add(8, new DelegateSample());
-            SamplePractitionerCache.Add(9, new GenericsSamples());
-            SamplePractitionerCache.Add(10, new DependancyProperties());
+            SamplePractitionerCache.Add(1, ManagingProgramFlow.GetInstance());
+            SamplePractitionerCache.Add(5, DatabaseAccess.GetInstance());
+            SamplePractitionerCache.Add(8, DelegateSample.GetInstance());
+            SamplePractitionerCache.Add(9, GenericsSamples.GetInstance());
+            SamplePractitionerCache.Add(10, DependancyProperties.GetInstance());
         }
 
         /// <summary>

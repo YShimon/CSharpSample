@@ -131,6 +131,22 @@ namespace CSharpSample.SampleCode
     public class GenericsSamples : ISamplePractitioner
     {
         /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        private GenericsSamples() { }
+
+        /// <summary>
+        /// 唯一のインスタンス
+        /// </summary>
+        private static GenericsSamples Instance { get; } = new GenericsSamples();
+
+        /// <summary>
+        /// Instatnce取得
+        /// </summary>
+        /// <returns>GenericsSamplesクラスのインスタンス</returns>
+        public static GenericsSamples GetInstance() => Instance;
+
+        /// <summary>
         /// サンプルコードを実行
         /// </summary>
         /// <param name="exampleNo">サンプル番号</param>
