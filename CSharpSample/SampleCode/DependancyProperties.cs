@@ -48,6 +48,22 @@ namespace CSharpSample.SampleCode
     public class DependancyProperties : ISamplePractitioner
     {
         /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        private DependancyProperties() { }
+
+        /// <summary>
+        /// 唯一のインスタンス
+        /// </summary>
+        private static DependancyProperties Instance { get; } = new DependancyProperties();
+
+        /// <summary>
+        /// Instatnce取得
+        /// </summary>
+        /// <returns>DependancyPropertiesクラスのインスタンス</returns>
+        public static DependancyProperties GetInstance() => Instance;
+
+        /// <summary>
         /// サンプルコードを実行
         /// </summary>
         /// <param name="exampleNo">サンプル番号</param>

@@ -36,7 +36,18 @@ namespace CSharpSample.SampleCode
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public ManagingProgramFlow() { }
+        private ManagingProgramFlow() { }
+
+        /// <summary>
+        /// 唯一のインスタンス
+        /// </summary>
+        private static ManagingProgramFlow Instance { get; set; } = new ManagingProgramFlow();
+
+        /// <summary>
+        /// Instatnce取得
+        /// </summary>
+        /// <returns>ManagingProgramFlowクラスのインスタンス</returns>
+        public static ManagingProgramFlow GetInstance() => Instance;
 
         /// <summary>
         /// ドキュメントを非同期で取得
