@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CSharpSample.DesignPattern.Factory;
+using CVL.Extentions;
 
 namespace CSharpSample.SampleCode
 {
@@ -130,6 +131,13 @@ namespace CSharpSample.SampleCode
     /// </summary>
     public class GenericsSamples : ISamplePractitioner
     {
+        public class InnerClass
+        {
+            public string StringProperty { get; set; } = "String Property";
+
+            public int IntProperty { get; set; } = -1;
+        }
+
         /// <summary>
         /// コンストラクタ
         /// </summary>
@@ -161,6 +169,9 @@ namespace CSharpSample.SampleCode
                 case 2:
                     GenericsSample02();
                     break;
+                case 3:
+                    GenericsSample03();
+                    break;
                 default:
                     break;
             }
@@ -188,6 +199,29 @@ namespace CSharpSample.SampleCode
             var sample = new GenericsInterfaceSample02<TypeIN, TypeOut>();
             var inParam = new TypeIN();
             var outParam = sample.DoSomething(inParam);
+        }
+
+        /// <summary>
+        /// サンプル03
+        /// </summary>
+        private void GenericsSample03()
+        {
+            var innerClass = new InnerClass();
+            GetProperties(innerClass).ForEach(x => Console.WriteLine($"Property Name={x.Key}, Value={x.Value}"));
+        }
+
+        private Dictionary<string, string> GetProperties(object instance)
+        {
+            var propnames = instance.GetType().GetProperties();
+            var properties = propnames.ToDictionary(x => x.Name, y => y.GetValue(instance).ToString());
+            return properties;
+        }
+
+        private Dictionary<string, string> GetPropertiesByGenerics<T>(T instance)
+        {
+            var propnames = instance.GetType().GetProperties();
+            var properties = propnames.ToDictionary(x => x.Name, y => y.GetValue(instance).ToString());
+            return properties;
         }
     }
 }
