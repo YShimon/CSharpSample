@@ -64,6 +64,7 @@
     <Compile Include="DesignPattern\Factory\ISamplePractitioner.cs" />
     <Compile Include="DesignPattern\Factory\SampleFactory.cs" />
     <Compile Include="Extention\CVLExtensions.cs" />
+    <Compile Include="SampleCode\AttributeSample.cs" />
     <Compile Include="SampleCode\DatabaseAccess.cs" />
     <Compile Include="SampleCode\DelegateSample.cs" />
     <Compile Include="SampleCode\DependancyProperties.cs" />
