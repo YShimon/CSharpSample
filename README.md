@@ -52,7 +52,7 @@ Visual Studio 2015(Profesional)で作成しています。C#のVersionは 6.0になります。
     ***.exeに上記で説明した引数2つを指定し、実行します。  
 
 ## コード解説  
-- [1.Program Flow Management](https://github.com/YShimon/CSharpSample/wiki/1.-%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%83%95%E3%83%AD%E3%83%BC%E7%AE%A1%E7%90%86)  
+- [1.Program Flow Management](https://github.com/YShimon/CSharpSample/wiki/1.-Program-Flow-Management)  
 - [4.Linq to Object](https://github.com/YShimon/CSharpSample/wiki/4.-Linq-to-Object)
 - [5.Database Access](https://github.com/YShimon/CSharpSample/wiki/5.-Database-Access)
 - Generics
