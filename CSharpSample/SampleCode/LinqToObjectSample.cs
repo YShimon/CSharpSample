@@ -8,18 +8,49 @@ namespace CSharpSample.SampleCode
 {
     using System;
     using System.Linq;
-    using CSharpSample.DataFactory;
+    using DataFactory;
     using CVL.Extentions;
+    using DesignPattern.Factory;
 
     /// <summary>
     /// SampleBehavior001 Class
     /// </summary>
-    public class LinqSampleBehavior001
+    public class LinqToObjectSample : ISamplePractitioner
     {
         /// <summary>
-        /// Perform Basic Function
+        /// Singleton
         /// </summary>
-        public static void SampleData001_BasicBehaviorOfLinq()
+        private static LinqToObjectSample Instance { get; set; } = new LinqToObjectSample();
+
+        /// <summary>
+        /// Singleton Instance取得
+        /// </summary>
+        /// <returns></returns>
+        public static LinqToObjectSample GetInstance() => Instance;
+
+        /// <summary>
+        /// サンプルコードを実行
+        /// </summary>
+        /// <param name="exampleNo">サンプル番号</param>
+        /// <returns>実行ステータス</returns>
+        public bool Do(int exampleNo)
+        {
+            switch (exampleNo)
+            {
+                case 1:
+                    Sample01();
+                    break;
+                default:
+                    break;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// 拡張メソッドの利用例
+        /// </summary>
+        public void Sample01()
         {
             // Create Sample Data
             var sampleData001 = new DataFactory<SampleData001>().Create();
