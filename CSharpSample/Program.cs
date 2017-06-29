@@ -13,7 +13,6 @@ namespace CSharpSample
     /// <summary>
     /// Begging of Assembly
     /// </summary>
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "For Japanese support")]
     public class Program
     {
         /// <summary>
@@ -49,10 +48,6 @@ namespace CSharpSample
         /// </summary>
         private static void TmpTestCode()
         {
-            // Linq to Objectサンプル
-            // X. Linq to Object(Linqを取り扱っている章は、4.3)
-            // LinqSampleBehavior001.SampleData001_BasicBehaviorOfLinq();
-
             //// コマンドパターンサンプル
             // var receiver = new ConcreateReceiver();
             // var invoker = new Invoker();
