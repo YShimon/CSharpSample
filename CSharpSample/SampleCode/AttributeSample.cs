@@ -77,14 +77,17 @@ namespace CSharpSample.SampleCode
             Console.WriteLine("\t\t「互換のために残しているが、新規に呼び出すべきではない」のような場合にこの属性を利用します");
         }
 
-        [Sample(Author="Shimon", Affiliation ="CVLab.com")]
-        public void CustomAttribute()
+        /// <summary>
+        /// Custom Attributeを表示する例
+        /// </summary>
+        [Sample(Author = "Shimon", Affiliation = "CVLab.com")]
+        private void CustomAttribute()
         {
             Console.WriteLine("\tMethod CustomeAttributeは、[Sample]のCustom Attributeが付いてます");
             Console.WriteLine("\t\t実行時に属性Authorが表示されます");
-            foreach(var n in typeof(AttributeSample).GetMethods())
+            foreach (var n in typeof(AttributeSample).GetMethods())
             {
-                foreach(var m in n.GetCustomAttributes(typeof(SampleAttribute), false))
+                foreach (var m in n.GetCustomAttributes(typeof(SampleAttribute), false))
                 {
                     Console.WriteLine($"\t\tCustomAttributeの作者は、{((SampleAttribute)m).Author}です");
                     Console.WriteLine($"\t\tCustomAttributeの所属は、{((SampleAttribute)m).Affiliation}です");
