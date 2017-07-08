@@ -19,6 +19,9 @@ namespace CSharpSample.SampleCode.Attributes
         /// </summary>
         public string Author { get; set; }
 
+        /// <summary>
+        /// 所属
+        /// </summary>
         public string Affiliation { get; set; }
     }
 }

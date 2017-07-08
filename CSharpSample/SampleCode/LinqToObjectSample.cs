@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="LinqSampleBehavior001.cs" company="CVLab">
+// <copyright file="LinqToObjectSample.cs" company="CVLab">
 //      Copyright(c) cv-lab.com.All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -8,8 +8,8 @@ namespace CSharpSample.SampleCode
 {
     using System;
     using System.Linq;
-    using DataFactory;
     using CVL.Extentions;
+    using DataFactory;
     using DesignPattern.Factory;
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace CSharpSample.SampleCode
         /// <summary>
         /// Singleton Instance取得
         /// </summary>
-        /// <returns></returns>
+        /// <returns>LinqToObjectSample SingletonのInstance</returns>
         public static LinqToObjectSample GetInstance() => Instance;
 
         /// <summary>
