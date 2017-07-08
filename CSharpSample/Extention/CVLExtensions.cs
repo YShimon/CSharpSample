@@ -8,13 +8,13 @@ namespace CVL.Extentions
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
     /// <summary>
     /// 拡張メソッド
     /// </summary>
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "For Japanese support")]
     public static class CVLExtensions
     {
         /// <summary>
@@ -26,6 +26,21 @@ namespace CVL.Extentions
         public static void ForEach<T>(this IEnumerable<T> sequence, Action<T> action)
         {
             foreach (var item in sequence) { action(item); }
+        }
+
+        public static string DisplayName<T>(this T value)
+        {
+            var fieldInfo = value.GetType().GetField(value.ToString());
+            var descriptionAttributes = fieldInfo.GetCustomAttributes(
+                typeof(DisplayAttribute), false) as DisplayAttribute[];
+            if (descriptionAttributes != null && descriptionAttributes.Length > 0)
+            {
+                return descriptionAttributes[0].Name;
+            }
+            else
+            {
+                return value.ToString();
+            }
         }
     }
 }

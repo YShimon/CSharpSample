@@ -2,6 +2,9 @@
 using System.Diagnostics;
 using CSharpSample.DesignPattern.Factory;
 using CSharpSample.SampleCode.Attributes;
+using System.Collections.Generic;
+using CVL.Extentions;
+using CSharpSample.SampleCode.Constants;
 
 namespace CSharpSample.SampleCode
 {
@@ -33,6 +36,15 @@ namespace CSharpSample.SampleCode
                 case 1:
                     Sample01();
                     break;
+
+                case 2:
+                    Sample02();
+                    break;
+
+                case 3:
+                    Sample03();
+                    break;
+
                 default:
                     break;
             }
@@ -41,15 +53,36 @@ namespace CSharpSample.SampleCode
         }
 
         /// <summary>
-        /// Sample 1
+        /// Sample 01(定義済みAttributesの例)
         /// </summary>
         private void Sample01()
         {
             Console.WriteLine("Start : Attribute.Sample01()");
             ConditionalDebug();
             ConditionalObsolete();
-            CustomAttribute();
             Console.WriteLine("End   : Attribute.Sample01()");
+        }
+
+        /// <summary>
+        /// Sample 02(Custom Attributesの例)
+        /// </summary>
+        private void Sample02()
+        {
+            Console.WriteLine("Start : Attribute.Sample02()");
+            CustomAttribute();
+            Console.WriteLine("End   : Attribute.Sample02()");
+        }
+
+        /// <summary>
+        /// Sample 03(Attributesの利用例)
+        /// Enumに定義した定数値のDisplay名称を取得する
+        /// </summary>
+        private void Sample03()
+        {
+            Console.WriteLine("Start : Attribute.Sample03()");
+            (Enum.GetValues(typeof(SampleConstants.NumberJP)) as IEnumerable<SampleConstants.NumberJP>)
+                .ForEach(x => { Console.WriteLine($"\t\t{x.DisplayName()}"); });
+            Console.WriteLine("End   : Attribute.Sample03()");
         }
 
         /// <summary>
@@ -80,11 +113,12 @@ namespace CSharpSample.SampleCode
         /// <summary>
         /// Custom Attributeを表示する例
         /// </summary>
+        /// <remarks>typeof(...).GetMethods()を利用しているので、このMethodはpublicである必要があります</remarks>
         [Sample(Author = "Shimon", Affiliation = "CVLab.com")]
-        private void CustomAttribute()
+        public void CustomAttribute()
         {
-            Console.WriteLine("\tMethod CustomeAttributeは、[Sample]のCustom Attributeが付いてます");
-            Console.WriteLine("\t\t実行時に属性Authorが表示されます");
+            Console.WriteLine("\tこのMethod CustomeAttributeには、[Sample]のCustom Attributeが設定されています");
+            Console.WriteLine("\t\t実行時に属性(Author,Affiliation)が表示されます");
             foreach (var n in typeof(AttributeSample).GetMethods())
             {
                 foreach (var m in n.GetCustomAttributes(typeof(SampleAttribute), false))
