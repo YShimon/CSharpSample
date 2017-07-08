@@ -20,6 +20,7 @@ namespace CSharpSample.DesignPattern.Factory
             SamplePractitionerCache.Add(9, GenericsSamples.GetInstance());
             SamplePractitionerCache.Add(10, DependancyProperties.GetInstance());
             SamplePractitionerCache.Add(11, AttributeSample.GetInstance());
+            SamplePractitionerCache.Add(12, ReactiveExtentionSample.GetInstance());
         }
 
         /// <summary>
