@@ -40,6 +40,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
@@ -87,6 +88,7 @@
     <Compile Include="Extention\CVLExtensions.cs" />
     <Compile Include="SampleCode\AttributeSample.cs" />
     <Compile Include="SampleCode\Attributes\SampleAttribute.cs" />
+    <Compile Include="SampleCode\Constants\SampleConstants.cs" />
     <Compile Include="SampleCode\DatabaseAccess.cs" />
     <Compile Include="SampleCode\DelegateSample.cs" />
     <Compile Include="SampleCode\DependancyProperties.cs" />
