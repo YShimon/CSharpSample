@@ -15,7 +15,7 @@ namespace CSharpSample.DesignPattern.Factory
         {
             SamplePractitionerCache.Add(1, ManagingProgramFlow.GetInstance());
             SamplePractitionerCache.Add(4, LinqToObjectSample.GetInstance());
-            SamplePractitionerCache.Add(5, DatabaseAccess.GetInstance());
+            //SamplePractitionerCache.Add(5, DatabaseAccess.GetInstance()); // TODO:接続用ファイルが無い場合の対応
             SamplePractitionerCache.Add(8, DelegateSample.GetInstance());
             SamplePractitionerCache.Add(9, GenericsSamples.GetInstance());
             SamplePractitionerCache.Add(10, DependancyProperties.GetInstance());
