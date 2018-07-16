@@ -11,7 +11,7 @@ namespace CSharpSample.SampleCode.Attributes
     /// <remarks>
     /// このSampleでは、Class,Methodに適用する設定にしている(enum,structも設定できます)
     /// </remarks>
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method | AttributeTargets.Property)]
     public class SampleAttribute : Attribute
     {
         /// <summary>
