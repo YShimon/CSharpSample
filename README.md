@@ -14,13 +14,16 @@ Visual Studio 2015(Profesional)で作成しています。C#のVersionは 6.0になります。
 - Dapper(軽量ORマッパー)  
 
 ## 実行方法  
-** (ビルドするには、Visual Studio 2015が必要になります。  )**  
-このアプリケーションは、コンソールアプリケーションとして作成されており、  
-**コマンドライン引数が2個**必要となります。     
+  ** (ビルドするには、Visual Studio 2015が必要になります。  )**  
+  このアプリケーションは、コンソールアプリケーションとして作成されており、  
+  **コマンドライン引数が2個**必要となります。     
+  
+0. 実行例  
+  CSharpSample.exe **[Section Number]** **[Sample Number]**  
 
 1.  引数について  
 
-    **第1引数**は、Sample Section Numberです。   
+    **第1引数**は、**Section Number**です。   
     
     Sample Section Numberは下記のようになります。  
     **1 ：Program Flow Management**  
@@ -32,7 +35,7 @@ Visual Studio 2015(Profesional)で作成しています。C#のVersionは 6.0になります。
     
     が定義されています。  
     
-    **第2引数**は、個別のサンプルコード番号です。
+    **第2引数**は、個別の**Sample Number**です。
 
 2. Visual Studioから実行する場合  
 
@@ -57,7 +60,7 @@ Visual Studio 2015(Profesional)で作成しています。C#のVersionは 6.0になります。
 - [5.Database Access](https://github.com/YShimon/CSharpSample/wiki/5.-Database-Access)
 - Generics
 - Dependency Property
-- Custum Attribute  
+- [11. Custum Attribute](https://github.com/YShimon/CSharpSample/wiki/11.-Custum-Attribute)
 - Design Pattern  
 
 ## Licence
