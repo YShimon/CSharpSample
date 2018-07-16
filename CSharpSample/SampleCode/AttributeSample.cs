@@ -45,6 +45,10 @@ namespace CSharpSample.SampleCode
                     Sample03();
                     break;
 
+                case 4:
+                    Sample04();
+                    break;
+
                 default:
                     break;
             }
@@ -83,6 +87,29 @@ namespace CSharpSample.SampleCode
             (Enum.GetValues(typeof(SampleConstants.NumberJP)) as IEnumerable<SampleConstants.NumberJP>)
                 .ForEach(x => { Console.WriteLine($"\t\t{x.DisplayName()}"); });
             Console.WriteLine("End   : Attribute.Sample03()");
+        }
+
+        /// <summary>
+        /// Sample 04(Attributesの利用例)
+        /// Class<T>で定義したクラスTのDisplay名称を取得する
+        /// </summary>
+        private void Sample04()
+        {
+            Console.WriteLine("Start : Attribute.Sample04()");
+
+            var sg = new SampleGenerics<SampleModel>();
+            sg.GetPropertyAttribute();
+
+            foreach (var n in typeof(SampleModel).GetProperties())
+            {
+                foreach (var m in n.GetCustomAttributes(typeof(SampleAttribute), false))
+                {
+                    Console.WriteLine($"\t\tCustomAttributeの作者は、{((SampleAttribute)m).Author}です");
+                    Console.WriteLine($"\t\tCustomAttributeの所属は、{((SampleAttribute)m).Affiliation}です");
+                }
+            }
+
+            Console.WriteLine("End   : Attribute.Sample04()");
         }
 
         /// <summary>
