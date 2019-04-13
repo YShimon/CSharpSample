@@ -130,13 +130,19 @@ namespace CSharpSample.SampleCode
         /// </summary>
         /// <param name="array">数値配列</param>
         /// <param name="predicate">述語(条件指定デリゲート)</param>
-        /// <returns></returns>
+        /// <returns>述語(条件指定デリゲート)により選別されたコレクション</returns>
         private IEnumerable<int> Select(IEnumerable<int> array, Func<int, bool> predicate) => array.Where(x => predicate(x));
 
+        /// <summary>
+        /// 条件に沿ってコレクション生成
+        /// </summary>
+        /// <param name="type">コレクション種別(0:=偶数,1:=10より大きい…等)</param>
+        /// <returns>コレクション</returns>
         private Func<int, bool> BuildFunc(int type)
         {
             Func<int, bool> func = null;
-            switch(type)
+
+            switch (type)
             {
                 case 0:
                     func = (x) => { return x % 2 == 0; };
@@ -150,6 +156,7 @@ namespace CSharpSample.SampleCode
                 default:
                     break;
             }
+
             return func;
         }
     }
