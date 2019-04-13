@@ -1,19 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CVL.Extentions;
 
 namespace CSharpSample.SampleCode.Attributes
 {
+    /// <summary>
+    /// ジェネリクスクラスサンプル
+    /// </summary>
+    /// <typeparam name="T">サンプル型</typeparam>
     public class SampleGenerics<T>
     {
         /// <summary>
         /// Sample Property
         /// </summary>
         public T SampleProperty { get; set; }
-
 
         /// <summary>
         /// Genericsクラスで定義されたプロパティ取得例

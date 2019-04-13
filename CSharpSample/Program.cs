@@ -7,7 +7,6 @@
 namespace CSharpSample
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using DesignPattern.Factory;
 
     /// <summary>
@@ -25,43 +24,17 @@ namespace CSharpSample
             {
                 if (args.Length != 2) { throw new Exception(); }
 
-                int sectionNo = 0;
-                int exampleNo = 0;
-                int.TryParse(args[0], out sectionNo);
-                int.TryParse(args[1], out exampleNo);
+                int.TryParse(args[0], out int sectionNo);
+                int.TryParse(args[1], out int exampleNo);
 
                 // Sample Codeの呼び出しと実行
                 var sample = SampleFactory.Instance.Create(sectionNo: sectionNo);
                 sample.Do(exampleNo: exampleNo);
-
-                // Temporary Sample Code
-                TmpTestCode();
             }
             catch
             {
                 Console.WriteLine("Program Unsuccessfuly Finished");
             }
-        }
-
-        /// <summary>
-        /// 一時的なサンプルコード（いづれ削除）
-        /// </summary>
-        private static void TmpTestCode()
-        {
-            //// コマンドパターンサンプル
-            // var receiver = new ConcreateReceiver();
-            // var invoker = new Invoker();
-            // var commands = new ICVLCommand[5];
-            // for (int i = 0; i < commands.Length; i++)
-            // {
-            //    commands[i] = new ConcreateCommandA(i);
-            //    commands[i].SetReciever(receiver);
-            //    invoker.AddCommand(commands[i]);
-            // }
-
-            // invoker.Execute();
-            // invoker.UndoCommand();
-            // invoker.Execute();
         }
     }
 }

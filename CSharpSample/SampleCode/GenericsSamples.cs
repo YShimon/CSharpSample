@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CSharpSample.DesignPattern.Factory;
 using CVL.Extentions;
 
@@ -131,13 +129,6 @@ namespace CSharpSample.SampleCode
     /// </summary>
     public class GenericsSamples : ISamplePractitioner
     {
-        public class InnerClass
-        {
-            public string StringProperty { get; set; } = "String Property";
-
-            public int IntProperty { get; set; } = -1;
-        }
-
         /// <summary>
         /// コンストラクタ
         /// </summary>
@@ -210,6 +201,11 @@ namespace CSharpSample.SampleCode
             GetProperties(innerClass).ForEach(x => Console.WriteLine($"Property Name={x.Key}, Value={x.Value}"));
         }
 
+        /// <summary>
+        /// インスタンスのプロパティをDictionaryに変換して取得
+        /// </summary>
+        /// <param name="instance">インスタンス</param>
+        /// <returns>Dictionary(key=PropertyName, Value=Property Value)</returns>
         private Dictionary<string, string> GetProperties(object instance)
         {
             var propnames = instance.GetType().GetProperties();
@@ -217,11 +213,33 @@ namespace CSharpSample.SampleCode
             return properties;
         }
 
+        /// <summary>
+        /// インスタンスのプロパティをDictionaryに変換して取得
+        /// </summary>
+        /// <typeparam name="T">型</typeparam>
+        /// <param name="instance">インスタンス</param>
+        /// <returns>Dictionary(key=PropertyName, Value=Property Value)</returns>
         private Dictionary<string, string> GetPropertiesByGenerics<T>(T instance)
         {
             var propnames = instance.GetType().GetProperties();
             var properties = propnames.ToDictionary(x => x.Name, y => y.GetValue(instance).ToString());
             return properties;
+        }
+
+        /// <summary>
+        /// InnerClass(ジェネリクスサンプルに利用。サンプルクラスのため特に意味はない)
+        /// </summary>
+        public class InnerClass
+        {
+            /// <summary>
+            /// StringProperty（サンプルのプロパティで特に意味はない）
+            /// </summary>
+            public string StringProperty { get; set; } = "String Property";
+
+            /// <summary>
+            /// IntProperty(サンプルのプロパティで特に意味はない)
+            /// </summary>
+            public int IntProperty { get; set; } = -1;
         }
     }
 }

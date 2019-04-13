@@ -1,19 +1,13 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="CVLExtensions.cs" company="CVLab">
-//      Copyright(c) cv-lab.com.All rights reserved.
-// </copyright>
-//-----------------------------------------------------------------------
-
-namespace CVL.Extentions
+﻿namespace CVL.Extentions
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
 
     /// <summary>
     /// 拡張メソッド
+    /// TODO:拡張メソッドは移設する
+    /// TODO:namespace変更
     /// </summary>
     public static class CVLExtensions
     {
@@ -28,6 +22,12 @@ namespace CVL.Extentions
             foreach (var item in sequence) { action(item); }
         }
 
+        /// <summary>
+        /// 属性の表示名称(Display)を取得
+        /// </summary>
+        /// <typeparam name="T">表示する型T</typeparam>
+        /// <param name="value">表示するプロパティ</param>
+        /// <returns>表示名称</returns>
         public static string DisplayName<T>(this T value)
         {
             var fieldInfo = value.GetType().GetField(value.ToString());

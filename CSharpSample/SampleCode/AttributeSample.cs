@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using CSharpSample.DesignPattern.Factory;
 using CSharpSample.SampleCode.Attributes;
-using System.Collections.Generic;
-using CVL.Extentions;
 using CSharpSample.SampleCode.Constants;
+using CVL.Extentions;
 
 namespace CSharpSample.SampleCode
 {
@@ -57,6 +57,25 @@ namespace CSharpSample.SampleCode
         }
 
         /// <summary>
+        /// Custom Attributeを表示する例
+        /// </summary>
+        /// <remarks>typeof(...).GetMethods()を利用しているので、このMethodはpublicである必要があります</remarks>
+        [Sample(Author = "Shimon", Affiliation = "CVLab.com")]
+        public void CustomAttribute()
+        {
+            Console.WriteLine("\tこのMethod CustomeAttributeには、[Sample]のCustom Attributeが設定されています");
+            Console.WriteLine("\t\t実行時に属性(Author,Affiliation)が表示されます");
+            foreach (var n in typeof(AttributeSample).GetMethods())
+            {
+                foreach (var m in n.GetCustomAttributes(typeof(SampleAttribute), false))
+                {
+                    Console.WriteLine($"\t\tCustomAttributeの作者は、{((SampleAttribute)m).Author}です");
+                    Console.WriteLine($"\t\tCustomAttributeの所属は、{((SampleAttribute)m).Affiliation}です");
+                }
+            }
+        }
+
+        /// <summary>
         /// Sample 01(定義済みAttributesの例)
         /// </summary>
         private void Sample01()
@@ -91,7 +110,7 @@ namespace CSharpSample.SampleCode
 
         /// <summary>
         /// Sample 04(Attributesの利用例)
-        /// Class<T>で定義したクラスTのDisplay名称を取得する
+        /// Classで定義したクラスTのDisplay名称を取得する
         /// </summary>
         private void Sample04()
         {
@@ -135,25 +154,6 @@ namespace CSharpSample.SampleCode
             Console.WriteLine("\t\tこの属性は、コンパイラが利用します");
             Console.WriteLine("\t\tコンパイル時にWarnningが表示されます");
             Console.WriteLine("\t\t「互換のために残しているが、新規に呼び出すべきではない」のような場合にこの属性を利用します");
-        }
-
-        /// <summary>
-        /// Custom Attributeを表示する例
-        /// </summary>
-        /// <remarks>typeof(...).GetMethods()を利用しているので、このMethodはpublicである必要があります</remarks>
-        [Sample(Author = "Shimon", Affiliation = "CVLab.com")]
-        public void CustomAttribute()
-        {
-            Console.WriteLine("\tこのMethod CustomeAttributeには、[Sample]のCustom Attributeが設定されています");
-            Console.WriteLine("\t\t実行時に属性(Author,Affiliation)が表示されます");
-            foreach (var n in typeof(AttributeSample).GetMethods())
-            {
-                foreach (var m in n.GetCustomAttributes(typeof(SampleAttribute), false))
-                {
-                    Console.WriteLine($"\t\tCustomAttributeの作者は、{((SampleAttribute)m).Author}です");
-                    Console.WriteLine($"\t\tCustomAttributeの所属は、{((SampleAttribute)m).Affiliation}です");
-                }
-            }
         }
     }
 }
