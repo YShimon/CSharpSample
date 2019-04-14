@@ -79,10 +79,9 @@
     <Compile Include="Common\Types\Person.cs" />
     <Compile Include="Common\Types\TypeIN.cs" />
     <Compile Include="Common\Types\TypeOut.cs" />
-    <Compile Include="DataFactory\BaseSampleData.cs" />
-    <Compile Include="DataFactory\DataFactory.cs" />
-    <Compile Include="DataFactory\SampleData001.cs" />
-    <Compile Include="DataFactory\SampleData002.cs" />
+    <Compile Include="Common\Types\BaseSampleData.cs" />
+    <Compile Include="Common\Types\SampleData001.cs" />
+    <Compile Include="Common\Types\SampleData002.cs" />
     <Compile Include="DesignPattern\Command\ConcreateCommand.cs" />
     <Compile Include="DesignPattern\Command\ConcreateReceiver.cs" />
     <Compile Include="DesignPattern\Command\ICVLCommand.cs" />
@@ -101,7 +100,7 @@
     <Compile Include="SampleCode\DependancyProperties.cs" />
     <Compile Include="SampleCode\Entity\HouseholdAccount.cs" />
     <Compile Include="SampleCode\GenericsSamples.cs" />
-    <Compile Include="SampleCode\LinqToObjectSample.cs" />
+    <Compile Include="SampleCode\Linq\LinqSample.cs" />
     <Compile Include="SampleCode\ManagingProgramFlow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -113,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common\Interfaces\" />
+    <Folder Include="DataFactory\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
