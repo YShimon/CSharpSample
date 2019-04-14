@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CSharpSample.Common.Types;
 using CSharpSample.DesignPattern.Factory;
 using CVL.Extentions;
 
@@ -19,109 +20,6 @@ namespace CSharpSample.SampleCode
         /// <param name="input">入力データ</param>
         /// <returns>出力データ</returns>
         TO DoSomething(TI input);
-    }
-
-    /// <summary>
-    /// Genericsサンプルで利用するクラス1(TypeIn:入力されるクラスとして用意)
-    /// </summary>
-    public class TypeIN
-    {
-        /// <summary>
-        /// コンストラクタ
-        /// </summary>
-        public TypeIN()
-        {
-            Console.WriteLine("Constructor : TypeIN");
-        }
-    }
-
-    /// <summary>
-    /// Genericsサンプルで利用するクラス1(TypeOut:出力されるくらすとして用意)
-    /// </summary>
-    public class TypeOut
-    {
-        /// <summary>
-        /// コンストラクタ
-        /// </summary>
-        public TypeOut()
-        {
-            Console.WriteLine("Constructor : TypeOut");
-        }
-    }
-
-    /// <summary>
-    /// ジェネリックテンプレートサンプルクラス01
-    /// </summary>
-    public class GenericsInterfaceSample01 : IGenerics<TypeIN, TypeOut>
-    {
-        /// <summary>
-        /// クラスのインスタンス
-        /// </summary>
-        private GenericsInterfaceSample01 instance = null;
-
-        /// <summary>
-        /// インスタンス取得
-        /// </summary>
-        /// <returns>GenericsInterfaceSample01のインスタンス</returns>
-        public GenericsInterfaceSample01 GetInstatnce()
-        {
-            if (instance == null)
-            {
-                instance = new GenericsInterfaceSample01();
-            }
-
-            return instance;
-        }
-
-        /// <summary>
-        /// インターフェイスの実装
-        /// </summary>
-        /// <param name="input">入力データ</param>
-        /// <returns>出力データ</returns>
-        public TypeOut DoSomething(TypeIN input)
-        {
-            Console.WriteLine("GenericsInterface.DoSomething()");
-            return new TypeOut();
-        }
-    }
-
-    /// <summary>
-    /// ジェネリックテンプレートサンプルクラス01
-    /// </summary>
-    /// <typeparam name="TI">入力用クラス</typeparam>
-    /// <typeparam name="TO">出力用クラス</typeparam>
-    public class GenericsInterfaceSample02<TI, TO> : IGenerics<TI, TO>
-    {
-        /// <summary>
-        /// インスタンス
-        /// </summary>
-        private GenericsInterfaceSample02<TI, TO> Instance { get; set; } = new GenericsInterfaceSample02<TI, TO>();
-
-        /// <summary>
-        /// インスタンスを取得
-        /// </summary>
-        /// <returns>GenericsInterfaceSample02のインスタンス</returns>
-        public GenericsInterfaceSample02<TI, TO> GetInstatnce()
-        {
-            if (Instance == null)
-            {
-                Instance = new GenericsInterfaceSample02<TI, TO>();
-            }
-
-            return Instance;
-        }
-
-        /// <summary>
-        /// インターフェイスの実装
-        /// </summary>
-        /// <param name="input">入力用クラス</param>
-        /// <returns>出力用クラス</returns>
-        public TO DoSomething(TI input)
-        {
-            Console.WriteLine($"class name of TI : {typeof(TI).Name}");
-            Console.WriteLine($"class name of TO : {typeof(TO).Name}");
-            return default(TO);
-        }
     }
 
     /// <summary>
