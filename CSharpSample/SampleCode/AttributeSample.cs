@@ -147,13 +147,13 @@ namespace CSharpSample.SampleCode
         /// ビルド時に警告が表示されるMethod
         /// [Obsolete("")]を利用した例
         /// </summary>
-        [Obsolete("Obsolete属性により、警告表示を行っています")]
+        /// <remarks>
+        /// この属性は、コンパイラが利用し、コンパイル時に警告(CS0618)が表示されます
+        /// 「互換のために残しているが、新規に呼び出すべきではない」のような場合にこの属性を利用します
+        /// </remarks>
+        [Obsolete("Obsolete属性の警告表示サンプルです")]
         private void ConditionalObsolete()
         {
-            Console.WriteLine("\tMethod ConditionalObsoleteは、[Obsolete]のAttributeが付いてます");
-            Console.WriteLine("\t\tこの属性は、コンパイラが利用します");
-            Console.WriteLine("\t\tコンパイル時にWarnningが表示されます");
-            Console.WriteLine("\t\t「互換のために残しているが、新規に呼び出すべきではない」のような場合にこの属性を利用します");
         }
     }
 }
