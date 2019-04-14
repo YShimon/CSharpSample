@@ -13,25 +13,22 @@ C# Sample Codeのサンプルコード(コンソールアプリケーション)です。
 - Dapper(軽量ORマッパー)  
 
 ## 実行方法    
-0. 実行例  
+0. 実行方法  
   CSharpSample.exe **[Section Number]** **[Sample Number]**  
 
-1.  引数について  
-
-    **第1引数**は、**Section Number**です。   
-    
-    Sample Section Numberは下記のようになります。  
+1.  引数について     
+    第1引数の**[Section Number]**には下記が指定可能です。  
     <!-- **1 ：Program Flow Management** -->  
     <!-- **5 ：Database Access** -->  
-    **4 ：Linq**  
+    **[4 ：Linq](https://github.com/YShimon/CSharpSample/wiki/Linq)**  
     <!-- **8 ：Delegate** -->  
-    **9 ：Generics**  
-    **10：DependencyProperty**  
-    **11：Attribute**  
+    <!-- **9 ：Generics**-->  
+    <!-- **10：DependencyProperty**-->  
+    <!-- **11：Attribute**-->  
     
-    が定義されています。  
     
-    **第2引数**は、個別の**Sample Number**です。
+    第2引数の**Sample Number**は**[Section Number]**により  
+    異なります。詳細は「コード解説」を参照して下さい。  
 
 2. Visual Studioから実行する場合  
 
@@ -50,6 +47,7 @@ C# Sample Codeのサンプルコード(コンソールアプリケーション)です。
     bin/Debug(または、Release)に移動します。  
     ***.exeに上記で説明した引数2つを指定し、実行します。  
 
+<!--
 ## コード解説  
 - [1.Program Flow Management](https://github.com/YShimon/CSharpSample/wiki/1.-Program-Flow-Management)  
 - [4.Linq to Object](https://github.com/YShimon/CSharpSample/wiki/4.-Linq-to-Object)
@@ -58,3 +56,4 @@ C# Sample Codeのサンプルコード(コンソールアプリケーション)です。
 - Dependency Property
 - [11. Custum Attribute](https://github.com/YShimon/CSharpSample/wiki/11.-Custum-Attribute)
 - Design Pattern  
+-->
