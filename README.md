@@ -1,23 +1,18 @@
 # C# Sample Code
 
 C# Sample Codeのサンプルコード(コンソールアプリケーション)です。  
-C#の色々な機能のサンプルを掲載しています。
-Visual Studio 2015(Profesional)で作成しています。C#のVersionは 6.0になります。  
+
 
 ## 開発時の環境
 - Windows 10  
-- Visual Studio 2015(Profesional)
+- Visual Studio 2017(Community)
 
 
 ## 依存(導入Nuget Package等)
 - Stype Cop  
 - Dapper(軽量ORマッパー)  
 
-## 実行方法  
-  ** (ビルドするには、Visual Studio 2015が必要になります。  )**  
-  このアプリケーションは、コンソールアプリケーションとして作成されており、  
-  **コマンドライン引数が2個**必要となります。     
-  
+## 実行方法    
 0. 実行例  
   CSharpSample.exe **[Section Number]** **[Sample Number]**  
 
@@ -26,9 +21,10 @@ Visual Studio 2015(Profesional)で作成しています。C#のVersionは 6.0になります。
     **第1引数**は、**Section Number**です。   
     
     Sample Section Numberは下記のようになります。  
-    **1 ：Program Flow Management**  
-    **5 ：Database Access**  
-    **8 ：Delegate**  
+    <!-- **1 ：Program Flow Management** -->  
+    <!-- **5 ：Database Access** -->  
+    **4 ：Linq**  
+    <!-- **8 ：Delegate** -->  
     **9 ：Generics**  
     **10：DependencyProperty**  
     **11：Attribute**  
@@ -62,9 +58,3 @@ Visual Studio 2015(Profesional)で作成しています。C#のVersionは 6.0になります。
 - Dependency Property
 - [11. Custum Attribute](https://github.com/YShimon/CSharpSample/wiki/11.-Custum-Attribute)
 - Design Pattern  
-
-## Licence
-特に考えてない  
-
-## Author
-Y.Shimone
