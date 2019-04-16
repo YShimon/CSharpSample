@@ -7,7 +7,7 @@ using CSharpSample.DesignPattern.Factory;
 namespace CSharpSample.SampleCode.Linq
 {
     /// <summary>
-    /// Linq Sample Class
+    /// Linq Sample Class 
     /// </summary>
     public class LinqSample : ISamplePractitioner
     {
