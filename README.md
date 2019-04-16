@@ -29,7 +29,8 @@ C# Sample Codeのサンプルコード(コンソールアプリケーション)です。
     
     第2引数の**Sample Number**は**[Section Number]**により  
     異なります。詳細は「コード解説」を参照して下さい。  
-
+　
+<!-- 
 2. Visual Studioから実行する場合  
 
     3. Project Propertyの指定  
@@ -46,6 +47,7 @@ C# Sample Codeのサンプルコード(コンソールアプリケーション)です。
     Dosプロンプト(または、PowerShell)を起動します。  
     bin/Debug(または、Release)に移動します。  
     ***.exeに上記で説明した引数2つを指定し、実行します。  
+-->
 
 <!--
 ## コード解説  
