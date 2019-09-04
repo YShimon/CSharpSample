@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="Common\Types\GenericsInterfaceSample01.cs" />
     <Compile Include="Common\Types\GenericsInterfaceSample02.cs" />
+    <Compile Include="Common\Types\LinqSampleType.cs" />
     <Compile Include="Common\Types\Person.cs" />
     <Compile Include="Common\Types\TypeIN.cs" />
     <Compile Include="Common\Types\TypeOut.cs" />
