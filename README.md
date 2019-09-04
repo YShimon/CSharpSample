@@ -1,11 +1,11 @@
 # C# Sample Code
 
-C# Sample Codeのサンプルコード(コンソールアプリケーション)です。  
+動作可能なC# Sample Codeのサンプルコード(コンソールアプリケーション)。  
 
 
 ## 開発時の環境
 - Windows 10  
-- Visual Studio 2017(Community)
+- Visual Studio 2019(Community)
 
 
 ## 依存(導入Nuget Package等)
@@ -17,7 +17,7 @@ C# Sample Codeのサンプルコード(コンソールアプリケーション)です。
   CSharpSample.exe **[Section Number]** **[Sample Number]**  
 
 1.  引数について     
-    第1引数の**[Section Number]**には下記が指定可能です。  
+    第1引数の**Section Number**には下記が指定可能です。  
     <!-- **1 ：Program Flow Management** -->  
     <!-- **5 ：Database Access** -->  
     **[4 ：Linq](https://github.com/YShimon/CSharpSample/wiki/Linq)**  
@@ -27,7 +27,7 @@ C# Sample Codeのサンプルコード(コンソールアプリケーション)です。
     <!-- **11：Attribute**-->  
     
     
-    第2引数の**Sample Number**は**[Section Number]**により  
+    第2引数の**Sample Number**は**Section Number**により  
     異なります。詳細は「コード解説」を参照して下さい。  
 　
 <!-- 
