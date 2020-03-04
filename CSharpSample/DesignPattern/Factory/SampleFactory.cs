@@ -12,10 +12,11 @@ namespace CSharpSample.DesignPattern.Factory
         /// <summary>
         /// コンストラクタ
         /// </summary>
+        /// <remarks>TODO:正式版Factory Methodに変更する</remarks>
         private SampleFactory()
         {
             SamplePractitionerCache.Add(1, ManagingProgramFlow.GetInstance());
-            SamplePractitionerCache.Add(4, LinqSample.GetInstance());
+            SamplePractitionerCache.Add(4, LinqSample.Instance);
             SamplePractitionerCache.Add(8, DelegateSample.GetInstance());
             SamplePractitionerCache.Add(9, GenericsSamples.GetInstance());
             SamplePractitionerCache.Add(10, DependancyProperties.GetInstance());

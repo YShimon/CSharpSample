@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CSharpSample.Common.Types;
 using CSharpSample.DesignPattern.Factory;
+using CVL.Extentions;
 
 namespace CSharpSample.SampleCode.Linq
 {
@@ -11,6 +12,11 @@ namespace CSharpSample.SampleCode.Linq
     /// </summary>
     public class LinqSample : ISamplePractitioner
     {
+        /// <summary>
+        /// 唯一のインスタンス(Singleton)
+        /// </summary>
+        private static LinqSample instance = null;
+
         /// <summary>
         /// サンプルデータ001
         /// </summary>
@@ -37,49 +43,61 @@ namespace CSharpSample.SampleCode.Linq
         };
 
         /// <summary>
-        /// Singleton
-        /// TOOD:初期化修正
-        /// </summary>
-        private static LinqSample Instance { get; set; } = new LinqSample();
-
-        /// <summary>
         /// Singleton Instance取得
         /// </summary>
         /// <returns>LinqToObjectSample SingletonのInstance</returns>
-        public static LinqSample GetInstance() => Instance;
+        public static LinqSample Instance => instance ?? (instance = new LinqSample());
 
         /// <summary>
         /// サンプルコードを実行
+        /// TODO:Enumにする
         /// </summary>
         /// <param name="exampleNo">サンプル番号</param>
         /// <returns>実行ステータス</returns>
         public bool Do(int exampleNo)
         {
-            switch (exampleNo)
+            switch ((LinqSampleType)exampleNo)
             {
-                // ElementAt
-                case 1:
+                // --------------------------------------------------
+                // 要素の取得（単一）
+                // --------------------------------------------------
+                case LinqSampleType.ElementAt:
                     ElementAt();
                     break;
 
-                // ElementAtOrDefault
-                case 2:
+                case LinqSampleType.ElementAtOrDefault:
                     ElementAtOrDefault();
                     break;
 
-                // First
-                case 3:
+                case LinqSampleType.First:
                     First();
                     break;
 
-                // FirstOrDefault
-                case 4:
+                case LinqSampleType.FirstOrDefault:
                     FirstOrDefault();
                     break;
 
-                // Last
-                case 5:
+                case LinqSampleType.Last:
                     Last();
+                    break;
+
+                case LinqSampleType.LastOrDefault:
+                    LastOrDefault();
+                    break;
+
+                case LinqSampleType.Single:
+                    Single();
+                    break;
+
+                case LinqSampleType.SingleOrDefault:
+                    SingleOrDefault();
+                    break;
+
+                // --------------------------------------------------
+                // 要素の取得（複数）
+                // --------------------------------------------------
+                case LinqSampleType.Where:
+                    Where();
                     break;
 
                 default:
@@ -90,48 +108,14 @@ namespace CSharpSample.SampleCode.Linq
         }
 
         /// <summary>
-        /// ElementAtのサンプル 要素の取得（単一）
+        /// これから消えていくメソッド
         /// </summary>
         private void Sample()
         {
 #if false
-            // LastOrDefault
-            Console.WriteLine("\nsampleData.LastOrDefault()で取得した値を表示します。");
-            Console.WriteLine($"sampleData.LastOrDefault().Idの値={sampleData001.LastOrDefault().Id}");
-            Console.WriteLine($"sampleData.LastOrDefault(x => x.LinkId == 10).Idの値={sampleData001.LastOrDefault(x => x?.LinkId == 10).Id}");
-
-            // Single
-            Console.WriteLine("\nsampleData.Single()で取得した値を表示します。");
-            Console.WriteLine($"sampleData.Single(x => x?.Id == 1).LinkIdの値={sampleData001.Single(x => x?.Id == 1).LinkId}");
-            try
-            {
-                Console.WriteLine($"sampleData.Single(x => x?.LinkId == 10).Idの値={sampleData001.Single(x => x?.LinkId == 10).Id}");
-            }
-            catch
-            {
-                Console.WriteLine("sampleData.Single(x => x?.LinkId == 10).Idは、複数の要素が含まれるので、Exceptionが発生します。");
-            }
-
-            // SingleOrDefault
-            Console.WriteLine("\nsampleData.SingleOrDefault()で取得した値を表示します。");
-            Console.WriteLine($"sampleData.SingleOrDefault(x => x?.Id == 1).LinkIdの値={sampleData001.SingleOrDefault(x => x?.Id == 1).LinkId}");
-            try
-            {
-                Console.WriteLine($"sampleData.SingleOrDefault(x => x?.LinkId == 10).Idの値={sampleData001.SingleOrDefault(x => x?.LinkId == 10).Id}");
-            }
-            catch
-            {
-                Console.WriteLine("sampleData.SingleOrDefault(x => x?.LinkId == 10).Idは、複数の要素が含まれるので、Exceptionが発生します。");
-            }
-
             // --------------------------------------------------
             // 要素の取得（複数）
             // --------------------------------------------------
-            // Whereの動作(sampleDataのIdのリストを取得 SampleData001がnullでない要素のみを取得)
-            Console.WriteLine("\nsampleData.Where(x => x != null)で取得した値を表示します 。");
-            sampleData001
-                .Where(x => x != null)
-                .ForEach(x => { Console.WriteLine($"sampleDataのIdの値:{x?.Id}"); });
 
             // Distinct
             Console.WriteLine("\nDistinct()による重複のない要素を表示します。");
@@ -448,102 +432,262 @@ namespace CSharpSample.SampleCode.Linq
 #endif
         }
 
+        // --------------------------------------------------
+        // 要素の取得（単一）
+        // --------------------------------------------------
+
         /// <summary>
-        /// 要素の取得（単一）
-        /// ElementAtのサンプル
+        /// 要素の取得（単一） ElementAtのサンプル
         /// </summary>
         private void ElementAt()
         {
             // コレクションsaampleDataからインデックスを指定して値を取得する
             // インデックスが範囲外の場合は、例外発生（例外を発生させたくない場合は、ElementAtOrDefaultを利用する）
+            var elementAt0 = sampleData001.ElementAt(0).Id;
+            var elementAt1 = sampleData001.ElementAt(1).Id;
+
+            // 取り扱いデータを表示します
+            ShowSample001();
+
+            // 結果を表示します
             Console.WriteLine("------------------------------");
             Console.WriteLine("Enumerable.ElementAtのサンプルです");
             Console.WriteLine("------------------------------");
-            Console.WriteLine($"\tsampleData.ElementAt(0).Idの値 = {sampleData001.ElementAt(0).Id}");
-            Console.WriteLine($"\tsampleData.ElementAt(1)の値    = {sampleData001.ElementAt(1).Id}");
-            Console.WriteLine(" ");
+            Console.WriteLine($"\tsampleData.ElementAt(0).Id = {elementAt0}");
+            Console.WriteLine($"\tsampleData.ElementAt(1)    = {elementAt1}");
+            Console.WriteLine($"{Environment.NewLine}");
             Console.WriteLine("インデックスが範囲外(sampleData001.ElementAt(10))の値を取得しようとすると、例外が発生します");
-            Console.WriteLine(" ");
+            Console.WriteLine($"{Environment.NewLine}");
 
             // 配列が範囲外のため、例外が発生します
-            var sample = sampleData001.ElementAt(10);
+            _ = sampleData001.ElementAt(10);
         }
 
         /// <summary>
-        /// 要素の取得（単一）
-        /// ElementAtOrDefaultのサンプル
+        /// 要素の取得（単一） ElementAtOrDefaultのサンプル
         /// </summary>
         private void ElementAtOrDefault()
         {
             // コレクションsaampleDataからインデックスを指定して値を取得する
             // インデックスが範囲外の場合は、規定値を戻す
+            var elementAtOrDefault00 = sampleData001.ElementAtOrDefault(0).Id;
+            var elementAtOrDefault01 = sampleData001.ElementAtOrDefault(1);
+            var elementAtOrDefault10 = sampleData001.ElementAtOrDefault(10);
+
+            // 取り扱いデータを表示します
+            ShowSample001();
+
+            // 結果を表示します
             Console.WriteLine("------------------------------");
             Console.WriteLine("Enumerable.ElementAtOrDefaultのサンプルです");
             Console.WriteLine("------------------------------");
-            Console.WriteLine($"\tsampleData.ElementAtOrDefault(0).Idの値 = {sampleData001.ElementAtOrDefault(0).Id}");
-            Console.WriteLine($"\tsampleData.ElementAtOrDefault(1)の値    = {sampleData001.ElementAtOrDefault(1)}");
-            Console.WriteLine(" ");
+            Console.WriteLine($"\tsampleData.ElementAtOrDefault(0).Id = {elementAtOrDefault00}");
+            Console.WriteLine($"\tsampleData.ElementAtOrDefault(1)    = {elementAtOrDefault01}");
+            Console.WriteLine($"{Environment.NewLine}");
             Console.WriteLine("インデックスが範囲外(sampleData001.ElementAtOrDefault(10))の値を取得しようとすると、Nullが取得されます");
-            Console.WriteLine(" ");
-            Console.WriteLine($"\tsampleData.ElementAtOrDefault(10)の値   = {sampleData001.ElementAtOrDefault(10)}");
-            Console.WriteLine(" ");
+            Console.WriteLine($"{Environment.NewLine}");
+            Console.WriteLine($"\tsampleData.ElementAtOrDefault(10)   = {elementAtOrDefault10}");
+            Console.WriteLine($"{Environment.NewLine}");
         }
 
         /// <summary>
-        /// 要素の取得（単一）
-        /// Firstのサンプル
+        /// 要素の取得（単一） Firstのサンプル
         /// </summary>
         private void First()
         {
             // コレクション先頭の値を取得する(ラムダ式により条件設定可能)
             // コレクション要素数が0の場合は、例外発生（例外を発生させたくない場合は、FirstOrDefaultを利用する）
+            var first0 = sampleData001.First().Id;
+            var first1 = sampleData001.First(x => x.Id > 2).Id;
+            var first2 = sampleData001.First(x => x.LinkId < 10).Id;
+
+            // 取り扱いデータを表示します
+            ShowSample001();
+
+            // 結果を表示します
             Console.WriteLine("------------------------------");
             Console.WriteLine("Enumerable.First()のサンプルです");
             Console.WriteLine("------------------------------");
-            Console.WriteLine($"\tsampleData.First().Idの値 = {sampleData001.First().Id}");
-            Console.WriteLine(" ");
+            Console.WriteLine($"\tsampleData.First().Id = {first0}");
+            Console.WriteLine($"{Environment.NewLine}");
             Console.WriteLine("Firstにラムダ式を設定することにより条件設定が可能です");
-            Console.WriteLine(" ");
-            Console.WriteLine($"\tsampleData.First(x => x.Id > 2).Idの値      = {sampleData001.First(x => x.Id > 2).Id}");
-            Console.WriteLine($"\tsampleData.First(x => x.LinkId < 10).Idの値 = {sampleData001.First(x => x.LinkId < 10).Id}");
-            Console.WriteLine(" ");
+            Console.WriteLine($"{Environment.NewLine}");
+            Console.WriteLine($"\tsampleData.First(x => x.Id > 2).Id      = {first1}");
+            Console.WriteLine($"\tsampleData.First(x => x.LinkId < 10).Id = {first2}");
+            Console.WriteLine($"{Environment.NewLine}");
         }
 
         /// <summary>
-        /// 要素の取得（単一）
-        /// FirstOrDefaultのサンプル
+        /// 要素の取得（単一） FirstOrDefaultのサンプル
         /// </summary>
         private void FirstOrDefault()
         {
             // コレクション先頭の値を取得する(ラムダ式により条件設定可能)
             // コレクション要素数が0の場合は、規定値(null)を戻す
+            var firstOrDefault0 = sampleData001.FirstOrDefault().Id;
+            var firstOrDefault1 = sampleData001.FirstOrDefault(x => x.Id > 2).Id;
+            var firstOrDefault2 = sampleData001.FirstOrDefault(x => x.Id < 10).Id;
+
+            // 取り扱いデータを表示します
+            ShowSample001();
+
+            // 結果を表示します
             Console.WriteLine("------------------------------");
             Console.WriteLine("Enumerable.FirstOrDefault()のサンプルです");
             Console.WriteLine("------------------------------");
-            Console.WriteLine($"\tsampleData.FirstOrDefault().Idの値={sampleData001.FirstOrDefault().Id}");
-            Console.WriteLine(" ");
+            Console.WriteLine($"\tsampleData.FirstOrDefault().Id = {firstOrDefault0}");
+            Console.WriteLine($"{Environment.NewLine}");
             Console.WriteLine("FirstOrDefaultにラムダ式を設定することにより条件設定が可能です");
-            Console.WriteLine(" ");
-            Console.WriteLine($"\tsampleData.FirstOrDefault(x => x.Id > 2).Idの値  = {sampleData001.FirstOrDefault(x => x.Id > 2).Id}");
-            Console.WriteLine($"\tsampleData.FirstOrDefault(x => x.Id < 10).Idの値 = {sampleData001.FirstOrDefault(x => x.Id < 10).Id}");
-            Console.WriteLine(" ");
+            Console.WriteLine($"{Environment.NewLine}");
+            Console.WriteLine($"\tsampleData.FirstOrDefault(x => x.Id > 2).Id  = {firstOrDefault1}");
+            Console.WriteLine($"\tsampleData.FirstOrDefault(x => x.Id < 10).Id = {firstOrDefault2}");
+            Console.WriteLine($"{Environment.NewLine}");
         }
 
         /// <summary>
-        /// 要素の取得（単一）
-        /// Lastのサンプル
+        /// 要素の取得（単一） Lastのサンプル
         /// </summary>
         private void Last()
         {
             // コレクション最後の値を取得する(ラムダ式により条件設定可能)
             // コレクション要素数が0の場合は、例外発生（例外を発生させたくない場合は、LastOrDefaultを利用する）
+            var last0 = sampleData001.Last().Id;
+            var last1 = sampleData001.Last(x => x?.LinkId == 10).Id;
+
+            // 取り扱いデータを表示します
+            ShowSample001();
+
+            // 結果を表示します
             Console.WriteLine("------------------------------");
             Console.WriteLine("Enumerable.Last()のサンプルです");
             Console.WriteLine("------------------------------");
             Console.WriteLine("\nsampleData.Last()で取得した値を表示します。");
-            Console.WriteLine($"\tsampleData.Last().Idの値={sampleData001.Last().Id}");
-            Console.WriteLine($"\tsampleData.Last(x => x.LinkId == 10).Idの値={sampleData001.Last(x => x?.LinkId == 10).Id}");
-            Console.WriteLine(" ");
+            Console.WriteLine($"\tsampleData.Last().Id                    = {last0}");
+            Console.WriteLine($"\tsampleData.Last(x => x.LinkId == 10).Id = {last1}");
+            Console.WriteLine($"{Environment.NewLine}");
+        }
+
+        /// <summary>
+        /// 要素の取得（単一） LastOrDefaultのサンプル
+        /// </summary>
+        private void LastOrDefault()
+        {
+            // コレクション最後の値を取得する(ラムダ式により条件設定可能)
+            // コレクション要素数が0の場合は、規定値(null)を戻す
+            var lastOrDefault0 = sampleData001.LastOrDefault().Id;
+            var lastOrDefault1 = sampleData001.LastOrDefault(x => x?.LinkId == 10).Id;
+
+            // 取り扱いデータを表示します
+            ShowSample001();
+
+            // 結果を表示します
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("Enumerable.LastOrDefault()のサンプルです");
+            Console.WriteLine("------------------------------");
+            Console.WriteLine($"\tsampleData.LastOrDefault().Id                    = {lastOrDefault0}");
+            Console.WriteLine($"\tsampleData.LastOrDefault(x => x.LinkId == 10).Id = {lastOrDefault1}");
+            Console.WriteLine($"{Environment.NewLine}");
+        }
+
+        /// <summary>
+        /// 要素の取得（単一） Singleのサンプル
+        /// </summary>
+        private void Single()
+        {
+            // コレクションから単一の値を取得する(ラムダ式により条件設定可能)
+            // 取得結果の要素数が1以外の場合は、例外発生
+            var single0 = sampleData001.Single(x => x?.Id == 1).LinkId;
+
+            // 取り扱いデータを表示します
+            ShowSample001();
+
+            // 結果を表示します
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("Enumerable.Single()のサンプルです");
+            Console.WriteLine("------------------------------");
+            Console.WriteLine($"\tsampleData.Single(x => x?.Id == 1).LinkId = {single0}");
+            Console.WriteLine($"{Environment.NewLine}");
+
+            // 要素数が複数のため、例外が発生します
+            _ = sampleData001.Single(x => x?.LinkId == 10).Id;
+        }
+
+        /// <summary>
+        /// 要素の取得（単一） SingleOrDefault
+        /// </summary>
+        private void SingleOrDefault()
+        {
+            // コレクションから単一の値を取得する(ラムダ式により条件設定可能)
+            var singleOrDefult1 = sampleData001.SingleOrDefault(x => x?.Id == 1).LinkId;
+
+            // 取得結果の要素数が0個の場合は、規定値(null)を戻す
+            var singleOrDefult2 = sampleData001.SingleOrDefault(x => x?.Id == 7);
+
+            // 取り扱いデータを表示します
+            ShowSample001();
+
+            // 結果を表示します
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("Enumerable.SingleOrDefault()のサンプルです");
+            Console.WriteLine("------------------------------");
+            Console.WriteLine($"\tsampleData.SingleOrDefault(x => x?.Id == 1).LinkId = {singleOrDefult1}");
+            Console.WriteLine($"\tsampleData.SingleOrDefault(x => x?.Id == 7)        = {singleOrDefult2}");
+            Console.WriteLine($"{Environment.NewLine}");
+
+            // 要素数が複数の場合、例外が発生します
+            _ = sampleData001.SingleOrDefault(x => x?.LinkId == 10).Id;
+        }
+
+        // --------------------------------------------------
+        // 要素の取得（複数）
+        // --------------------------------------------------
+
+        /// <summary>
+        /// 要素の取得（複数） Where
+        /// </summary>
+        private void Where()
+        {
+            // Whereの動作(nullでない要素のみを取得)
+            var where1 = sampleData001.Where(x => x != null);
+
+            // Whereの動作(Id==1とならない要素のみを取得)
+            var where2 = sampleData001.Where(x => x != null && x?.Id != 1);
+
+            // 取り扱いデータを表示します
+            ShowSample001();
+
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("Enumerable.Where()のサンプルです");
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("\nsampleData.Where(x => x != null)で取得した値を表示します 。");
+            where1.ForEach(x => { Console.WriteLine($"\tId = {x?.Id}, \t LinkId = {x?.LinkId}"); });
+            Console.WriteLine($"{Environment.NewLine}");
+            Console.WriteLine("\nsampleData.Where(x => x != null && x?.Id != 1)で取得した値を表示します 。");
+            where2.ForEach(x => { Console.WriteLine($"\tId = {x?.Id}, \t LinkId = {x?.LinkId}"); });
+            Console.WriteLine($"{Environment.NewLine}");
+        }
+
+        // --------------------------------------------------
+        // データ表示用
+        // --------------------------------------------------
+
+        /// <summary>
+        /// Sample001データをコンソールに表示
+        /// </summary>
+        private void ShowSample001()
+        {
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("入力データ(sample001)は下記になります");
+            Console.WriteLine("------------------------------");
+
+            sampleData001
+                .Select((x, y) => { return new { Data = x, Index = y }; })
+                .ForEach(x => 
+                {
+                    Console.WriteLine($"\t[{x.Index}] \tId:{x.Data?.Id}  \tLinkId:{x.Data?.LinkId}");
+                });
+
+            Console.WriteLine($"{Environment.NewLine}");
         }
     }
 }
