@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using CSharpSample.SampleCode;
-using CSharpSample.SampleCode.Linq;
 
 namespace CSharpSample.DesignPattern.Factory
 {
@@ -16,7 +15,6 @@ namespace CSharpSample.DesignPattern.Factory
         private SampleFactory()
         {
             SamplePractitionerCache.Add(1, ManagingProgramFlow.GetInstance());
-            SamplePractitionerCache.Add(4, LinqSample.Instance);
             SamplePractitionerCache.Add(8, DelegateSample.GetInstance());
             SamplePractitionerCache.Add(9, GenericsSamples.GetInstance());
             SamplePractitionerCache.Add(10, DependancyProperties.GetInstance());

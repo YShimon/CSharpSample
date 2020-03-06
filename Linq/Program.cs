@@ -1,26 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CSharpSample.Common.Types;
-using CSharpSample.DesignPattern.Factory;
-using CVL.Extentions;
+using Linq.Extentions;
+using Linq.Types;
 
-namespace CSharpSample.SampleCode.Linq
+namespace Linq
 {
-    /// <summary>
-    /// Linq Sample Class 
-    /// </summary>
-    public class LinqSample : ISamplePractitioner
+    class Program
     {
-        /// <summary>
-        /// 唯一のインスタンス(Singleton)
-        /// </summary>
-        private static LinqSample instance = null;
+        static void Main(string[] args)
+        {
+            // Unhandled Exceptionのハンドラ登録
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+
+            // サンプル番号の取得
+            var maxEnum = Enum.GetNames(typeof(LinqSampleType)).Length;
+            var sampleNo = args.Length == 0 ? maxEnum : args[0].ToIntOrDefault(0);
+            while (sampleNo == maxEnum)
+            {
+                Console.Write($"サンプル番号を入力して下さい(または、Ctr+Cでプログラムを終了します)[0-{maxEnum - 1}]:");
+                sampleNo = Console.ReadLine().ToIntOrDefault(maxEnum);
+
+                if (sampleNo == maxEnum)
+                {
+                    Console.WriteLine("Usage : Linq [SampleNumber]");
+                    Console.WriteLine("\tSampleNumber :=");
+                    Enum.GetNames(typeof(LinqSampleType))
+                        .Select((x, y) => { return new { Name = x, Index = y }; })
+                        .ForEach(x =>
+                        {
+                            Console.WriteLine($"\t\t{x.Index} => {x.Name}");
+                        });
+                    Console.WriteLine("");
+                }
+            }
+
+            // サンプルコードの実行
+            PerformSampleCode((LinqSampleType)sampleNo);
+        }
 
         /// <summary>
         /// サンプルデータ001
         /// </summary>
-        private IEnumerable<SampleData001> sampleData001 = new SampleData001[]
+        private static IEnumerable<SampleData001> sampleData001 = new SampleData001[]
         {
             new SampleData001() { Id = 1, LinkId = 10, },
             new SampleData001() { Id = 3, LinkId = 10, },
@@ -35,7 +57,7 @@ namespace CSharpSample.SampleCode.Linq
         /// <summary>
         /// サンプルデータ002
         /// </summary>
-        private IEnumerable<SampleData002> sampleData002 = new SampleData002[]
+        private readonly IEnumerable<SampleData002> sampleData002 = new SampleData002[]
         {
             new SampleData002 { LinkId = 5, Comment = "Comment(LinkId == 5)", },
             new SampleData002 { LinkId = 5, Comment = "Comment(LinkId != 7)", },
@@ -43,20 +65,43 @@ namespace CSharpSample.SampleCode.Linq
         };
 
         /// <summary>
-        /// Singleton Instance取得
+        /// UnhandledException例外ハンドラ
         /// </summary>
-        /// <returns>LinqToObjectSample SingletonのInstance</returns>
-        public static LinqSample Instance => instance ?? (instance = new LinqSample());
+        /// <param name="sender">送信元オブジェクト</param>
+        /// <param name="e">イベントパラメータ</param>
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            Console.WriteLine("[Unhandled Exception]Program Unsuccessfuly Finished");
+            Environment.Exit(-1);
+        }
+
+        /// <summary>
+        /// Sample001データをコンソールに表示
+        /// </summary>
+        private static void ShowSample001()
+        {
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("入力データ(sample001)は下記になります");
+            Console.WriteLine("------------------------------");
+
+            sampleData001
+                .Select((x, y) => { return new { Data = x, Index = y }; })
+                .ForEach(x =>
+                {
+                    Console.WriteLine($"\t[{x.Index}] \tId:{x.Data?.Id}  \tLinkId:{x.Data?.LinkId}");
+                });
+
+            Console.WriteLine($"{Environment.NewLine}");
+        }
 
         /// <summary>
         /// サンプルコードを実行
-        /// TODO:Enumにする
         /// </summary>
         /// <param name="exampleNo">サンプル番号</param>
         /// <returns>実行ステータス</returns>
-        public bool Do(int exampleNo)
+        private static bool PerformSampleCode(LinqSampleType exampleNo)
         {
-            switch ((LinqSampleType)exampleNo)
+            switch (exampleNo)
             {
                 // --------------------------------------------------
                 // 要素の取得（単一）
@@ -101,7 +146,7 @@ namespace CSharpSample.SampleCode.Linq
                     break;
 
                 default:
-                    break;
+                    throw new Exception("不正なサンプル番号が指定されました。");
             }
 
             return true;
@@ -439,7 +484,7 @@ namespace CSharpSample.SampleCode.Linq
         /// <summary>
         /// 要素の取得（単一） ElementAtのサンプル
         /// </summary>
-        private void ElementAt()
+        private static void ElementAt()
         {
             // コレクションsaampleDataからインデックスを指定して値を取得する
             // インデックスが範囲外の場合は、例外発生（例外を発生させたくない場合は、ElementAtOrDefaultを利用する）
@@ -466,7 +511,7 @@ namespace CSharpSample.SampleCode.Linq
         /// <summary>
         /// 要素の取得（単一） ElementAtOrDefaultのサンプル
         /// </summary>
-        private void ElementAtOrDefault()
+        private static void ElementAtOrDefault()
         {
             // コレクションsaampleDataからインデックスを指定して値を取得する
             // インデックスが範囲外の場合は、規定値を戻す
@@ -493,7 +538,7 @@ namespace CSharpSample.SampleCode.Linq
         /// <summary>
         /// 要素の取得（単一） Firstのサンプル
         /// </summary>
-        private void First()
+        private static void First()
         {
             // コレクション先頭の値を取得する(ラムダ式により条件設定可能)
             // コレクション要素数が0の場合は、例外発生（例外を発生させたくない場合は、FirstOrDefaultを利用する）
@@ -520,7 +565,7 @@ namespace CSharpSample.SampleCode.Linq
         /// <summary>
         /// 要素の取得（単一） FirstOrDefaultのサンプル
         /// </summary>
-        private void FirstOrDefault()
+        private static void FirstOrDefault()
         {
             // コレクション先頭の値を取得する(ラムダ式により条件設定可能)
             // コレクション要素数が0の場合は、規定値(null)を戻す
@@ -547,7 +592,7 @@ namespace CSharpSample.SampleCode.Linq
         /// <summary>
         /// 要素の取得（単一） Lastのサンプル
         /// </summary>
-        private void Last()
+        private static void Last()
         {
             // コレクション最後の値を取得する(ラムダ式により条件設定可能)
             // コレクション要素数が0の場合は、例外発生（例外を発生させたくない場合は、LastOrDefaultを利用する）
@@ -570,7 +615,7 @@ namespace CSharpSample.SampleCode.Linq
         /// <summary>
         /// 要素の取得（単一） LastOrDefaultのサンプル
         /// </summary>
-        private void LastOrDefault()
+        private static void LastOrDefault()
         {
             // コレクション最後の値を取得する(ラムダ式により条件設定可能)
             // コレクション要素数が0の場合は、規定値(null)を戻す
@@ -592,7 +637,7 @@ namespace CSharpSample.SampleCode.Linq
         /// <summary>
         /// 要素の取得（単一） Singleのサンプル
         /// </summary>
-        private void Single()
+        private static void Single()
         {
             // コレクションから単一の値を取得する(ラムダ式により条件設定可能)
             // 取得結果の要素数が1以外の場合は、例外発生
@@ -615,7 +660,7 @@ namespace CSharpSample.SampleCode.Linq
         /// <summary>
         /// 要素の取得（単一） SingleOrDefault
         /// </summary>
-        private void SingleOrDefault()
+        private static void SingleOrDefault()
         {
             // コレクションから単一の値を取得する(ラムダ式により条件設定可能)
             var singleOrDefult1 = sampleData001.SingleOrDefault(x => x?.Id == 1).LinkId;
@@ -645,7 +690,7 @@ namespace CSharpSample.SampleCode.Linq
         /// <summary>
         /// 要素の取得（複数） Where
         /// </summary>
-        private void Where()
+        private static void Where()
         {
             // Whereの動作(nullでない要素のみを取得)
             var where1 = sampleData001.Where(x => x != null);
@@ -666,28 +711,6 @@ namespace CSharpSample.SampleCode.Linq
             where2.ForEach(x => { Console.WriteLine($"\tId = {x?.Id}, \t LinkId = {x?.LinkId}"); });
             Console.WriteLine($"{Environment.NewLine}");
         }
-
-        // --------------------------------------------------
-        // データ表示用
-        // --------------------------------------------------
-
-        /// <summary>
-        /// Sample001データをコンソールに表示
-        /// </summary>
-        private void ShowSample001()
-        {
-            Console.WriteLine("------------------------------");
-            Console.WriteLine("入力データ(sample001)は下記になります");
-            Console.WriteLine("------------------------------");
-
-            sampleData001
-                .Select((x, y) => { return new { Data = x, Index = y }; })
-                .ForEach(x => 
-                {
-                    Console.WriteLine($"\t[{x.Index}] \tId:{x.Data?.Id}  \tLinkId:{x.Data?.LinkId}");
-                });
-
-            Console.WriteLine($"{Environment.NewLine}");
-        }
     }
 }
+

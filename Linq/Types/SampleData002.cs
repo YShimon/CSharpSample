@@ -1,9 +1,9 @@
-﻿namespace CSharpSample.Common.Types
+﻿namespace Linq.Types
 {
     /// <summary>
     /// SampleData002クラス
     /// </summary>
-    public class SampleData002 : BaseSampleData
+    public class SampleData002
     {
         /// <summary>
         /// LinkId
