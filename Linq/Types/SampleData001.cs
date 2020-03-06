@@ -1,9 +1,9 @@
-﻿namespace CSharpSample.Common.Types
+﻿namespace Linq.Types
 {
     /// <summary>
     /// SampleData001クラス
     /// </summary>
-    public class SampleData001 : BaseSampleData
+    public class SampleData001
     {
         /// <summary>
         /// Id
