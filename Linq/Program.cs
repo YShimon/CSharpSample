@@ -16,12 +16,12 @@ namespace Linq
             // サンプル番号の取得
             var maxEnum = Enum.GetNames(typeof(LinqSampleType)).Length;
             var sampleNo = args.Length == 0 ? maxEnum : args[0].ToIntOrDefault(0);
-            while (sampleNo == maxEnum)
+            while (sampleNo >= maxEnum)
             {
                 Console.Write($"サンプル番号を入力して下さい(または、Ctr+Cでプログラムを終了します)[0-{maxEnum - 1}]:");
                 sampleNo = Console.ReadLine().ToIntOrDefault(maxEnum);
 
-                if (sampleNo == maxEnum)
+                if (sampleNo >= maxEnum)
                 {
                     Console.WriteLine("Usage : Linq [SampleNumber]");
                     Console.WriteLine("\tSampleNumber :=");
@@ -88,7 +88,8 @@ namespace Linq
                 .Select((x, y) => { return new { Data = x, Index = y }; })
                 .ForEach(x =>
                 {
-                    Console.WriteLine($"\t[{x.Index}] \tId:{x.Data?.Id}  \tLinkId:{x.Data?.LinkId}");
+                    var isNull = x.Data == null ? "(sampleData001 is null)" : string.Empty;
+                    Console.WriteLine($"\t[{x.Index}] \tId:{x.Data?.Id}  \tLinkId:{x.Data?.LinkId} \t{isNull}");
                 });
 
             Console.WriteLine($"{Environment.NewLine}");
@@ -145,6 +146,14 @@ namespace Linq
                     Where();
                     break;
 
+                case LinqSampleType.Distinct:
+                    Distinct();
+                    break;
+
+                case LinqSampleType.Skip:
+                    Skip();
+                    break;
+
                 default:
                     throw new Exception("不正なサンプル番号が指定されました。");
             }
@@ -161,20 +170,6 @@ namespace Linq
             // --------------------------------------------------
             // 要素の取得（複数）
             // --------------------------------------------------
-
-            // Distinct
-            Console.WriteLine("\nDistinct()による重複のない要素を表示します。");
-            foreach (var linKId in sampleData001.Select(x => x?.LinkId).Distinct().OrderBy(x => x))
-            {
-                Console.WriteLine($"Distinct()による重複のないLinkId(OrderByによりソート済):{linKId}");
-            }            
-
-            // Skip
-            Console.WriteLine("\nSkip(3)による要素を表示します（先頭の３つの要素をスキップ）。");
-            foreach (var sample in sampleData001.Skip(3))
-            {
-                Console.WriteLine($"Skip(3)による要素の表示 Id:{sample?.Id}");
-            }
             
             // SkipWhile
             Console.WriteLine("\nSkipWhile(x => x.Id < 6)による要素を表示します（Id < 6）となる要素をskipし残りの要素を取得）。");
@@ -505,6 +500,7 @@ namespace Linq
             Console.WriteLine($"{Environment.NewLine}");
 
             // 配列が範囲外のため、例外が発生します
+            // ちなみに、_(アンダーバー)は廃棄を意味しています
             _ = sampleData001.ElementAt(10);
         }
 
@@ -606,7 +602,7 @@ namespace Linq
             Console.WriteLine("------------------------------");
             Console.WriteLine("Enumerable.Last()のサンプルです");
             Console.WriteLine("------------------------------");
-            Console.WriteLine("\nsampleData.Last()で取得した値を表示します。");
+            Console.WriteLine("\nsampleData.Last()で取得した値を表示します");
             Console.WriteLine($"\tsampleData.Last().Id                    = {last0}");
             Console.WriteLine($"\tsampleData.Last(x => x.LinkId == 10).Id = {last1}");
             Console.WriteLine($"{Environment.NewLine}");
@@ -688,7 +684,8 @@ namespace Linq
         // --------------------------------------------------
 
         /// <summary>
-        /// 要素の取得（複数） Where
+        /// 要素の取得（複数）
+        /// Where : 条件に合う要素を取得
         /// </summary>
         private static void Where()
         {
@@ -704,12 +701,51 @@ namespace Linq
             Console.WriteLine("------------------------------");
             Console.WriteLine("Enumerable.Where()のサンプルです");
             Console.WriteLine("------------------------------");
-            Console.WriteLine("\nsampleData.Where(x => x != null)で取得した値を表示します 。");
+            Console.WriteLine("\nsampleData.Where(x => x != null)で取得した値を表示します");
             where1.ForEach(x => { Console.WriteLine($"\tId = {x?.Id}, \t LinkId = {x?.LinkId}"); });
             Console.WriteLine($"{Environment.NewLine}");
-            Console.WriteLine("\nsampleData.Where(x => x != null && x?.Id != 1)で取得した値を表示します 。");
+            Console.WriteLine("\nsampleData.Where(x => x != null && x?.Id != 1)で取得した値を表示します");
             where2.ForEach(x => { Console.WriteLine($"\tId = {x?.Id}, \t LinkId = {x?.LinkId}"); });
             Console.WriteLine($"{Environment.NewLine}");
+        }
+
+        /// <summary>
+        /// 要素の取得（複数）
+        /// Distinct : 重複のない要素を取得
+        /// </summary>
+        private static void Distinct()
+        {
+            // Disttinctの動作(重複しないようにLinkIdを取得)
+            var linkId = sampleData001.Select(x => x?.LinkId).Distinct();
+
+            // 取り扱いデータを表示します
+            ShowSample001();
+
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("Enumerable.Distinct()のサンプルです");
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("sampleData001.Select(x => x?.LinkId).Distinct()で取得した値を表示します");
+            linkId.ForEach(x => { Console.WriteLine($"\tLinkId(OrderByによりソート済) = {x}"); });
+        }
+
+        /// <summary>
+        /// 要素の取得（複数）
+        /// Skip : 先頭のN個の要素をスキップして取得
+        /// </summary>
+        private static void Skip()
+        {
+            // Skipの動作(先頭の3個の要素をスキップして取得)
+            var skip = sampleData001.Skip(3);
+
+            // 取り扱いデータを表示します
+            ShowSample001();
+
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("Enumerable.Skip()のサンプルです");
+            Console.WriteLine("\tSkip(3)により先頭の３つの要素をスキップして取得");
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("\nsampleData001.Skip(3)で取得した値を表示します");
+            skip.ForEach(x => { Console.WriteLine($"\tId = {x?.Id}, \t LinkId = {x?.LinkId}"); });
         }
     }
 }

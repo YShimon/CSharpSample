@@ -60,5 +60,17 @@ namespace Linq.Types
         /// </summary>
         [Display(Name = "Where")]
         Where,
+
+        /// <summary>
+        /// Distinct
+        /// </summary>
+        [Display(Name = "Distinct")]
+        Distinct,
+
+        /// <summary>
+        /// Skip
+        /// </summary>
+        [Display(Name = "Skip")]
+        Skip,
     }
 }
