@@ -107,6 +107,7 @@ namespace Linq
                 // --------------------------------------------------
                 // 要素の取得（単一）
                 // --------------------------------------------------
+
                 case LinqSampleType.ElementAt:
                     ElementAt();
                     break;
@@ -142,6 +143,7 @@ namespace Linq
                 // --------------------------------------------------
                 // 要素の取得（複数）
                 // --------------------------------------------------
+
                 case LinqSampleType.Where:
                     Where();
                     break;
@@ -166,6 +168,14 @@ namespace Linq
                     TakeWhile();
                     break;
 
+                // --------------------------------------------------
+                // 集計
+                // --------------------------------------------------
+
+                case LinqSampleType.Max:
+                    Max();
+                    break;
+
                 default:
                     throw new Exception("不正なサンプル番号が指定されました。");
             }
@@ -180,17 +190,8 @@ namespace Linq
         {
 #if false
             // --------------------------------------------------
-            // 要素の取得（複数）
-            // --------------------------------------------------
-
-
-
-            // --------------------------------------------------
             // 集計
             // --------------------------------------------------
-            // Max
-            Console.WriteLine("\nMax(x => x?.Id)による要素を表示します。（複数の要素は戻せない）");
-            Console.WriteLine($"Max(x => x?.Id)による要素の表示 Max Id:{sampleData001.Max(x => x?.Id)}");
 
             // Min
             Console.WriteLine("\nMin(x => x?.Id)による要素を表示します。（複数の要素は戻せない）");
@@ -761,6 +762,10 @@ namespace Linq
             skipWhile.ForEach(x => { Console.WriteLine($"\tId = {x?.Id}, \t LinkId = {x?.LinkId}"); });
         }
 
+        /// <summary>
+        /// 要素の取得（複数）
+        /// Take : 先頭の要素を取得
+        /// </summary>
         private static void Take()
         {
             // Takeの動作(先頭の２つの要素を取得)
@@ -771,11 +776,15 @@ namespace Linq
 
             Console.WriteLine("------------------------------");
             Console.WriteLine("Enumerable.Take()のサンプルです");
-            Console.WriteLine("\tTake(2)により(先頭の２つの要素を取得)");
+            Console.WriteLine("\tTake(2)により先頭の２つの要素を取得");
             Console.WriteLine("------------------------------");
             take.ForEach(x => { Console.WriteLine($"\tId = {x?.Id}, \t LinkId = {x?.LinkId}"); });
         }
 
+        /// <summary>
+        /// 要素の取得（複数）
+        /// Take : 条件を指定して要素を取得
+        /// </summary>
         private static void TakeWhile()
         {
             // TakeWhileの動作(指定した要素を取得)
@@ -789,6 +798,33 @@ namespace Linq
             Console.WriteLine("\tTakeWhile(x => x.Id < 6)により(Id < 6となる要素を取得)");
             Console.WriteLine("------------------------------");
             takeWhile.ForEach(x => { Console.WriteLine($"\tId = {x?.Id}, \t LinkId = {x?.LinkId}"); });
+        }
+
+        // --------------------------------------------------
+        // 集計
+        // --------------------------------------------------
+
+        /// <summary>
+        /// 集計
+        /// Max : 最大値を取得
+        /// </summary>
+        private static void Max()
+        {
+            // Maxの動作(Idが最大となる要素を取得)
+            var maxId = sampleData001.Max(x => x?.Id);
+
+            // Maxの動作(LinkIdが最大となる要素を取得)
+            var maxLinkId = sampleData001.Max(x => x?.LinkId);
+
+            // 取り扱いデータを表示
+            ShowSample001();
+
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("Enumerable.Max()のサンプルです");
+            Console.WriteLine("\tMax(x => x?.Id),Max(x => x?.LinkId)により最大Id/LinkIdを取得");
+            Console.WriteLine("------------------------------");
+            Console.WriteLine($"\tMax(x => x?.Id)によるIdの最大値を表示  Id:{maxId}");
+            Console.WriteLine($"\tMax(x => x?.LinkId)によるLinkIdの最大値を表示 Max LinkId:{maxLinkId}");
         }
     }
 }
