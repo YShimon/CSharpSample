@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Linq.Extentions;
 using Linq.Types;
 
@@ -200,6 +201,78 @@ namespace Linq
                 // 判定
                 // --------------------------------------------------
 
+                case LinqSampleType.All:
+                    All();
+                    break;
+
+                case LinqSampleType.Any:
+                    Any();
+                    break;
+
+                case LinqSampleType.Contains:
+                    Contains();
+                    break;
+
+                case LinqSampleType.SequenceEqual:
+                    SequenceEqual();
+                    break;
+
+                // --------------------------------------------------
+                // 集合
+                // --------------------------------------------------
+
+                case LinqSampleType.Union:
+                    Union();
+                    break;
+
+                case LinqSampleType.Except:
+                    Except();
+                    break;
+
+                case LinqSampleType.Intersect:
+                    Intersect();
+                    break;
+
+                // --------------------------------------------------
+                // ソート
+                // --------------------------------------------------
+
+                case LinqSampleType.OrderBy:
+                    OrderBy();
+                    break;
+
+                case LinqSampleType.OrderByDescending:
+                    OrderByDescending();
+                    break;
+
+                case LinqSampleType.ThenBy:
+                    ThenBy();
+                    break;
+
+                case LinqSampleType.ThenByDescending:
+                    ThenByDescending();
+                    break;
+
+                case LinqSampleType.Reverse:
+                    Reverse();
+                    break;
+
+                // --------------------------------------------------
+                // 射影
+                // --------------------------------------------------
+
+                case LinqSampleType.Select:
+                    Select();
+                    break;
+
+                case LinqSampleType.GroupBy:
+                    GroupBy();
+                    break;
+
+                case LinqSampleType.SelectMany:
+                    SelectMany();
+                    break;
+
                 default:
                     throw new Exception("不正なサンプル番号が指定されました。");
             }
@@ -208,130 +281,11 @@ namespace Linq
         }
 
         /// <summary>
-        /// これから消えていくメソッド
+        /// 移設対象
         /// </summary>
         private void Sample()
         {
 #if false
-            // --------------------------------------------------
-            // 判定
-            // --------------------------------------------------
-            // All
-            Console.WriteLine("\nAll(x => x?.Id >= 0)の結果（全ての条件を満たしていのか判定します）を表示します。");
-            Console.WriteLine($"All(x => x?.Id >= 0) {sampleData001.All(x => x?.Id >= 0)}");
-            Console.WriteLine("All(x => x?.Id >= 0 || x == null)の結果（全ての条件を満たしていのか判定します）を表示します。");
-            Console.WriteLine($"All(x => x?.Id >= 0 || x == null) {sampleData001.All(x => x?.Id >= 0 || x == null)}");
-
-            // Any
-            Console.WriteLine("\nAny(x => x?.Id == 1)の結果（いづれかの条件を満たしていのか判定します）を表示します。");
-            Console.WriteLine($"Any(x => x?.Id == 1) {sampleData001.Any(x => x?.Id == 1)}");
-            Console.WriteLine("Any(x => x?.Id == 7)の結果（いづれかの条件を満たしていのか判定します）を表示します。");
-            Console.WriteLine($"Any(x => x?.Id == 7) {sampleData001.Any(x => x?.Id == 7)}");
-
-            // Contains
-            Console.WriteLine("\nContains()の結果（指定した要素が含まれているのか判定します）を表示します。");
-            Console.WriteLine($"Contains(new SampleData001 {{ Id = 1, LinkId = 10, }}) : {sampleData001.Contains(new SampleData001 { Id = 1, LinkId = 10, })} (Trueにならない！！)");
-            Console.WriteLine($"Contains(new SampleData001.ElementAt(0)) : {sampleData001.Contains(sampleData001.ElementAt(0))}");
-
-            // SequenceEqual
-            var sampleData02 = new DataFactory<SampleData001>().Create();
-            Console.WriteLine("\nSequenceEqual()の結果（２つのシーケンスが等しいのか判定します）を表示します。");
-            Console.WriteLine($"SquencEqual(sampleData02) : {sampleData001.SequenceEqual(sampleData02)}　（Trueにならない！！）");
-            var sampleArr01 = new[] { 01, 02, 03 };
-            Console.WriteLine($"sampleArr01.SquencEqual(new[] {{ 01, 02, 03 }}) : {sampleArr01.SequenceEqual(new[] { 01, 02, 03 })}　（Trueになる）");
-
-            // --------------------------------------------------
-            // 集合
-            // --------------------------------------------------
-            // Union
-            Console.WriteLine("\nUnion()の結果（２つのシーケンスの和集合）を表示します。");
-            var additionalSampleData = new[] { new SampleData001 { Id = 100, LinkId = 200, } };
-            foreach (var sample in sampleData001.Union(additionalSampleData))
-            {
-                Console.WriteLine($"Union(additionalSampleData) Id: {sample?.Id} LinkId : {sample?.LinkId}");
-            }
-
-            // Except
-            Console.WriteLine("\nExcept()の結果（シーケンスの差集合）を表示します。");
-            foreach (var sample in sampleData001.Except(new[] { sampleData001.ElementAt(0) }))
-            {
-                Console.WriteLine($"Expect(new[] {{ sampleData.ElementAt(0) }}) Id: {sample?.Id} LinkId : {sample?.LinkId}");
-            }
-
-            // Intersect
-            Console.WriteLine("\nIntersect()の結果（シーケンスの積集合）を表示します。");
-            foreach (var sample in sampleData001.Intersect(new[] { sampleData001.ElementAt(0), sampleData001.ElementAt(7) }))
-            {
-                Console.WriteLine($"Intersect(new[] {{ sampleData.ElementAt(0), sampleData.ElementAt(7) }}) Id: {sample?.Id} LinkId : {sample?.LinkId}");
-            }
-
-            // --------------------------------------------------
-            // ソート
-            // --------------------------------------------------
-            // OrderBy
-            Console.WriteLine("\nOrderBy()の結果（LinkIdで昇順にソート。nullのデータは排除しています）を表示します。");
-            foreach (var sample in sampleData001.Where(x => x != null && x?.LinkId != null).OrderBy(x => x?.LinkId))
-            {
-                Console.WriteLine($"OrderBy(x => x.LinkId) Id: {sample?.Id} LinkId : {sample?.LinkId}");
-            }
-
-            // OrderByDescending
-            Console.WriteLine("\nOrderByDescending()の結果（Idで降順にソート。nullのデータは排除しています）を表示します。");
-            foreach (var sample in sampleData001.Where(x => x != null).OrderByDescending(x => x.Id))
-            {
-                Console.WriteLine($"OrderByDescending(x => x.Id) Id: {sample?.Id} LinkId : {sample?.LinkId}");
-            }
-
-            // ThenBy
-            Console.WriteLine("\nOrderByDescending().ThenBy()の結果（LinkIdで降順にソート。同一LinkIdの場合、Idで昇順にソート。nullのデータは排除しています）を表示します。");
-            foreach (var sample in sampleData001.Where(x => x != null && x?.LinkId != null).OrderByDescending(x => x.LinkId).ThenBy(x => x.Id))
-            {
-                Console.WriteLine($"OrderByDescending(x => x.Id).ThenBy(x => x.LinkId) Id: {sample?.Id} LinkId : {sample?.LinkId}");
-            }
-
-            // ThenByDescending
-            Console.WriteLine("\nOrderByDescending().ThenByDescending()の結果（LinkIdで降順にソート。同一LinkIdの場合、Idで降順にソート。nullのデータは排除しています）を表示します。");
-            foreach (var sample in sampleData001.Where(x => x != null && x?.LinkId != null).OrderByDescending(x => x.LinkId).ThenByDescending(x => x.Id))
-            {
-                Console.WriteLine($"OrderByDescending(x => x.Id).ThenByDescending(x => x.LinkId) Id: {sample?.Id} LinkId : {sample?.LinkId}");
-            }
-
-            // Reverse
-            Console.WriteLine("\nReverse()の結果を表示します。");
-            foreach (var sample in sampleData001.Reverse())
-            {
-                Console.WriteLine($"OrderByDescending(x => x.Id).ThenByDescending(x => x.LinkId) Id: {sample?.Id} LinkId : {sample?.LinkId}");
-            }
-
-            // --------------------------------------------------
-            // 射影
-            // --------------------------------------------------
-            // Selectの動作(sampleDataのIdのリストを取得)
-            Console.WriteLine("\nSelect(x => x?.Id)の結果を表示します。");
-            foreach (var id in sampleData001.Select(x => x?.Id))
-            {
-                Console.WriteLine($"Select(x => x?.Id) Id:{id}");
-            }
-
-            // GroupBy
-            Console.WriteLine("\nGroupBy(x => x?.LinkId)の結果を表示します。");
-            foreach (var sample in sampleData001.GroupBy(x => x?.LinkId))
-            {
-                Console.WriteLine($"GroupBy(x => x?.LinkId) Key:{sample?.Key}");
-                foreach (var value in sample)
-                {
-                    Console.WriteLine($"GroupBy(x => x?.LinkId) value.Id:{value?.Id} value.LinkId : {value?.LinkId}");
-                }
-            }
-
-            // SelectMany
-            Console.WriteLine("\n一旦GroupBy(x => x?.LinkId)でグループ化した後にSelectMany(x => x)で取得した結果を表示します。");
-            var sampleGrouupBy = sampleData001.GroupBy(x => x?.LinkId);
-            foreach (var sample in sampleGrouupBy.SelectMany(x => x))
-            {
-                Console.WriteLine($"SelectMany(x => x) Id:{sample?.Id} LinkId : {sample?.LinkId}");
-            }
-
             // --------------------------------------------------
             // 結合
             // --------------------------------------------------
@@ -872,7 +826,7 @@ namespace Linq
         /// 集計
         /// Sum : 合計を取得
         /// </summary>
-        private static void Sum( )
+        private static void Sum()
         {
             // Sumの動作(Idの合計値を取得)
             var sumId = sampleData001.Sum(x => x?.Id);
@@ -933,6 +887,177 @@ namespace Linq
             Console.WriteLine("\t...Aggregate((x, y) => x + y)によりIdの和を取得");
             Console.WriteLine("------------------------------");
             Console.WriteLine($"\tAggregate((x, y) => x + y):{sumId}");
+        }
+
+        // --------------------------------------------------
+        // 判定
+        // --------------------------------------------------
+
+        private static void All()
+        {
+            // All
+            Console.WriteLine("\nAll(x => x?.Id >= 0)の結果（全ての条件を満たしていのか判定します）を表示します。");
+            Console.WriteLine($"All(x => x?.Id >= 0) {sampleData001.All(x => x?.Id >= 0)}");
+            Console.WriteLine("All(x => x?.Id >= 0 || x == null)の結果（全ての条件を満たしていのか判定します）を表示します。");
+            Console.WriteLine($"All(x => x?.Id >= 0 || x == null) {sampleData001.All(x => x?.Id >= 0 || x == null)}");
+        }
+
+        private static void Any()
+        {
+            // Any
+            Console.WriteLine("\nAny(x => x?.Id == 1)の結果（いづれかの条件を満たしていのか判定します）を表示します。");
+            Console.WriteLine($"Any(x => x?.Id == 1) {sampleData001.Any(x => x?.Id == 1)}");
+            Console.WriteLine("Any(x => x?.Id == 7)の結果（いづれかの条件を満たしていのか判定します）を表示します。");
+            Console.WriteLine($"Any(x => x?.Id == 7) {sampleData001.Any(x => x?.Id == 7)}");
+        }
+
+        private static void Contains()
+        {
+            // Contains
+            Console.WriteLine("\nContains()の結果（指定した要素が含まれているのか判定します）を表示します。");
+            Console.WriteLine($"Contains(new SampleData001 {{ Id = 1, LinkId = 10, }}) : {sampleData001.Contains(new SampleData001 { Id = 1, LinkId = 10, })} (Trueにならない！！)");
+            Console.WriteLine($"Contains(new SampleData001.ElementAt(0)) : {sampleData001.Contains(sampleData001.ElementAt(0))}");
+        }
+
+        private static void SequenceEqual()
+        {
+            // SequenceEqual
+            var sampleData02 = new SampleData001[]
+            {
+                new SampleData001 { Id = 1, LinkId = 0, },
+                new SampleData001 { Id = 2, LinkId = 1, },
+            };
+            Console.WriteLine("\nSequenceEqual()の結果（２つのシーケンスが等しいのか判定します）を表示します。");
+            Console.WriteLine($"SquencEqual(sampleData02) : {sampleData001.SequenceEqual(sampleData02)}"); // False
+            var sampleArr01 = new[] { 01, 02, 03 };
+            Console.WriteLine($"sampleArr01.SquencEqual(new[] {{ 01, 02, 03 }}) : {sampleArr01.SequenceEqual(new[] { 01, 02, 03 })}"); // True
+        }
+
+        // --------------------------------------------------
+        // 集合
+        // --------------------------------------------------
+
+        private static void Union()
+        {
+            // Union
+            Console.WriteLine("\nUnion()の結果（２つのシーケンスの和集合）を表示します。");
+            var additionalSampleData = new[] { new SampleData001 { Id = 100, LinkId = 200, } };
+            foreach (var sample in sampleData001.Union(additionalSampleData))
+            {
+                Console.WriteLine($"Union(additionalSampleData) Id: {sample?.Id} LinkId : {sample?.LinkId}");
+            }
+        }
+
+        private static void Except()
+        {
+            // Except
+            Console.WriteLine("\nExcept()の結果（シーケンスの差集合）を表示します。");
+            foreach (var sample in sampleData001.Except(new[] { sampleData001.ElementAt(0) }))
+            {
+                Console.WriteLine($"Expect(new[] {{ sampleData.ElementAt(0) }}) Id: {sample?.Id} LinkId : {sample?.LinkId}");
+            }
+        }
+
+        private static void Intersect()
+        {
+            // Intersect
+            Console.WriteLine("\nIntersect()の結果（シーケンスの積集合）を表示します。");
+            foreach (var sample in sampleData001.Intersect(new[] { sampleData001.ElementAt(0), sampleData001.ElementAt(7) }))
+            {
+                Console.WriteLine($"Intersect(new[] {{ sampleData.ElementAt(0), sampleData.ElementAt(7) }}) Id: {sample?.Id} LinkId : {sample?.LinkId}");
+            }
+        }
+
+        // --------------------------------------------------
+        // ソート
+        // --------------------------------------------------
+
+        private static void OrderBy()
+        {
+            // OrderBy
+            Console.WriteLine("\nOrderBy()の結果（LinkIdで昇順にソート。nullのデータは排除しています）を表示します。");
+            foreach (var sample in sampleData001.Where(x => x != null && x?.LinkId != null).OrderBy(x => x?.LinkId))
+            {
+                Console.WriteLine($"OrderBy(x => x.LinkId) Id: {sample?.Id} LinkId : {sample?.LinkId}");
+            }
+        }
+
+        private static void OrderByDescending()
+        {
+            // OrderByDescending
+            Console.WriteLine("\nOrderByDescending()の結果（Idで降順にソート。nullのデータは排除しています）を表示します。");
+            foreach (var sample in sampleData001.Where(x => x != null).OrderByDescending(x => x.Id))
+            {
+                Console.WriteLine($"OrderByDescending(x => x.Id) Id: {sample?.Id} LinkId : {sample?.LinkId}");
+            }
+        }
+
+        private static void ThenBy()
+        {
+            // ThenBy
+            Console.WriteLine("\nOrderByDescending().ThenBy()の結果（LinkIdで降順にソート。同一LinkIdの場合、Idで昇順にソート。nullのデータは排除しています）を表示します。");
+            foreach (var sample in sampleData001.Where(x => x != null && x?.LinkId != null).OrderByDescending(x => x.LinkId).ThenBy(x => x.Id))
+            {
+                Console.WriteLine($"OrderByDescending(x => x.Id).ThenBy(x => x.LinkId) Id: {sample?.Id} LinkId : {sample?.LinkId}");
+            }
+        }
+
+        private static void ThenByDescending()
+        {
+            // ThenByDescending
+            Console.WriteLine("\nOrderByDescending().ThenByDescending()の結果（LinkIdで降順にソート。同一LinkIdの場合、Idで降順にソート。nullのデータは排除しています）を表示します。");
+            foreach (var sample in sampleData001.Where(x => x != null && x?.LinkId != null).OrderByDescending(x => x.LinkId).ThenByDescending(x => x.Id))
+            {
+                Console.WriteLine($"OrderByDescending(x => x.Id).ThenByDescending(x => x.LinkId) Id: {sample?.Id} LinkId : {sample?.LinkId}");
+            }
+        }
+
+        private static void Reverse()
+        {
+            // Reverse
+            Console.WriteLine("\nReverse()の結果を表示します。");
+            foreach (var sample in sampleData001.Reverse())
+            {
+                Console.WriteLine($"OrderByDescending(x => x.Id).ThenByDescending(x => x.LinkId) Id: {sample?.Id} LinkId : {sample?.LinkId}");
+            }
+        }
+
+        // --------------------------------------------------
+        // 射影
+        // --------------------------------------------------
+        private static void Select() 
+        { 
+            // Selectの動作(sampleDataのIdのリストを取得)
+            Console.WriteLine("\nSelect(x => x?.Id)の結果を表示します。");
+            foreach (var id in sampleData001.Select(x => x?.Id))
+            {
+                Console.WriteLine($"Select(x => x?.Id) Id:{id}");
+            }
+        }
+
+        private static void GroupBy() 
+        {
+            // GroupBy
+            Console.WriteLine("\nGroupBy(x => x?.LinkId)の結果を表示します。");
+            foreach (var sample in sampleData001.GroupBy(x => x?.LinkId))
+            {
+                Console.WriteLine($"GroupBy(x => x?.LinkId) Key:{sample?.Key}");
+                foreach (var value in sample)
+                {
+                    Console.WriteLine($"GroupBy(x => x?.LinkId) value.Id:{value?.Id} value.LinkId : {value?.LinkId}");
+                }
+            }
+        }
+
+        private static void SelectMany() 
+        {
+            // SelectMany
+            Console.WriteLine("\n一旦GroupBy(x => x?.LinkId)でグループ化した後にSelectMany(x => x)で取得した結果を表示します。");
+            var sampleGrouupBy = sampleData001.GroupBy(x => x?.LinkId);
+            foreach (var sample in sampleGrouupBy.SelectMany(x => x))
+            {
+                Console.WriteLine($"SelectMany(x => x) Id:{sample?.Id} LinkId : {sample?.LinkId}");
+            }
         }
     }
 }
