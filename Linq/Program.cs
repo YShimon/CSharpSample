@@ -18,9 +18,6 @@ namespace Linq
             var sampleNo = args.Length == 0 ? maxEnum : args[0].ToIntOrDefault(0);
             while (sampleNo >= maxEnum)
             {
-                Console.Write($"サンプル番号を入力して下さい(または、Ctr+Cでプログラムを終了します)[0-{maxEnum - 1}]:");
-                sampleNo = Console.ReadLine().ToIntOrDefault(maxEnum);
-
                 if (sampleNo >= maxEnum)
                 {
                     Console.WriteLine("Usage : Linq [SampleNumber]");
@@ -33,6 +30,9 @@ namespace Linq
                         });
                     Console.WriteLine("");
                 }
+
+                Console.Write($"サンプル番号を入力して下さい(または、Ctr+Cでプログラムを終了します)[0-{maxEnum - 1}]:");
+                sampleNo = Console.ReadLine().ToIntOrDefault(maxEnum);
             }
 
             // サンプルコードの実行
@@ -154,6 +154,10 @@ namespace Linq
                     Skip();
                     break;
 
+                case LinqSampleType.SkipWhile:
+                    SkipWhile();
+                    break;
+
                 default:
                     throw new Exception("不正なサンプル番号が指定されました。");
             }
@@ -171,12 +175,7 @@ namespace Linq
             // 要素の取得（複数）
             // --------------------------------------------------
             
-            // SkipWhile
-            Console.WriteLine("\nSkipWhile(x => x.Id < 6)による要素を表示します（Id < 6）となる要素をskipし残りの要素を取得）。");
-            foreach (var sample in sampleData001.SkipWhile(x => x.Id < 6))
-            {
-                Console.WriteLine($"SkipWhile(x => x.Id < 6)による要素の表示 Id:{sample?.Id} LinkId:{sample?.LinkId}");
-            }
+
 
             // Take
             Console.WriteLine("\nTake(2)による要素を表示します（先頭の２つの要素を取得）。");
@@ -746,6 +745,26 @@ namespace Linq
             Console.WriteLine("------------------------------");
             Console.WriteLine("\nsampleData001.Skip(3)で取得した値を表示します");
             skip.ForEach(x => { Console.WriteLine($"\tId = {x?.Id}, \t LinkId = {x?.LinkId}"); });
+        }
+
+        /// <summary>
+        /// 要素の取得（複数）
+        /// SkipWhile : 指定条件の要素をスキップして取得
+        /// </summary>
+        private static void SkipWhile()
+        {
+            // SkipWhileの動作(Idが6より小さい要素をスキップして取得)
+            var skipWhile = sampleData001.SkipWhile(x => x.Id < 6);
+
+            // 取り扱いデータを表示します
+            ShowSample001();
+
+            // SkipWhile
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("Enumerable.SkipWhile()のサンプルです");
+            Console.WriteLine("\tSkipWhile(x => x.Id < 6)により(Id < 6)となる要素をスキップして残りの要素を取得");
+            Console.WriteLine("------------------------------");
+            skipWhile.ForEach(x => { Console.WriteLine($"\tId = {x?.Id}, \t LinkId = {x?.LinkId}"); });
         }
     }
 }

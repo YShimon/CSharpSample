@@ -72,5 +72,11 @@ namespace Linq.Types
         /// </summary>
         [Display(Name = "Skip")]
         Skip,
+
+        /// <summary>
+        /// SkipWhile
+        /// </summary>
+        [Display(Name = "SkipWhile")]
+        SkipWhile,
     }
 }
