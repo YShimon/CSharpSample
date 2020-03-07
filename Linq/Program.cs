@@ -158,6 +158,14 @@ namespace Linq
                     SkipWhile();
                     break;
 
+                case LinqSampleType.Take:
+                    Take();
+                    break;
+
+                case LinqSampleType.TakeWhile:
+                    TakeWhile();
+                    break;
+
                 default:
                     throw new Exception("不正なサンプル番号が指定されました。");
             }
@@ -174,22 +182,8 @@ namespace Linq
             // --------------------------------------------------
             // 要素の取得（複数）
             // --------------------------------------------------
-            
 
 
-            // Take
-            Console.WriteLine("\nTake(2)による要素を表示します（先頭の２つの要素を取得）。");
-            foreach (var sample in sampleData001.Take(2))
-            {
-                Console.WriteLine($"Take(2)による要素の表示 Id:{sample?.Id} LinkId:{sample?.LinkId}");
-            }
-
-            // TakeWhile
-            Console.WriteLine("\nTakeWhile(x => x.LinkId == 10)による要素を表示します（LinkId == 10の要素を取得）。");
-            foreach (var sample in sampleData001.TakeWhile(x => x.LinkId == 10))
-            {
-                Console.WriteLine($"TakeWhile(x => x.LinkId == 10)による要素の表示 Id:{sample?.Id} LinkId:{sample?.LinkId}");
-            }
 
             // --------------------------------------------------
             // 集計
@@ -756,15 +750,45 @@ namespace Linq
             // SkipWhileの動作(Idが6より小さい要素をスキップして取得)
             var skipWhile = sampleData001.SkipWhile(x => x.Id < 6);
 
-            // 取り扱いデータを表示します
+            // 取り扱いデータを表示
             ShowSample001();
 
-            // SkipWhile
+            // 結果を表示
             Console.WriteLine("------------------------------");
             Console.WriteLine("Enumerable.SkipWhile()のサンプルです");
             Console.WriteLine("\tSkipWhile(x => x.Id < 6)により(Id < 6)となる要素をスキップして残りの要素を取得");
             Console.WriteLine("------------------------------");
             skipWhile.ForEach(x => { Console.WriteLine($"\tId = {x?.Id}, \t LinkId = {x?.LinkId}"); });
+        }
+
+        private static void Take()
+        {
+            // Takeの動作(先頭の２つの要素を取得)
+            var take = sampleData001.Take(2);
+
+            // 取り扱いデータを表示
+            ShowSample001();
+
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("Enumerable.Take()のサンプルです");
+            Console.WriteLine("\tTake(2)により(先頭の２つの要素を取得)");
+            Console.WriteLine("------------------------------");
+            take.ForEach(x => { Console.WriteLine($"\tId = {x?.Id}, \t LinkId = {x?.LinkId}"); });
+        }
+
+        private static void TakeWhile()
+        {
+            // TakeWhileの動作(指定した要素を取得)
+            var takeWhile = sampleData001.TakeWhile(x => x.Id < 6);
+
+            // 取り扱いデータを表示
+            ShowSample001();
+
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("Enumerable.TakeWhile()のサンプルです");
+            Console.WriteLine("\tTakeWhile(x => x.Id < 6)により(Id < 6となる要素を取得)");
+            Console.WriteLine("------------------------------");
+            takeWhile.ForEach(x => { Console.WriteLine($"\tId = {x?.Id}, \t LinkId = {x?.LinkId}"); });
         }
     }
 }
