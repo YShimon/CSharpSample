@@ -114,5 +114,17 @@ namespace Linq.Types
         /// </summary>
         [Display(Name = "Sum")]
         Sum,
+
+        /// <summary>
+        /// Count
+        /// </summary>
+        [Display(Name = "Count")]
+        Count,
+
+        /// <summary>
+        /// Aggregate
+        /// </summary>
+        [Display(Name = "Aggregate")]
+        Aggregate,
     }
 }
