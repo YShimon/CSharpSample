@@ -96,5 +96,23 @@ namespace Linq.Types
         /// </summary>
         [Display(Name = "Max")]
         Max,
+
+        /// <summary>
+        /// Min
+        /// </summary>
+        [Display(Name = "Min")]
+        Min,
+
+        /// <summary>
+        /// Average
+        /// </summary>
+        [Display(Name = "Average")]
+        Average,
+
+        /// <summary>
+        /// Sum
+        /// </summary>
+        [Display(Name = "Sum")]
+        Sum,
     }
 }

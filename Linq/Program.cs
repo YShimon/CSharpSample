@@ -176,6 +176,18 @@ namespace Linq
                     Max();
                     break;
 
+                case LinqSampleType.Min:
+                    Min();
+                    break;
+
+                case LinqSampleType.Average:
+                    Average();
+                    break;
+
+                case LinqSampleType.Sum:
+                    Sum();
+                    break;
+
                 default:
                     throw new Exception("不正なサンプル番号が指定されました。");
             }
@@ -193,18 +205,6 @@ namespace Linq
             // 集計
             // --------------------------------------------------
 
-            // Min
-            Console.WriteLine("\nMin(x => x?.Id)による要素を表示します。（複数の要素は戻せない）");
-            Console.WriteLine($"Min(x => x?.Id)による要素の表示 Min Id:{sampleData001.Min(x => x?.Id)}");
-
-            // Average
-            Console.WriteLine("\nAverage(x => x?.Id)による要素を表示します。（複数の要素は戻せない）");
-            Console.WriteLine($"Average(x => x?.Id)による結果の表示 Average:{sampleData001.Average(x => x?.Id)} =(1 + 2 + ... 6 + 8)/ 7 （Nullの要素は個数にカウントされていない）");
-
-            // Sum
-            Console.WriteLine("\nSum(x => x.Id)による要素を表示します。（複数の要素は戻せない）");
-            Console.WriteLine($"Sum(x => x.Id)による結果の表示 Id:{sampleData001.Sum(x => x?.Id)} =(1 + 2 + ... 6 + 8)（Nullの要素はカウントされていない）");
-            Console.WriteLine($"Where(x => x?.Id == 100).Sum(x => x.Id)による結果の表示 Sum:{sampleData001.Where(x => x?.Id == 100).Sum(x => x.Id)} =(0)（該当要素がない場合は、0）");
 
             // Count
             Console.WriteLine("\nCount(x => x.LinkId == 10)による要素を表示します。（複数の要素は戻せない）");
@@ -810,10 +810,10 @@ namespace Linq
         /// </summary>
         private static void Max()
         {
-            // Maxの動作(Idが最大となる要素を取得)
+            // Maxの動作(最大となるIdを取得)
             var maxId = sampleData001.Max(x => x?.Id);
 
-            // Maxの動作(LinkIdが最大となる要素を取得)
+            // Maxの動作(最大となるLinkIdを取得)
             var maxLinkId = sampleData001.Max(x => x?.LinkId);
 
             // 取り扱いデータを表示
@@ -823,8 +823,73 @@ namespace Linq
             Console.WriteLine("Enumerable.Max()のサンプルです");
             Console.WriteLine("\tMax(x => x?.Id),Max(x => x?.LinkId)により最大Id/LinkIdを取得");
             Console.WriteLine("------------------------------");
-            Console.WriteLine($"\tMax(x => x?.Id)によるIdの最大値を表示  Id:{maxId}");
-            Console.WriteLine($"\tMax(x => x?.LinkId)によるLinkIdの最大値を表示 Max LinkId:{maxLinkId}");
+            Console.WriteLine($"\tId:{maxId}");
+            Console.WriteLine($"\tLinkId:{maxLinkId}");
+        }
+
+        /// <summary>
+        /// 集計
+        /// Min : 最小値を取得
+        /// </summary>
+        private static void Min()
+        {
+            // Minの動作(最小となるIdを取得)
+            var minId = sampleData001.Min(x => x?.Id);
+
+            // Minの動作(最小となるLinkIdを取得)
+            var minLinkId = sampleData001.Min(x => x?.LinkId);
+
+            // 取り扱いデータを表示
+            ShowSample001();
+
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("Enumerable.Max()のサンプルです");
+            Console.WriteLine("\tMin(x => x?.Id),Min(x => x?.LinkId)により最小Id/LinkIdを取得");
+            Console.WriteLine("------------------------------");
+            Console.WriteLine($"\tId:{minId}");
+            Console.WriteLine($"\tLinkId:{minLinkId}");
+        }
+
+        /// <summary>
+        /// 集計
+        /// Average : 平均値を取得
+        /// </summary>
+        private static void Average()
+        {
+            // Averageの動作(Idの平均値を取得) (Nullの要素は個数にカウントされない)
+            var average = sampleData001.Average(x => x?.Id);
+
+            // 取り扱いデータを表示
+            ShowSample001();
+
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("Enumerable.Average()のサンプルです");
+            Console.WriteLine("\tAverage(x => x?.Id)によりIdの平均値を取得(null要素は計算対象外)");
+            Console.WriteLine("------------------------------");
+            Console.WriteLine($"\tAverage:{average}");
+        }
+
+        /// <summary>
+        /// 集計
+        /// Sum : 合計を取得
+        /// </summary>
+        private static void Sum( )
+        {
+            // Sumの動作(Idの合計値を取得)
+            var sumId = sampleData001.Sum(x => x?.Id);
+
+            // Sumの動作(LinkIdの合計値を取得)
+            var sumLinkId = sampleData001.Sum(x => x?.LinkId);
+
+            // 取り扱いデータを表示
+            ShowSample001();
+
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("Enumerable.Sum()のサンプルです");
+            Console.WriteLine("\tSum(x => x?.Id)および、Sum(x => x?.LinkId)によりId/LinkIdの合計を取得(null要素は計算対象外)");
+            Console.WriteLine("------------------------------");
+            Console.WriteLine($"\tSum(x => x.Id):{sumId}");
+            Console.WriteLine($"\tSum(x => x.LinkId):{sumLinkId}");
         }
     }
 }
