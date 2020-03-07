@@ -188,6 +188,18 @@ namespace Linq
                     Sum();
                     break;
 
+                case LinqSampleType.Count:
+                    Count();
+                    break;
+
+                case LinqSampleType.Aggregate:
+                    Aggregate();
+                    break;
+
+                // --------------------------------------------------
+                // 判定
+                // --------------------------------------------------
+
                 default:
                     throw new Exception("不正なサンプル番号が指定されました。");
             }
@@ -201,19 +213,6 @@ namespace Linq
         private void Sample()
         {
 #if false
-            // --------------------------------------------------
-            // 集計
-            // --------------------------------------------------
-
-
-            // Count
-            Console.WriteLine("\nCount(x => x.LinkId == 10)による要素を表示します。（複数の要素は戻せない）");
-            Console.WriteLine($"Count(x => x.LinkId == 10)による結果の表示 Count:{sampleData001.Count(x => x?.LinkId == 10)}");
-
-            // Aggregate
-            Console.WriteLine("\nAggregate((x, y) => x + y)｛和の計算｝による結果を表示します。（nullの要素を削除する拡張メソッドを追加している）");
-            Console.WriteLine($"Aggregate((x, y) => x + y)による結果の表示 Select(x => x?.Id).Where(x => x != null).Aggregate(Sum):{sampleData001.Select(x => x?.Id).Where(x => x != null).Aggregate((x, y) => x + y)}");
-
             // --------------------------------------------------
             // 判定
             // --------------------------------------------------
@@ -890,6 +889,50 @@ namespace Linq
             Console.WriteLine("------------------------------");
             Console.WriteLine($"\tSum(x => x.Id):{sumId}");
             Console.WriteLine($"\tSum(x => x.LinkId):{sumLinkId}");
+        }
+
+        /// <summary>
+        /// 集計
+        /// Count : 要素数を取得
+        /// </summary>
+        private static void Count()
+        {
+            // Countの動作(sampleData001の要素数を取得)
+            var countData001 = sampleData001.Count();
+
+            // Countの動作(LinkId == 10の要素数を取得)
+            var countLinkId = sampleData001.Count(x => x?.LinkId == 10);
+
+            // 取り扱いデータを表示
+            ShowSample001();
+
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("Enumerable.Count()のサンプルです");
+            Console.WriteLine("\tCount()および、Count(x => x?.LinkId == 10)の要素数を取得");
+            Console.WriteLine("------------------------------");
+            Console.WriteLine($"\tCount():{countData001}");
+            Console.WriteLine($"\tCount(x => x.LinkId == 10):{countLinkId}");
+        }
+
+        /// <summary>
+        /// 集計
+        /// Aggregate : アキュムレータ関数処理
+        /// TODO:少々複雑なので、もうちょい詳しく記載
+        /// </summary>
+        private static void Aggregate()
+        {
+            // Aggregateの動作(Idの和を取得)
+            var sumId = sampleData001.Select(x => x?.Id).Where(x => x != null).Aggregate((x, y) => x + y);
+
+            // 取り扱いデータを表示
+            ShowSample001();
+
+            // Aggregate
+            Console.WriteLine("------------------------------");
+            Console.WriteLine("Enumerable.Aggregate()のサンプルです");
+            Console.WriteLine("\t...Aggregate((x, y) => x + y)によりIdの和を取得");
+            Console.WriteLine("------------------------------");
+            Console.WriteLine($"\tAggregate((x, y) => x + y):{sumId}");
         }
     }
 }
