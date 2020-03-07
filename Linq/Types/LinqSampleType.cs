@@ -90,5 +90,11 @@ namespace Linq.Types
         /// </summary>
         [Display(Name = "TakeWhile")]
         TakeWhile,
+
+        /// <summary>
+        /// Max
+        /// </summary>
+        [Display(Name = "Max")]
+        Max,
     }
 }
