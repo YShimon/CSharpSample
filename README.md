@@ -1,21 +1,20 @@
 # C# Sample Code
 
-C# Sample Code‚ÌƒTƒ“ƒvƒ‹ƒR[ƒh‚Å‚·B  
+C# Sample Codeã®ã‚µãƒ³ãƒ—ãƒ«ã‚³ãƒ¼ãƒ‰ã§ã™ã€‚  
 
-## “®ìŠÂ‹«  
+## å‹•ä½œç’°å¢ƒ  
 
 - Windows 10  
 - Visual Studio 2019 Preview (Community)
 
-## ƒTƒ“ƒvƒ‹ƒR[ƒh  
+## ã‚µãƒ³ãƒ—ãƒ«ã‚³ãƒ¼ãƒ‰  
 
-|  €–Ú  |  à–¾  |
+|  é …ç›®  |  èª¬æ˜  |
 | ---- | ---- |
-| **[Linq](https://github.com/YShimon/CSharpSample/wiki/Linq)**  | Linq to Object‚ÌƒTƒ“ƒvƒ‹ |
-|||
+| **[Linq](https://github.com/YShimon/CSharpSample/wiki/Linq)**  | Linq to Objectã®ã‚µãƒ³ãƒ—ãƒ« |
 
 
 <!--
-## ˆË‘¶(“±“üNuget Package“™)
-- QÆæ[URL]‚ğ‹LÚ
+## ä¾å­˜(å°å…¥Nuget Packageç­‰)
+- å‚ç…§å…ˆ[URL]ã‚’è¨˜è¼‰
 -->
