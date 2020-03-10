@@ -13,8 +13,3 @@ C# Sample Codeのサンプルコードです。
 | ---- | ---- |
 | **[Linq](https://github.com/YShimon/CSharpSample/wiki/Linq)**  | Linq to Objectのサンプル |
 
-
-<!--
-## 依存(導入Nuget Package等)
-- 参照先[URL]を記載
--->
