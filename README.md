@@ -12,4 +12,5 @@ C# Sample Codeのサンプルコードです。
 |  項目  |  説明  |
 | ---- | ---- |
 | **[Linq](https://github.com/YShimon/CSharpSample/wiki/Linq)**  | Linq to Objectのサンプル |
+| **[T4](https://github.com/YShimon/CSharpSample/wiki/T4-:-Text-Template-Transformation-Toolkit)** | T4(Text Template Transform Toolkit)のサンプル |
 
