@@ -14,4 +14,4 @@ C# Sample Codeのサンプルコードです。
 | **[Linq](https://github.com/YShimon/CSharpSample/wiki/Linq)**  | Linq to Objectのサンプル |
 | **[T4](https://github.com/YShimon/CSharpSample/wiki/T4-:-Text-Template-Transformation-Toolkit)** | T4(Text Template Transform Toolkit)のサンプル |
 | **Web API** | Web API(ASP. NET Core)のサンプル |
-
+| **TAP** | Task-based Asyncronous Pattern Sample  |
